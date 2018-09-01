@@ -26,3 +26,8 @@ hs_err_pid*
 .classpath
 /target/
 *.prefs
+src/.DS_Store
+src/es/.DS_Store
+src/es/uam/.DS_Store
+src/es/uam/eps/.DS_Store
+.DS_Store

@@ -5,4 +5,4 @@
  * @author Jose Antonio García del Saz
  *
  */
-package es.uam.eps.tweetextractor.model.view;
+package es.uam.eps.tweetextractor.view;
