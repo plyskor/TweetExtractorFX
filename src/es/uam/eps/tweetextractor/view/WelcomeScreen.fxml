@@ -6,9 +6,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractor.view.WelcomeScreenControl">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="51.0" prefHeight="40.0" prefWidth="508.0" text="Bienvenido a TweetExtractor FX" AnchorPane.topAnchor="50.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="51.0" text="Bienvenido a TweetExtractor FX" textAlignment="CENTER" textFill="#904f4f" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <font>
-            <Font size="33.0" />
+            <Font name="AppleGothic Regular" size="33.0" />
          </font>
       </Label>
    </children>
