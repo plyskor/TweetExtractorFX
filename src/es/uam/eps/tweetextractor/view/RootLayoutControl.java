@@ -41,7 +41,7 @@ public class RootLayoutControl {
 		try {
 			model = reader.read(new FileReader("pom.xml"));
 			message=message.concat(model.getVersion());
-		} catch (IOException | XmlPullParserException e) {
+		} catch (IOException | XmlPullParserException  e) {
 			e.printStackTrace();
 		}
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -50,7 +50,20 @@ public class RootLayoutControl {
     	alert.setContentText(message);
     	alert.showAndWait();
     }
-
+    /**
+     * Opens the new query constructor
+     */
+    @FXML
+    private void handleNewQuery() {
+    	mainApplication.showQueryConstructor();
+    }
+    /**
+     * Closes the application.
+     */
+    @FXML
+    private void handleStart() {
+    	mainApplication.showWelcomeScreen();
+    }
     /**
      * Closes the application.
      */

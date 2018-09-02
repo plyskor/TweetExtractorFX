@@ -11,7 +11,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="Archivo">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Nueva Extracción..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleStart" text="Inicio" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleNewQuery" text="Nueva Extracción..." />
               <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Salir" />
             </items>
           </Menu>

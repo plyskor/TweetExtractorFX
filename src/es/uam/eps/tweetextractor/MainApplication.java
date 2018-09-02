@@ -2,6 +2,7 @@ package es.uam.eps.tweetextractor;
 
 import java.io.IOException;
 
+import es.uam.eps.tweetextractor.view.QueryConstructorControl;
 import es.uam.eps.tweetextractor.view.RootLayoutControl;
 import es.uam.eps.tweetextractor.view.WelcomeScreenControl;
 import javafx.application.Application;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
@@ -49,17 +51,17 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
-	/*Mostrando una Layout*/
+	/*Mostrando la pantalla de bienvenida*/
 	
 	public void showWelcomeScreen() {
         try {
-            // Load person overview.
+            // Load elcome screen.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApplication.class.getResource("view/WelcomeScreen.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
+            AnchorPane welcomeScreen = (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(personOverview);
+            // Set welcome screen into the center of root layout.
+            rootLayout.setCenter(welcomeScreen);
 
             // Give the controller access to the main app.
             WelcomeScreenControl controller = loader.getController();
@@ -70,6 +72,24 @@ public class MainApplication extends Application {
         }
     }
 	
+	public void showQueryConstructor() {
+        try {
+            // Load query constructor
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("view/QueryConstructor.fxml"));
+            
+            AnchorPane queryConstructor = (AnchorPane) loader.load();
+            // Set query constructor into the center of root layout.
+            rootLayout.setCenter(queryConstructor);
+            
+            // Give the controller access to the main app.
+            QueryConstructorControl controller = loader.getController();
+            controller.setMainApplication(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 	public static void main(String[] args) {
 		launch(args);
 	}
