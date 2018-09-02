@@ -21,6 +21,7 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
+					<include>pom.xml</include>
 					<archive>
 						<manifest>
 							<mainClass>es.uam.eps.tweetextractor.MainApplication</mainClass>
@@ -33,7 +34,8 @@
 				<executions>
 					<execution>
 						<id>make-assembly</id>
-						<phase>package</phase> <!-- packaging phase -->
+						<phase>package</phase>
+						<!-- packaging phase -->
 						<goals>
 							<goal>single</goal>
 						</goals>

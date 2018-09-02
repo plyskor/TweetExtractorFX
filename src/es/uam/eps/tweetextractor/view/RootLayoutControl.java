@@ -39,6 +39,7 @@ public class RootLayoutControl {
         Model model;
         String message= new String("Extractor de datos para Twitter usando JavaFX \nAutor: Jose Antonio García del Saz\nVersion: ");
 		try {
+			 //TODO Bug 1: No se encuentra el pom. Solución: Add resources to the jar
 			model = reader.read(new FileReader("pom.xml"));
 			message=message.concat(model.getVersion());
 		} catch (IOException | XmlPullParserException  e) {
