@@ -1,4 +1,4 @@
-package es.uam.eps.tweetextractor.twitterapi;
+package es.uam.eps.tweetextractorfx.twitterapi;
 
 import java.io.FileInputStream;
 import java.io.IOException;

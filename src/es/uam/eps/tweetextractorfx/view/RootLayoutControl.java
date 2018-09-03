@@ -1,4 +1,4 @@
-package es.uam.eps.tweetextractor.view;
+package es.uam.eps.tweetextractorfx.view;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
-import es.uam.eps.tweetextractor.MainApplication;
+import es.uam.eps.tweetextractorfx.MainApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

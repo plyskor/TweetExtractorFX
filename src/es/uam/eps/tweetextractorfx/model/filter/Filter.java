@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.model.filter;
+package es.uam.eps.tweetextractorfx.model.filter;
 
 
 /**

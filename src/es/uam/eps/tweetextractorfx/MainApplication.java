@@ -1,12 +1,12 @@
-package es.uam.eps.tweetextractor;
+package es.uam.eps.tweetextractorfx;
 
 import java.io.IOException;
 
-import es.uam.eps.tweetextractor.model.filter.*;
-import es.uam.eps.tweetextractor.model.filter.impl.*;
-import es.uam.eps.tweetextractor.view.QueryConstructorControl;
-import es.uam.eps.tweetextractor.view.RootLayoutControl;
-import es.uam.eps.tweetextractor.view.WelcomeScreenControl;
+import es.uam.eps.tweetextractorfx.model.filter.*;
+import es.uam.eps.tweetextractorfx.model.filter.impl.*;
+import es.uam.eps.tweetextractorfx.view.QueryConstructorControl;
+import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
+import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

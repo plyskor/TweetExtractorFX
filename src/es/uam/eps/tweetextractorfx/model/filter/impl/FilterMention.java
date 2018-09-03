@@ -1,10 +1,10 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.model.filter.impl;
+package es.uam.eps.tweetextractorfx.model.filter.impl;
 
-import es.uam.eps.tweetextractor.model.Constants;
-import es.uam.eps.tweetextractor.model.filter.Filter;
+import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -18,6 +18,20 @@ public class FilterMention implements Filter {
 
 	public FilterMention() {
 		
+	}
+
+	/**
+	 * @return the id
+	 */
+	public static Integer getId() {
+		return ID;
+	}
+
+	/**
+	 * @return the label
+	 */
+	public static StringProperty getLabel() {
+		return LABEL;
 	}
 
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractor.model;
+package es.uam.eps.tweetextractorfx.model;
 
 import javafx.beans.property.SimpleStringProperty;
 

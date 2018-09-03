@@ -1,10 +1,8 @@
-package es.uam.eps.tweetextractor.view;
+package es.uam.eps.tweetextractorfx.view;
 
-import es.uam.eps.tweetextractor.MainApplication;
+import es.uam.eps.tweetextractorfx.MainApplication;
 
-
-
-public class QueryConstructorControl {
+public class WelcomeScreenControl {
 	/*Reference to the MainApplication*/
     private MainApplication mainApplication;
 
