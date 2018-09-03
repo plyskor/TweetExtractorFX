@@ -2,6 +2,7 @@ package es.uam.eps.tweetextractor.view;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -40,9 +41,10 @@ public class RootLayoutControl {
         String message= new String("Extractor de datos para Twitter usando JavaFX \nAutor: Jose Antonio García del Saz\nVersion: ");
 		try {
 			 //TODO Bug 1: No se encuentra el pom. Solución: Add resources to the jar
-			model = reader.read(new FileReader("pom.xml"));
-			message=message.concat(model.getVersion());
-		} catch (IOException | XmlPullParserException  e) {
+			final Properties properties = new Properties();
+			properties.load(this.getClass().getClassLoader().getResourceAsStream("tweetextractorfx.properties"));
+			message=message.concat(properties.getProperty("tweetextractorfx.version"));
+		} catch (IOException  e) {
 			e.printStackTrace();
 		}
         Alert alert = new Alert(AlertType.INFORMATION);

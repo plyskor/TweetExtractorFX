@@ -16,12 +16,16 @@
 					<exclude>**/*.java</exclude>
 				</excludes>
 			</resource>
+			<resource>
+          <directory>resources</directory>
+          <filtering>true</filtering>
+        </resource>
 		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-					<include>pom.xml</include>
+
 					<archive>
 						<manifest>
 							<mainClass>es.uam.eps.tweetextractor.MainApplication</mainClass>
