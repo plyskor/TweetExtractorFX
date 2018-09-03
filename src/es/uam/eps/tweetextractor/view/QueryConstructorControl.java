@@ -2,6 +2,8 @@ package es.uam.eps.tweetextractor.view;
 
 import es.uam.eps.tweetextractor.MainApplication;
 
+
+
 public class QueryConstructorControl {
 	/*Reference to the MainApplication*/
     private MainApplication mainApplication;

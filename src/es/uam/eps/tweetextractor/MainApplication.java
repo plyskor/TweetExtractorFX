@@ -2,15 +2,18 @@ package es.uam.eps.tweetextractor;
 
 import java.io.IOException;
 
+import es.uam.eps.tweetextractor.model.filter.*;
+import es.uam.eps.tweetextractor.model.filter.impl.*;
 import es.uam.eps.tweetextractor.view.QueryConstructorControl;
 import es.uam.eps.tweetextractor.view.RootLayoutControl;
 import es.uam.eps.tweetextractor.view.WelcomeScreenControl;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
@@ -18,6 +21,9 @@ import javafx.stage.Stage;
 public class MainApplication extends Application {
 	private Stage primaryStage;
     private BorderPane rootLayout;
+    /*Available filters for Queries*/
+    private ObservableList<Filter> availableFilters = FXCollections.observableArrayList(); 
+
     
 	@Override
 	public void start(Stage primaryStage) {
@@ -92,5 +98,11 @@ public class MainApplication extends Application {
     }
 	public static void main(String[] args) {
 		launch(args);
+	}
+	public void initAvailableFilters() {
+		availableFilters.add(new FilterContains());
+		availableFilters.add(new FilterContainsExact());
+		availableFilters.add(new FilterMention());
+		/*To be Continued...*/
 	}
 }
