@@ -111,7 +111,17 @@ public class QueryConstructorControl {
     			case (Constants.CLASS_FILTER_CONTAINS):
     				showFilterContainsDialog();
     				break;
-    				
+    			case (Constants.CLASS_FILTER_CONTAINS_EXACT):
+    				//etc
+    				break;
+    			default:
+    				// ERROR: Unknown Filter
+    	        	Alert alert = new Alert(AlertType.ERROR);
+    	        	alert.setTitle("Error");
+    	        	alert.setHeaderText("Filtro desconocido");
+    	        	alert.setContentText("Se ha producido un error al añadir el filtro. Por favor, vuelva a intentarlo.");
+    	        	alert.showAndWait();
+    				break;
     		}
     	}
     }
