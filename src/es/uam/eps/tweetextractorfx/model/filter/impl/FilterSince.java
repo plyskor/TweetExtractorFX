@@ -12,21 +12,21 @@ import javafx.beans.property.StringProperty;
  * @author Jose Antonio García del Saz
  *
  */
-public class FilterContains implements Filter {
-	private final static Integer ID=Constants.INTEGER_FILTER_CONTAINS;
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_CONTAINS);
-
-	public FilterContains() {
-		
+public class FilterSince implements Filter {
+	private final static Integer ID=Constants.INTEGER_FILTER_SINCE;
+	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_SINCE);
+	/**
+	 * 
+	 */
+	public FilterSince() {
+		// TODO Auto-generated constructor stub
 	}
-
 	/**
 	 * @return the id
 	 */
 	public  Integer getId() {
 		return ID;
 	}
-
 	/**
 	 * @return the label
 	 */

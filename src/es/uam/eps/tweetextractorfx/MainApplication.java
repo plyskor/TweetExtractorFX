@@ -25,6 +25,10 @@ public class MainApplication extends Application {
     private ObservableList<Filter> availableFilters = FXCollections.observableArrayList(); 
 
     
+	public MainApplication() {
+        initAvailableFilters();
+	}
+
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -91,7 +95,6 @@ public class MainApplication extends Application {
             // Give the controller access to the main app.
             QueryConstructorControl controller = loader.getController();
             controller.setMainApplication(this);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,6 +106,56 @@ public class MainApplication extends Application {
 		availableFilters.add(new FilterContains());
 		availableFilters.add(new FilterContainsExact());
 		availableFilters.add(new FilterMention());
-		/*To be Continued...*/
+		availableFilters.add(new FilterHashtag());
+		availableFilters.add(new FilterFrom());
+		availableFilters.add(new FilterTo());
+		availableFilters.add(new FilterAttitude());
+		availableFilters.add(new FilterSince());
+		availableFilters.add(new FilterUntil());
+		availableFilters.add(new FilterUrl());
+		availableFilters.add(new FilterQuestion());
 	}
+
+	/**
+	 * @return the availableFilters
+	 */
+	public ObservableList<Filter> getAvailableFilters() {
+		return availableFilters;
+	}
+
+	/**
+	 * @param availableFilters the availableFilters to set
+	 */
+	public void setAvailableFilters(ObservableList<Filter> availableFilters) {
+		this.availableFilters = availableFilters;
+	}
+
+	/**
+	 * @return the primaryStage
+	 */
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
+
+	/**
+	 * @param primaryStage the primaryStage to set
+	 */
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+	}
+
+	/**
+	 * @return the rootLayout
+	 */
+	public BorderPane getRootLayout() {
+		return rootLayout;
+	}
+
+	/**
+	 * @param rootLayout the rootLayout to set
+	 */
+	public void setRootLayout(BorderPane rootLayout) {
+		this.rootLayout = rootLayout;
+	}
+	
 }

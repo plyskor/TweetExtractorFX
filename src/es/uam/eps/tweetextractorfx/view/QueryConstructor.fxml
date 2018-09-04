@@ -28,9 +28,9 @@
          <children>
             <AnchorPane GridPane.rowIndex="1">
                <children>
-                  <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="availableFiltersTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Filtros Disponibles" />
+                      <TableColumn fx:id="availableFiltersColumn" prefWidth="75.0" text="Filtros Disponibles" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -66,9 +66,9 @@
                            <children>
                               <VBox alignment="CENTER" spacing="10.0">
                                  <children>
-                                    <Button mnemonicParsing="false" text="Añadir..." />
-                                    <Button mnemonicParsing="false" text="Quitar" />
-                                    <Button mnemonicParsing="false" text="Guardar" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddFilter" text="Añadir..." />
+                                    <Button mnemonicParsing="false" onAction="#handleDeleteFilter" text="Quitar" />
+                                    <Button mnemonicParsing="false" onAction="#handleSaveQuery" text="Guardar" />
                                  </children>
                               </VBox>
                            </children>

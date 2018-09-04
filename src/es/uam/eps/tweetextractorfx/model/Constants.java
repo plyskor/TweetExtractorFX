@@ -47,5 +47,21 @@ public final class Constants {
 			public final static String STRING_FILTER_UNTIL= "Hasta la fecha";
 			public final static String STRING_FILTER_ATTITUDE= "Con una actitud";
 			public final static String STRING_FILTER_QUESTION= "Contiene una o más preguntas";
-			
+	/*
+	 * Classes
+	 */
+			public final static String CLASS_FILTER_CONTAINS= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains";
+			public final static String CLASS_FILTER_CONTAINS_EXACT= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterContainsExact";
+			//public final static String CLASS_FILTER_OR= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains";
+			//public final static String CLASS_FILTER_NOT_CONTAINS= "No contiene";
+			public final static String CLASS_FILTER_HASHTAG= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterHashtag";
+			public final static String CLASS_FILTER_FROM= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom";
+			public final static String CLASS_FILTER_TO= "Respondiendo a";
+			public final static String CLASS_FILTER_LIST= "Tweeteado por una cuenta de una lista";
+			public final static String CLASS_FILTER_MENTION= "Mencionando a";
+			public final static String CLASS_FILTER_URL= "Contiene una URL que contenga";
+			public final static String CLASS_FILTER_SINCE= "Desde la fecha";
+			public final static String CLASS_FILTER_UNTIL= "Hasta la fecha";
+			public final static String CLASS_FILTER_ATTITUDE= "Con una actitud";
+			public final static String CLASS_FILTER_QUESTION= "Contiene una o más preguntas";
 }

@@ -23,14 +23,14 @@ public class FilterMention implements Filter {
 	/**
 	 * @return the id
 	 */
-	public static Integer getId() {
+	public  Integer getId() {
 		return ID;
 	}
 
 	/**
 	 * @return the label
 	 */
-	public static StringProperty getLabel() {
+	public  StringProperty getLabel() {
 		return LABEL;
 	}
 
