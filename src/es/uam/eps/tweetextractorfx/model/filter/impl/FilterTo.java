@@ -33,5 +33,10 @@ public class FilterTo implements Filter {
 	public FilterTo() {
 		// TODO Auto-generated constructor stub
 	}
+	@Override
+	public StringProperty getSummary() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

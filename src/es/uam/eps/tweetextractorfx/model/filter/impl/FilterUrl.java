@@ -33,5 +33,10 @@ public class FilterUrl implements Filter {
 	public  StringProperty getLabel() {
 		return LABEL;
 	}
+	@Override
+	public StringProperty getSummary() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

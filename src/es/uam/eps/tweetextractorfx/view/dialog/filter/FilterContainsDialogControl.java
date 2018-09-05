@@ -3,12 +3,12 @@
  */
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -17,17 +17,30 @@ import javafx.stage.Stage;
  */
 public class FilterContainsDialogControl {
 	@FXML
-	private ListView<StringProperty> selectedWordsView;
+	private ListView<String> selectedWordsView;
 	@FXML
 	private TextField wordToAdd;
-	private ObservableList<StringProperty> selectedWordsList = FXCollections.observableArrayList();
-    
+    private FilterContains filter;
     private Stage dialogStage;
 	/**
 	 * 
 	 */
 	public FilterContainsDialogControl() {
-		// TODO Auto-generated constructor stub
+		initialize();
+	}
+
+	/**
+	 * @return the filter
+	 */
+	public FilterContains getFilter() {
+		return filter;
+	}
+
+	/**
+	 * @param filter the filter to set
+	 */
+	public void setFilter(FilterContains filter) {
+		this.filter = filter;
 	}
 
 	/**
@@ -42,6 +55,7 @@ public class FilterContainsDialogControl {
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
+		selectedWordsView.setItems(filter.getKeywordsList());
 	}
 
 	/**
@@ -61,33 +75,36 @@ public class FilterContainsDialogControl {
 	/**
 	 * @return the selectedWordsView
 	 */
-	public ListView<StringProperty> getSelectedWordsView() {
+	public ListView<String> getSelectedWordsView() {
 		return selectedWordsView;
 	}
 
 	/**
 	 * @param selectedWordsView the selectedWordsView to set
 	 */
-	public void setSelectedWordsView(ListView<StringProperty> selectedWordsView) {
+	public void setSelectedWordsView(ListView<String> selectedWordsView) {
 		this.selectedWordsView = selectedWordsView;
 	}
 
-	/**
-	 * @return the selectedWordsList
-	 */
-	public ObservableList<StringProperty> getSelectedWordsList() {
-		return selectedWordsList;
-	}
-
-	/**
-	 * @param selectedWordsList the selectedWordsList to set
-	 */
-	public void setSelectedWordsList(ObservableList<StringProperty> selectedWordsList) {
-		this.selectedWordsList = selectedWordsList;
+	private void initialize() {
+		filter= new FilterContains();
+		filter.getKeywordsList().clear();
 	}
 	@FXML
 	public void handleAddWord() {
-
+		if (wordToAdd.getText().trim().isEmpty()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+	    	alert.setTitle("Información");
+	    	alert.setHeaderText("Ningúna palabra que añadir");
+	    	alert.setContentText("Por favor, escriba una palabra para añadirla al filtro.");
+	    	alert.showAndWait();
+		}else {
+			String[] wordsToAdd =wordToAdd.getText().replaceAll("^[,\\s]+", "").split("[,\\s]+");
+			for(String word : wordsToAdd) {
+				if(!filter.getKeywordsList().contains(word))filter.addKeywordWord(word);
+			}
+			wordToAdd.clear();
+		}
 	}
 	@FXML
 	public void handleCancel() {

@@ -20,6 +20,10 @@ public interface Filter {
 	 */
 	public StringProperty getLabel();
 	/**
+	 * @return the label
+	 */
+	public StringProperty getSummary();
+	/**
 	 *  
 	 
 	public void configure();*/

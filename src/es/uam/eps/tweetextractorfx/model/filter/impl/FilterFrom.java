@@ -38,4 +38,10 @@ public class FilterFrom implements Filter {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public StringProperty getSummary() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

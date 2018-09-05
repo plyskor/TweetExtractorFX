@@ -38,4 +38,10 @@ public class FilterHashtag implements Filter {
 		return LABEL;
 	}
 
+	@Override
+	public StringProperty getSummary() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -34,4 +34,10 @@ public class FilterMention implements Filter {
 		return LABEL;
 	}
 
+	@Override
+	public StringProperty getSummary() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

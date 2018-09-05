@@ -5,7 +5,10 @@ import java.io.IOException;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
+import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains;
 import es.uam.eps.tweetextractorfx.view.dialog.filter.FilterContainsDialogControl;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,8 +22,6 @@ import javafx.stage.Stage;
 
 
 
-
-
 public class QueryConstructorControl {
 	/*Reference to the MainApplication*/
     private MainApplication mainApplication;
@@ -28,14 +29,78 @@ public class QueryConstructorControl {
     private TableView<Filter> availableFiltersTable;
     @FXML
     private TableColumn<Filter, String> availableFiltersColumn;
+    @FXML
+    private TableView<Filter> addedFilterTable;
+    @FXML
+    private TableColumn<Filter, String> addedFiltersColumn;
+
+    /*Added filters to the Query*/
+    private ObservableList<Filter> addedFiltersList = FXCollections.observableArrayList(); 
 
 
     private Filter selectedAvailableFilter;
+    private Filter selectedAddedFilter;
   	/**
 	 * @return the availableFiltersTable
 	 */
 	public TableView<Filter> getAvailableFiltersTable() {
 		return availableFiltersTable;
+	}
+
+	/**
+	 * @return the addedFilterTable
+	 */
+	public TableView<Filter> getAddedFilterTable() {
+		return addedFilterTable;
+	}
+
+	/**
+	 * @return the selectedAddedFilter
+	 */
+	public Filter getSelectedAddedFilter() {
+		return selectedAddedFilter;
+	}
+
+	/**
+	 * @param selectedAddedFilter the selectedAddedFilter to set
+	 */
+	public void setSelectedAddedFilter(Filter selectedAddedFilter) {
+		this.selectedAddedFilter = selectedAddedFilter;
+	}
+
+	/**
+	 * @param addedFilterTable the addedFilterTable to set
+	 */
+	public void setAddedFilterTable(TableView<Filter> addedFilterTable) {
+		this.addedFilterTable = addedFilterTable;
+	}
+
+	/**
+	 * @return the addedFiltersColumn
+	 */
+	public TableColumn<Filter, String> getAddedFiltersColumn() {
+		return addedFiltersColumn;
+	}
+
+	/**
+	 * @param addedFiltersColumn the addedFiltersColumn to set
+	 */
+	public void setAddedFiltersColumn(TableColumn<Filter, String> addedFiltersColumn) {
+		this.addedFiltersColumn = addedFiltersColumn;
+	}
+
+	/**
+	 * @return the addedFiltersList
+	 */
+	public ObservableList<Filter> getAddedFiltersList() {
+		return addedFiltersList;
+	}
+
+	/**
+	 * @param addedFiltersList the addedFiltersList to set
+	 */
+	public void setAddedFiltersList(ObservableList<Filter> addedFiltersList) {
+		this.addedFiltersList = addedFiltersList;
 	}
 
 	/**
@@ -87,6 +152,7 @@ public class QueryConstructorControl {
 	public void setMainApplication(MainApplication mainApplication) {
 		this.mainApplication = mainApplication;
 		availableFiltersTable.setItems(mainApplication.getAvailableFilters());
+		addedFilterTable.setItems(addedFiltersList);
 	}
 	/**
      * Initializes the controller class. This method is automatically called
@@ -96,16 +162,21 @@ public class QueryConstructorControl {
     private void initialize() {
         // Initialize the person table with the two columns.
         availableFiltersColumn.setCellValueFactory(cellData -> cellData.getValue().getLabel());
-  
+        addedFiltersColumn.setCellValueFactory(cellData -> cellData.getValue().getSummary());
+
         // Listen for selection changes and show the person details when changed.
         availableFiltersTable.getSelectionModel().selectedItemProperty().addListener(
                (observable, oldValue, newValue) -> setSelectedAvailableFilter(newValue));
+        addedFilterTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> setSelectedAddedFilter(newValue));
+        
         selectedAvailableFilter=null;
+        selectedAddedFilter=null;
     }
     @FXML
     public void handleAddFilter() {
     	if(selectedAvailableFilter==null) {
-    		showErrorSelectFilter();
+    		showErrorSelectFilterAdd();
     	}else {
     		switch(selectedAvailableFilter.getClass().getCanonicalName()) {
     			case (Constants.CLASS_FILTER_CONTAINS):
@@ -125,7 +196,7 @@ public class QueryConstructorControl {
     		}
     	}
     }
-    private void showErrorSelectFilter() {
+    private void showErrorSelectFilterAdd() {
     	Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("Información");
     	alert.setHeaderText("Ningún filtro seleccionado");
@@ -135,7 +206,19 @@ public class QueryConstructorControl {
     }
     @FXML
     public void handleDeleteFilter() {
-    	
+    	if(selectedAddedFilter==null) {
+    		showErrorSelectFilterRemove();
+    	}else {
+        	addedFiltersList.remove(selectedAddedFilter);
+    	}
+    }
+    private void showErrorSelectFilterRemove() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("Información");
+    	alert.setHeaderText("Ningún filtro seleccionado");
+    	alert.setContentText("Por favor, seleccione un filtro para eliminar de la lista de la derecha");
+    	alert.showAndWait();
+        return;
     }
     @FXML
     public void handleSaveQuery() {
@@ -161,7 +244,7 @@ public class QueryConstructorControl {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-
+            addedFiltersList.add(new FilterContains(controller.getFilter()));
             return;
         } catch (IOException e) {
             e.printStackTrace();
