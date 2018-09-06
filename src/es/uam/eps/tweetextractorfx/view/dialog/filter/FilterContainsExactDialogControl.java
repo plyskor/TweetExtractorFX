@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains;
+import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContainsExact;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
@@ -15,31 +16,31 @@ import javafx.stage.Stage;
  * @author Jose Antonio García del Saz
  *
  */
-public class FilterContainsDialogControl {
+public class FilterContainsExactDialogControl {
 	@FXML
 	private ListView<String> selectedWordsView;
 	@FXML
 	private TextField wordToAdd;
-    private FilterContains filter;
+    private FilterContainsExact filter;
     private Stage dialogStage;
 	/**
 	 * 
 	 */
-	public FilterContainsDialogControl() {
+	public FilterContainsExactDialogControl() {
 		initialize();
 	}
 
 	/**
 	 * @return the filter
 	 */
-	public FilterContains getFilter() {
+	public FilterContainsExact getFilter() {
 		return filter;
 	}
 
 	/**
 	 * @param filter the filter to set
 	 */
-	public void setFilter(FilterContains filter) {
+	public void setFilter(FilterContainsExact filter) {
 		this.filter = filter;
 	}
 
@@ -87,7 +88,7 @@ public class FilterContainsDialogControl {
 	}
 
 	private void initialize() {
-		filter= new FilterContains();
+		filter= new FilterContainsExact();
 		filter.getKeywordsList().clear();
 	}
 	@FXML
@@ -96,14 +97,13 @@ public class FilterContainsDialogControl {
 			Alert alert = new Alert(AlertType.INFORMATION);
 	    	alert.setTitle("Información");
 	    	alert.setHeaderText("Ningúna palabra que añadir");
-	    	alert.setContentText("Por favor, escriba una o varias palabras para añadirlas al filtro.");
+	    	alert.setContentText("Por favor, escriba una palabra para añadirla al filtro.");
 	    	alert.showAndWait();
 		}else {
-			String[] wordsToAdd =wordToAdd.getText().replaceAll("^[,\\s]+", "").split("[,\\s]+");
-			for(String word : wordsToAdd) {
-				if(!filter.getKeywordsList().contains(word))filter.addKeywordWord(word);
-			}
-			wordToAdd.clear();
+			if(wordToAdd!=null) {
+				filter.addKeywordWord(wordToAdd.getText().trim());
+				wordToAdd.clear();
+				}
 		}
 	}
 	@FXML

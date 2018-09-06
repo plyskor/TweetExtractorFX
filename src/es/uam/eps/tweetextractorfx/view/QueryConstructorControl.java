@@ -5,8 +5,8 @@ import java.io.IOException;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
-import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains;
-import es.uam.eps.tweetextractorfx.view.dialog.filter.FilterContainsDialogControl;
+import es.uam.eps.tweetextractorfx.model.filter.impl.*;
+import es.uam.eps.tweetextractorfx.view.dialog.filter.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -183,7 +183,13 @@ public class QueryConstructorControl {
     				showFilterContainsDialog();
     				break;
     			case (Constants.CLASS_FILTER_CONTAINS_EXACT):
-    				//etc
+    				showFilterContainsExactDialog();
+    				break;
+    			case (Constants.CLASS_FILTER_SINCE):
+    				showFilterSinceDialog();
+    				break;
+    			case (Constants.CLASS_FILTER_UNTIL):
+    				showFilterUntilDialog();
     				break;
     			default:
     				// ERROR: Unknown Filter
@@ -245,6 +251,87 @@ public class QueryConstructorControl {
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             addedFiltersList.add(new FilterContains(controller.getFilter()));
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
+    public void showFilterContainsExactDialog(){
+    	try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterContainsExactDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApplication.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the dialogStage to the controller.
+            FilterContainsExactDialogControl controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            addedFiltersList.add(new FilterContainsExact(controller.getFilter()));
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
+    public void showFilterSinceDialog(){
+    	try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterSinceDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApplication.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the dialogStage to the controller.
+            FilterSinceDialogControl controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            addedFiltersList.add(new FilterSince(controller.getFilter()));
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
+    public void showFilterUntilDialog(){
+    	try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterUntilDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApplication.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the dialogStage to the controller.
+            FilterUntilDialogControl controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            addedFiltersList.add(new FilterUntil(controller.getFilter()));
             return;
         } catch (IOException e) {
             e.printStackTrace();
