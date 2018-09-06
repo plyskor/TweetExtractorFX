@@ -191,6 +191,9 @@ public class QueryConstructorControl {
     			case (Constants.CLASS_FILTER_UNTIL):
     				showFilterUntilDialog();
     				break;
+    			case (Constants.CLASS_FILTER_MENTION):
+    				showFilterMentionDialog();
+    				break;
     			default:
     				// ERROR: Unknown Filter
     	        	Alert alert = new Alert(AlertType.ERROR);
@@ -332,6 +335,33 @@ public class QueryConstructorControl {
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             addedFiltersList.add(new FilterUntil(controller.getFilter()));
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
+    public void showFilterMentionDialog(){
+    	try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterMentionDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApplication.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the dialogStage to the controller.
+            FilterMentionDialogControl controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            addedFiltersList.add(new FilterMention(controller.getFilter()));
             return;
         } catch (IOException e) {
             e.printStackTrace();
