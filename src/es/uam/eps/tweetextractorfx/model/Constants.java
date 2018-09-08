@@ -3,7 +3,6 @@
  */
 package es.uam.eps.tweetextractorfx.model;
 
-import javafx.beans.property.SimpleStringProperty;
 
 /**
  * @author Jose Antonio García del Saz
@@ -40,9 +39,9 @@ public final class Constants {
 			public final static String STRING_FILTER_HASHTAG= "Contiene el hashtag";
 			public final static String STRING_FILTER_FROM= "Tweeteado por";
 			public final static String STRING_FILTER_TO= "Respondiendo a";
-			public final static String STRING_FILTER_LIST= "Tweeteado por una cuenta de una lista";
+			public final static String STRING_FILTER_LIST= "Tweeteado por cualquier cuenta de una lista";
 			public final static String STRING_FILTER_MENTION= "Mencionando a";
-			public final static String STRING_FILTER_URL= "Contiene una URL que contenga";
+			public final static String STRING_FILTER_URL= "Con una URL que contenga";
 			public final static String STRING_FILTER_SINCE= "Desde la fecha";
 			public final static String STRING_FILTER_UNTIL= "Hasta la fecha";
 			public final static String STRING_FILTER_ATTITUDE= "Con una actitud";
@@ -52,14 +51,14 @@ public final class Constants {
 	 */
 			public final static String CLASS_FILTER_CONTAINS= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains";
 			public final static String CLASS_FILTER_CONTAINS_EXACT= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterContainsExact";
-			//public final static String CLASS_FILTER_OR= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains";
-			//public final static String CLASS_FILTER_NOT_CONTAINS= "No contiene";
+			public final static String CLASS_FILTER_OR= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains";
+			public final static String CLASS_FILTER_NOT_CONTAINS= "No contiene";
 			public final static String CLASS_FILTER_HASHTAG= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterHashtag";
 			public final static String CLASS_FILTER_FROM= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom";
 			public final static String CLASS_FILTER_TO= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterTo";
-			public final static String CLASS_FILTER_LIST= "Tweeteado por una cuenta de una lista";
+			public final static String CLASS_FILTER_LIST= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterList";
 			public final static String CLASS_FILTER_MENTION= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterMention";
-			public final static String CLASS_FILTER_URL= "Contiene una URL que contenga";
+			public final static String CLASS_FILTER_URL= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterUrl";
 			public final static String CLASS_FILTER_SINCE= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterSince";
 			public final static String CLASS_FILTER_UNTIL= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterUntil";
 			public final static String CLASS_FILTER_ATTITUDE= "Con una actitud";

@@ -1,13 +1,7 @@
 package es.uam.eps.tweetextractorfx.view;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
-
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-
 import es.uam.eps.tweetextractorfx.MainApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -36,11 +30,8 @@ public class RootLayoutControl {
      */
     @FXML
     private void handleAbout() {
-    	MavenXpp3Reader reader = new MavenXpp3Reader();
-        Model model;
         String message= new String("Extractor de datos para Twitter usando JavaFX \nAutor: Jose Antonio García del Saz\nVersion: ");
 		try {
-			 //TODO Bug 1: No se encuentra el pom. Solución: Add resources to the jar
 			final Properties properties = new Properties();
 			properties.load(this.getClass().getClassLoader().getResourceAsStream("tweetextractorfx.properties"));
 			message=message.concat(properties.getProperty("tweetextractorfx.version"));

@@ -109,11 +109,12 @@ public class MainApplication extends Application {
 		availableFilters.add(new FilterHashtag());
 		availableFilters.add(new FilterFrom());
 		availableFilters.add(new FilterTo());
-		availableFilters.add(new FilterAttitude());
+		availableFilters.add(new FilterList());
+		//availableFilters.add(new FilterAttitude());
 		availableFilters.add(new FilterSince());
 		availableFilters.add(new FilterUntil());
 		availableFilters.add(new FilterUrl());
-		availableFilters.add(new FilterQuestion());
+		//availableFilters.add(new FilterQuestion());
 	}
 
 	/**

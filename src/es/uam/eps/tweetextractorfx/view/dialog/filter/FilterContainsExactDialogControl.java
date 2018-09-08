@@ -3,7 +3,6 @@
  */
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
-import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains;
 import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContainsExact;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
