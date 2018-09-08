@@ -95,22 +95,20 @@ public class FilterMentionDialogControl {
 		if (wordToAdd.getText().trim().isEmpty()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 	    	alert.setTitle("Información");
-	    	alert.setHeaderText("Ningúna palabra que añadir");
-	    	alert.setContentText("Por favor, escriba una o varias palabras para añadirlas al filtro.");
+	    	alert.setHeaderText("Ningúna mención que añadir");
+	    	alert.setContentText("Por favor, escriba unao o varios nombres de usaurio para añadir al filtro.");
 	    	alert.showAndWait();
 		}else {
 			String[] wordsToAdd =wordToAdd.getText().replaceAll("^[,\\s]+", "").split("[,\\s]+");
-			if (wordsToAdd.length!=1){
-				//A decidir
-				}else {
-				if(!filter.getMentionList().contains(wordsToAdd[0]))filter.addMention(wordsToAdd[0]);
+			for(String word : wordsToAdd) {
+				if(!filter.getMentionList().contains(word))filter.addMention(word);
 			}
-			
 			wordToAdd.clear();
 		}
 	}
 	@FXML
 	public void handleCancel() {
+		this.filter=null;
 		dialogStage.close();
 	}
 	@FXML

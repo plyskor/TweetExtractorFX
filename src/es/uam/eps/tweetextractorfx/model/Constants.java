@@ -56,7 +56,7 @@ public final class Constants {
 			//public final static String CLASS_FILTER_NOT_CONTAINS= "No contiene";
 			public final static String CLASS_FILTER_HASHTAG= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterHashtag";
 			public final static String CLASS_FILTER_FROM= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom";
-			public final static String CLASS_FILTER_TO= "Respondiendo a";
+			public final static String CLASS_FILTER_TO= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterTo";
 			public final static String CLASS_FILTER_LIST= "Tweeteado por una cuenta de una lista";
 			public final static String CLASS_FILTER_MENTION= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterMention";
 			public final static String CLASS_FILTER_URL= "Contiene una URL que contenga";

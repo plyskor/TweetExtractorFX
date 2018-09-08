@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.dialog.filter.FilterSinceDialogControl">
+<AnchorPane prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.dialog.filter.FilterToDialogControl">
    <children>
       <GridPane layoutX="26.0" layoutY="14.0" prefHeight="300.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -26,16 +27,19 @@
                <children>
                   <StackPane prefHeight="40.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Especifica la fecha desde la que quieres realizar la extracción:" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Especiique el nombre de usuario destino de los Tweets" />
                      </children>
                   </StackPane>
                </children></AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
-                  <StackPane layoutX="153.0" layoutY="52.0" prefHeight="130.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane layoutX="153.0" layoutY="52.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <DatePicker fx:id="datePicker" />
+                        <TextField fx:id="nickToAdd" />
                      </children>
+                     <padding>
+                        <Insets left="50.0" right="50.0" />
+                     </padding>
                   </StackPane>
                </children>
             </AnchorPane>
@@ -43,8 +47,8 @@
                <children>
                   <HBox layoutX="345.0" layoutY="92.0" spacing="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
-                        <Button mnemonicParsing="false" onAction="#handleDone" text="Hecho" />
+                        <Button mnemonicParsing="false" onAction="#handelCancel" text="Cancelar" />
+                        <Button mnemonicParsing="false" onAction="#handleAddNick" text="Hecho" />
                      </children>
                   </HBox>
                </children>

@@ -176,8 +176,10 @@ public class QueryConstructorControl {
     @FXML
     public void handleAddFilter() {
     	if(selectedAvailableFilter==null) {
+    		/*No se ha seleccionado ningún filtro para añadir a la lista*/
     		showErrorSelectFilterAdd();
     	}else {
+    		/* Multiplexado de filtros para añadir*/
     		switch(selectedAvailableFilter.getClass().getCanonicalName()) {
     			case (Constants.CLASS_FILTER_CONTAINS):
     				showFilterContainsDialog();
@@ -193,6 +195,15 @@ public class QueryConstructorControl {
     				break;
     			case (Constants.CLASS_FILTER_MENTION):
     				showFilterMentionDialog();
+    				break;
+    			case (Constants.CLASS_FILTER_FROM):
+    				showFilterFromDialog();
+    				break;
+    			case (Constants.CLASS_FILTER_TO):
+    				showFilterToDialog();
+    				break;
+    			case (Constants.CLASS_FILTER_HASHTAG):
+    				showFilterHashtagDialog();
     				break;
     			default:
     				// ERROR: Unknown Filter
@@ -233,6 +244,11 @@ public class QueryConstructorControl {
     public void handleSaveQuery() {
     	
     }
+    /*
+     * 
+     * FUNCIONES PARA MOSTRAR EL DÍALOGO MODAL DE CADA FILTRO Y AÑADIRLO A LA LISTA DE FILTROS SELECCIONADOS
+     * 
+     */
     public void showFilterContainsDialog(){
     	try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -251,9 +267,11 @@ public class QueryConstructorControl {
             FilterContainsDialogControl controller = loader.getController();
             controller.setDialogStage(dialogStage);
 
-            // Show the dialog and wait until the user closes it
+            // Show the dialog and wait until the user closes it, then add filter
             dialogStage.showAndWait();
-            addedFiltersList.add(new FilterContains(controller.getFilter()));
+            if (controller.getFilter()!=null) {
+            	addedFiltersList.add(new FilterContains(controller.getFilter()));
+            }
             return;
         } catch (IOException e) {
             e.printStackTrace();
@@ -266,21 +284,20 @@ public class QueryConstructorControl {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterContainsExactDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
-
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(mainApplication.getPrimaryStage());
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-
             // Set the dialogStage to the controller.
             FilterContainsExactDialogControl controller = loader.getController();
             controller.setDialogStage(dialogStage);
-
-            // Show the dialog and wait until the user closes it
+            // Show the dialog and wait until the user closes it, then add filter
             dialogStage.showAndWait();
-            addedFiltersList.add(new FilterContainsExact(controller.getFilter()));
+            if (controller.getFilter()!=null) {
+            	addedFiltersList.add(new FilterContainsExact(controller.getFilter()));
+            }
             return;
         } catch (IOException e) {
             e.printStackTrace();
@@ -293,21 +310,20 @@ public class QueryConstructorControl {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterSinceDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
-
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(mainApplication.getPrimaryStage());
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-
             // Set the dialogStage to the controller.
             FilterSinceDialogControl controller = loader.getController();
             controller.setDialogStage(dialogStage);
-
-            // Show the dialog and wait until the user closes it
+            // Show the dialog and wait until the user closes it, then add filter
             dialogStage.showAndWait();
-            addedFiltersList.add(new FilterSince(controller.getFilter()));
+            if (controller.getFilter()!=null) {
+            	addedFiltersList.add(new FilterSince(controller.getFilter()));
+            }
             return;
         } catch (IOException e) {
             e.printStackTrace();
@@ -320,21 +336,20 @@ public class QueryConstructorControl {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterUntilDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
-
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(mainApplication.getPrimaryStage());
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-
             // Set the dialogStage to the controller.
             FilterUntilDialogControl controller = loader.getController();
             controller.setDialogStage(dialogStage);
-
-            // Show the dialog and wait until the user closes it
+            // Show the dialog and wait until the user closes it, then add filter
             dialogStage.showAndWait();
-            addedFiltersList.add(new FilterUntil(controller.getFilter()));
+            if (controller.getFilter()!=null) {
+            	addedFiltersList.add(new FilterUntil(controller.getFilter()));
+            } 
             return;
         } catch (IOException e) {
             e.printStackTrace();
@@ -359,9 +374,89 @@ public class QueryConstructorControl {
             FilterMentionDialogControl controller = loader.getController();
             controller.setDialogStage(dialogStage);
 
-            // Show the dialog and wait until the user closes it
+            // Show the dialog and wait until the user closes it, then add filter
             dialogStage.showAndWait();
-            addedFiltersList.add(new FilterMention(controller.getFilter()));
+            if (controller.getFilter()!=null) {
+            	addedFiltersList.add(new FilterMention(controller.getFilter()));
+            }
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
+    public void showFilterFromDialog(){
+    	try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterFromDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApplication.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            // Set the dialogStage to the controller.
+            FilterFromDialogControl controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            // Show the dialog and wait until the user closes it, then add filter
+            dialogStage.showAndWait();
+            if (controller.getFilter()!=null) {
+            	addedFiltersList.add(new FilterFrom(controller.getFilter()));
+            }
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
+    public void showFilterToDialog(){
+    	try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterToDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApplication.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            // Set the dialogStage to the controller.
+            FilterToDialogControl controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            // Show the dialog and wait until the user closes it, then add filter
+            dialogStage.showAndWait();
+            if (controller.getFilter()!=null) {
+            	addedFiltersList.add(new FilterTo(controller.getFilter()));
+            }
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
+    public void showFilterHashtagDialog(){
+    	try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterHashtagDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApplication.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            // Set the dialogStage to the controller.
+            FilterHashtagDialogControl controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            // Show the dialog and wait until the user closes it, then add filter
+            dialogStage.showAndWait();
+            if (controller.getFilter()!=null) {
+            	addedFiltersList.add(new FilterHashtag(controller.getFilter()));
+            }
             return;
         } catch (IOException e) {
             e.printStackTrace();

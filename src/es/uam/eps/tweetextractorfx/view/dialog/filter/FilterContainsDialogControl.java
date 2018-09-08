@@ -108,6 +108,7 @@ public class FilterContainsDialogControl {
 	}
 	@FXML
 	public void handleCancel() {
+		this.filter=null;
 		dialogStage.close();
 	}
 	@FXML

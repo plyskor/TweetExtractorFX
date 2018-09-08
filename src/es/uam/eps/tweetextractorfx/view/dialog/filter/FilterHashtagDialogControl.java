@@ -3,8 +3,7 @@
  */
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
-import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains;
-import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContainsExact;
+import es.uam.eps.tweetextractorfx.model.filter.impl.FilterHashtag;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
@@ -16,31 +15,31 @@ import javafx.stage.Stage;
  * @author Jose Antonio García del Saz
  *
  */
-public class FilterContainsExactDialogControl {
+public class FilterHashtagDialogControl {
 	@FXML
 	private ListView<String> selectedWordsView;
 	@FXML
 	private TextField wordToAdd;
-    private FilterContainsExact filter;
+    private FilterHashtag filter;
     private Stage dialogStage;
 	/**
 	 * 
 	 */
-	public FilterContainsExactDialogControl() {
+	public FilterHashtagDialogControl() {
 		initialize();
 	}
 
 	/**
 	 * @return the filter
 	 */
-	public FilterContainsExact getFilter() {
+	public FilterHashtag getFilter() {
 		return filter;
 	}
 
 	/**
 	 * @param filter the filter to set
 	 */
-	public void setFilter(FilterContainsExact filter) {
+	public void setFilter(FilterHashtag filter) {
 		this.filter = filter;
 	}
 
@@ -56,7 +55,7 @@ public class FilterContainsExactDialogControl {
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-		selectedWordsView.setItems(filter.getKeywordsList());
+		selectedWordsView.setItems(filter.getHashtagList());
 	}
 
 	/**
@@ -88,22 +87,23 @@ public class FilterContainsExactDialogControl {
 	}
 
 	private void initialize() {
-		filter= new FilterContainsExact();
-		filter.getKeywordsList().clear();
+		filter= new FilterHashtag();
+		filter.getHashtagList().clear();
 	}
 	@FXML
 	public void handleAddWord() {
 		if (wordToAdd.getText().trim().isEmpty()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 	    	alert.setTitle("Información");
-	    	alert.setHeaderText("Ningúna palabra que añadir");
-	    	alert.setContentText("Por favor, escriba una palabra para añadirla al filtro.");
+	    	alert.setHeaderText("Ningún hashtag que añadir");
+	    	alert.setContentText("Por favor, escriba uno o varios hashtags para añadirlos al filtro.");
 	    	alert.showAndWait();
 		}else {
-			if(wordToAdd!=null) {
-				filter.addKeywordWord(wordToAdd.getText().trim());
-				wordToAdd.clear();
-				}
+			String[] wordsToAdd =wordToAdd.getText().replaceAll("^[,\\s]+", "").split("[,\\s]+");
+			for(String word : wordsToAdd) {
+				if(!filter.getHashtagList().contains(word))filter.addHashtag(word);
+			}
+			wordToAdd.clear();
 		}
 	}
 	@FXML
