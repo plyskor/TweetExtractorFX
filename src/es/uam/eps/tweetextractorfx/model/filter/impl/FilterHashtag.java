@@ -96,10 +96,10 @@ public class FilterHashtag implements Filter {
 	 */
 	public void addHashtag(String hashtag) {
 		if(hashtagList.isEmpty()) {
-			summaryString=summaryString.concat(hashtag);
+			summaryString=summaryString.concat("#"+hashtag);
 			summary.set(summaryString);
 		}else {
-			summaryString=summaryString.concat(", "+hashtag);
+			summaryString=summaryString.concat(", #"+hashtag);
 			summary.set(summaryString);
 		}
 		hashtagList.add(hashtag);

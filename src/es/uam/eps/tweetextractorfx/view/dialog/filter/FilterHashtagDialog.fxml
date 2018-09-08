@@ -25,7 +25,7 @@
          <children>
             <StackPane>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Especifica la lista de palabras clave de la extracción" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Especifica la lista de hashtags para la extracción" />
                </children>
             </StackPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">

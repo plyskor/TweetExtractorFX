@@ -17,7 +17,7 @@ public final class Constants {
 			public final static Integer INTEGER_FILTER_CONTAINS=0;
 			public final static Integer INTEGER_FILTER_CONTAINS_EXACT=1;
 			public final static Integer INTEGER_FILTER_OR=2;
-			public final static Integer INTEGER_FILTER_NOT_CONTAINS=3;
+			public final static Integer INTEGER_FILTER_NOT=3;
 			public final static Integer INTEGER_FILTER_HASHTAG=4;
 			public final static Integer INTEGER_FILTER_FROM=5;
 			public final static Integer INTEGER_FILTER_TO=6;
@@ -34,8 +34,6 @@ public final class Constants {
 			//Available filters
 			public final static String STRING_FILTER_CONTAINS= "Contiene";
 			public final static String STRING_FILTER_CONTAINS_EXACT= "Contiene literalmente";
-			public final static String STRING_FILTER_OR= "OR lógico";
-			public final static String STRING_FILTER_NOT_CONTAINS= "No contiene";
 			public final static String STRING_FILTER_HASHTAG= "Contiene el hashtag";
 			public final static String STRING_FILTER_FROM= "Tweeteado por";
 			public final static String STRING_FILTER_TO= "Respondiendo a";
@@ -51,8 +49,8 @@ public final class Constants {
 	 */
 			public final static String CLASS_FILTER_CONTAINS= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains";
 			public final static String CLASS_FILTER_CONTAINS_EXACT= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterContainsExact";
-			public final static String CLASS_FILTER_OR= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains";
-			public final static String CLASS_FILTER_NOT_CONTAINS= "No contiene";
+			public final static String CLASS_FILTER_OR= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterOr";
+			public final static String CLASS_FILTER_NOT= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterNot";
 			public final static String CLASS_FILTER_HASHTAG= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterHashtag";
 			public final static String CLASS_FILTER_FROM= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom";
 			public final static String CLASS_FILTER_TO= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterTo";
