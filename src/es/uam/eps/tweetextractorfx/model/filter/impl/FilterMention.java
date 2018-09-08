@@ -39,8 +39,8 @@ public class FilterMention implements Filter {
 	/**
 	 * @param mentionList the mentionList to set
 	 */
-	public void setMentionList(ObservableList<String> mentionsList) {
-		this.mentionList = mentionsList;
+	public void setMentionList(ObservableList<String> mentionList) {
+		this.mentionList = mentionList;
 	}
 
 	/**
