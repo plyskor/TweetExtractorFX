@@ -24,8 +24,7 @@ public interface Filter {
 	 */
 	public StringProperty getSummary();
 	/**
-	 *  
-	 
-	public void configure();*/
-	
+	 * @return the query
+	 */
+	public String toQuery();
 }

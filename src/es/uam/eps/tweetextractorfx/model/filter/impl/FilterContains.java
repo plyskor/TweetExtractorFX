@@ -83,4 +83,17 @@ public class FilterContains implements Filter {
 		keywordsList.add(word);
 	}
 
+	@Override
+	public String toQuery() {
+		String ret = new String("");
+		if(keywordsList!=null) {
+			for(String keyWord:keywordsList) {
+				ret=ret.concat(keyWord+" ");
+			}
+			return ret;
+		}else {
+			return null;
+		}	
+	}
+
 }

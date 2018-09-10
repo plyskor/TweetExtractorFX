@@ -80,5 +80,10 @@ public class FilterTo implements Filter {
 	public void setSummary(String summary) {
 		this.summary.set(summary);
 	}
+	@Override
+	public String toQuery() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

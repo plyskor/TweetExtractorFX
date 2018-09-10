@@ -84,5 +84,13 @@ public class FilterUrl implements Filter {
 	public StringProperty getSummary() {
 		return summary;
 	}
+	@Override
+	public String toQuery() {
+		if(keyWord==null) {
+			return null;
+		}else {
+			return new String("url:"+keyWord+" ");
+		}
+	}
 
 }

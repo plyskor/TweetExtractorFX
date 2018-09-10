@@ -1,10 +1,12 @@
 package es.uam.eps.tweetextractorfx;
 
 import java.io.IOException;
+import java.util.List;
 
 import es.uam.eps.tweetextractorfx.model.filter.*;
 import es.uam.eps.tweetextractorfx.model.filter.impl.*;
 import es.uam.eps.tweetextractorfx.view.QueryConstructorControl;
+import es.uam.eps.tweetextractorfx.view.QueryDetailsControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
 import javafx.application.Application;
@@ -95,6 +97,24 @@ public class MainApplication extends Application {
             // Give the controller access to the main app.
             QueryConstructorControl controller = loader.getController();
             controller.setMainApplication(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	public void showQueryDetails(ObservableList<Filter> listafiltros ) {
+        try {
+            // Load query constructor
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApplication.class.getResource("view/QueryDetails.fxml"));
+            
+            AnchorPane queryDetails = (AnchorPane) loader.load();
+            // Set query constructor into the center of root layout.
+            rootLayout.setCenter(queryDetails);
+            
+            // Give the controller access to the main app.
+            QueryDetailsControl controller = loader.getController();
+            controller.setMainApplication(this);
+            controller.setAddedFiltersList(listafiltros);
         } catch (IOException e) {
             e.printStackTrace();
         }

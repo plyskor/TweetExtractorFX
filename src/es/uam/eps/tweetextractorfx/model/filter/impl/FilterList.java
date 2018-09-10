@@ -94,5 +94,13 @@ public class FilterList implements Filter {
 	public StringProperty getSummary() {
 		return summary;
 	}
+	@Override
+	public String toQuery() {
+		if(account==null||listName==null) {
+			return null;
+		}else {
+			return new String("list:"+account+"/"+listName+" ");
+		}
+	}
 
 }

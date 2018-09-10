@@ -75,5 +75,14 @@ public class FilterUntil implements Filter {
 	public void setSummary(String summary) {
 		this.summary.set(summary);
 	}
+	@Override
+	public String toQuery() {
+		if(date==null) {
+			return null;
+		}else {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			return new String("until:"+(date).format(formatter)+" ");
+		}
+	}
 
 }

@@ -17,9 +17,9 @@
 				</excludes>
 			</resource>
 			<resource>
-          <directory>resources</directory>
-          <filtering>true</filtering>
-        </resource>
+				<directory>resources</directory>
+				<filtering>true</filtering>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>
@@ -54,7 +54,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>sh.tak.appbundler</groupId>
 				<artifactId>appbundle-maven-plugin</artifactId>
 				<version>1.2.0</version>
@@ -71,10 +71,23 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.gluonhq/charm-down-core -->
+		<dependency>
+			<groupId>com.gluonhq</groupId>
+			<artifactId>charm-down-core</artifactId>
+			<version>3.8.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.gluonhq</groupId>
+			<artifactId>charm-glisten</artifactId>
+			<version>5.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/resources/charm-glisten-5.0.1.jar</systemPath>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-model</artifactId>
@@ -85,6 +98,12 @@
 			<artifactId>flatter</artifactId>
 			<version>0.7</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jfxtras/jfxtras-labs -->
+<dependency>
+    <groupId>org.jfxtras</groupId>
+    <artifactId>jfxtras-labs</artifactId>
+    <version>9.0-r1</version>
+</dependency>
 		<!-- https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core -->
 		<dependency>
 			<groupId>org.twitter4j</groupId>

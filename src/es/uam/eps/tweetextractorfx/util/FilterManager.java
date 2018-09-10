@@ -34,5 +34,16 @@ public class FilterManager {
 		}
 		
 	}
+	public static String getQueryFromFilters(List<Filter>filterList) {
+		if(filterList==null) {
+			return null;
+		}else {
+			String ret= new String("");
+			for(Filter filter:filterList) {
+				ret=ret.concat(filter.toQuery());
+			}
+			return ret;
+		}
+	}
 
 }

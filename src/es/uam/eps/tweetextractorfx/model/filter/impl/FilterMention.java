@@ -83,5 +83,17 @@ public class FilterMention implements Filter {
 		}
 		mentionList.add(mention);
 	}
+	@Override
+	public String toQuery() {
+		if(mentionList==null) {
+			return null;
+		}else {
+			String ret= new String("");
+			for(String mention:mentionList) {
+				ret=ret.concat("@"+mention+" ");
+			}
+			return ret;
+		}
+	}
 
 }

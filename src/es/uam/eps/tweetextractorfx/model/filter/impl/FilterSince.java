@@ -63,5 +63,14 @@ public class FilterSince implements Filter {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
+	@Override
+	public String toQuery() {
+		if(date==null) {
+			return null;
+		}else {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			return new String("since:"+(date).format(formatter)+" ");
+		}
+	}
 	
 }

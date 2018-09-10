@@ -101,4 +101,22 @@ public class FilterOr implements Filter {
 		this.summary.set(summary);;
 	}
 
+	@Override
+	public String toQuery() {
+		if(filterList==null) {
+			return null;
+		}else {
+			String ret = new String("(");
+			for(int i=0;i<filterList.size();i++) {
+				if(i==filterList.size()-1) {
+					ret=ret.concat(filterList.get(i).toQuery());
+				}else {
+					ret=ret.concat(filterList.get(i).toQuery()+" OR ");
+				}
+			}
+			ret=ret.concat(") ");
+			return ret;
+		}
+	}
+
 }

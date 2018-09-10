@@ -265,7 +265,7 @@ public class QueryConstructorControl {
 
 	@FXML
 	public void handleSaveQuery() {
-		// A diseñar
+		this.getMainApplication().showQueryDetails(addedFiltersList);
 	}
 
 	@FXML

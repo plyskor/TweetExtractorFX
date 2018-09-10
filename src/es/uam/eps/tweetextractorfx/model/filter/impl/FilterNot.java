@@ -85,4 +85,13 @@ public class FilterNot implements Filter {
 		return summary;
 	}
 
+	@Override
+	public String toQuery() {
+		if(filter==null) {
+			return null;
+		}else {
+			return new String("-"+filter.toQuery());
+		}
+	}
+
 }

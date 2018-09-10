@@ -77,6 +77,18 @@ public class FilterContainsExact implements Filter {
 		}
 		keywordsList.add(word);
 	}
+	@Override
+	public String toQuery() {
+		String ret =new String("");
+		if(keywordsList!=null) {
+			for(String expression:keywordsList) {
+				ret=ret.concat("\""+expression+"\" ");
+			}
+			return ret;
+		}else {
+			return null;
+		}
+	}
 
 	
 }

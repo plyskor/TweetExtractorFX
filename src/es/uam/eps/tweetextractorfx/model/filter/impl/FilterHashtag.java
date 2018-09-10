@@ -104,4 +104,16 @@ public class FilterHashtag implements Filter {
 		}
 		hashtagList.add(hashtag);
 	}
+	@Override
+	public String toQuery() {
+		if(hashtagList==null) {
+			return null;
+		}else {
+			String ret=new String("");
+			for(String hashtag:hashtagList) {
+				ret=ret.concat("#"+hashtag+" ");
+			}
+			return ret;
+		}
+	}
 }

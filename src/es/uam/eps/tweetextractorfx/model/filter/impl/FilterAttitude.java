@@ -38,5 +38,10 @@ public class FilterAttitude implements Filter {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public String toQuery() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -89,5 +89,13 @@ public class FilterFrom implements Filter {
 	public StringProperty getSummary() {
 		return summary;
 	}
+	@Override
+	public String toQuery() {
+		if(nickName==null) {
+			return null;
+		}else {
+			return new String("from:"+nickName+" ");
+		}
+	}
 
 }
