@@ -1,13 +1,15 @@
 package es.uam.eps.tweetextractorfx.twitterapi;
 
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import twitter4j.Query;
 import twitter4j.QueryResult;
+import twitter4j.RateLimitStatus;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -18,41 +20,21 @@ public class TwitterExtractor {
 	private ConfigurationBuilder cb;
 	private TwitterFactory tf;
 	private Twitter twitter;
-	private Properties prop;
-	private InputStream input;
+	private HashMap<String,String> credentials;
 	private Query query;
 
-	public TwitterExtractor(String consulta) {
+	public TwitterExtractor(String consulta,HashMap<String,String> credentials) {
 		super();
-		if(consulta==null) {
-			return;
-		}
-		/*Cargamos las confs de conexión*/
-		prop = new Properties();
-		try {
-			input = TwitterExtractor.class.getResourceAsStream("twitter4j.properties");
-			prop.load(input);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		/*Configuramos la API con nuestros datos*/
+		/*Configuramos la API con nuestros datos provisionales*/
+		setCredentials(credentials);
 		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(false).setOAuthConsumerKey(prop.getProperty("oauth.consumerKey"))
-				.setOAuthConsumerSecret(prop.getProperty("oauth.consumerSecret"))
-				.setOAuthAccessToken(prop.getProperty("oauth.accessToken")).setTweetModeExtended(true)
-				.setOAuthAccessTokenSecret(prop.getProperty("oauth.accessTokenSecret"));
+		cb.setDebugEnabled(false).setOAuthConsumerKey(this.credentials.get("consumerKey"))
+		.setOAuthConsumerSecret(this.credentials.get("consumerSecret"))
+		.setOAuthAccessToken(this.credentials.get("accessToken")).setTweetModeExtended(true)
+		.setOAuthAccessTokenSecret(this.credentials.get("accessTokenSecret"));
 		/*Instanciamos la conexión*/
-		TwitterFactory tf = new TwitterFactory(cb.build());
+		 tf = new TwitterFactory(cb.build());
 		twitter = tf.getInstance();
-		query = new Query(consulta);
 	}
 	public Twitter getTwitter() {
 		return twitter;
@@ -60,10 +42,12 @@ public class TwitterExtractor {
 	public Query getQuery() {
 		return query;
 	}
-	public void setQuery(Query query) {
-		this.query = query;
+	public void setQuery(String query) {
+		if(query!=null) {
+			this.query = new Query(query);
+		}
 	}
-	public List<Status> execute(){
+	public List<Status> execute() throws TwitterException{
 		List<Status> ret = new ArrayList<Status>();
 		try {
             QueryResult result;
@@ -77,8 +61,12 @@ public class TwitterExtractor {
             return ret;
         } catch (TwitterException te) {
             te.printStackTrace();
+            //*RATELIMIT
+            if(te.getStatusCode()==429&&te.getErrorCode()==88) {
+            	handleRateLimit();
+            }
             System.out.println("Failed to search tweets: " + te.getMessage());
-            return null;
+            throw(te);
         }
 		
 	}
@@ -94,4 +82,39 @@ public class TwitterExtractor {
 	public void setCb(ConfigurationBuilder cb) {
 		this.cb = cb;
 	}
+	public void setCredentials(HashMap<String,String> credentials) {
+		if(credentials==null){
+			this.credentials = new HashMap<String,String>();
+			this.credentials.put("consumerKey", "WHnn9ajf9fRiEjoQ400vJjR28");
+			this.credentials.put("consumerSecret","YmtYa3xLn8bhix0mqq90We3ldVGfX2laqDlIhxY31X07Psz7Bp");
+			this.credentials.put("accessToken","985480472896724997-9pXqJgxLfDseps3ZvVRaz2IQjtht13j");
+			this.credentials.put("accessTokenSecret", "TWffQRGH4WwPnSgjCvlRVwHN9gpsbn1TelzktzSu2NHWa");
+		}else {
+			this.credentials = new HashMap<String,String>();
+			this.credentials.put("consumerKey", credentials.get("consumerKey"));
+			this.credentials.put("consumerSecret",credentials.get("consumerSecret"));
+			this.credentials.put("accessToken",credentials.get("accessToken"));
+			this.credentials.put("accessTokenSecret", credentials.get("accessTokenSecret"));
+		}
+	}
+	public void handleRateLimit() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Atención");
+		alert.setHeaderText("Límite de la cuenta");
+		alert.setContentText(
+				"El límite de la API ha sido alcanzado.\nEl límite se resetea dentro de "+this.limit("/search/tweets").getSecondsUntilReset()+" segundos.\nInténtelo más tarde.");
+		alert.showAndWait();
+		
+		return;
+	}
+	public RateLimitStatus limit(String endpoint) {
+		  String family = endpoint.split("/", 3)[1];
+		  try {
+			  RateLimitStatus status = twitter.getRateLimitStatus().get(endpoint);
+			return status;
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+		  return null;
+		}
 }

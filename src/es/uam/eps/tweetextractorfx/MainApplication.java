@@ -3,10 +3,12 @@ package es.uam.eps.tweetextractorfx;
 import java.io.IOException;
 import java.util.List;
 
+import es.uam.eps.tweetextractorfx.model.Extraction;
+import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.model.filter.*;
 import es.uam.eps.tweetextractorfx.model.filter.impl.*;
 import es.uam.eps.tweetextractorfx.view.QueryConstructorControl;
-import es.uam.eps.tweetextractorfx.view.QueryDetailsControl;
+import es.uam.eps.tweetextractorfx.view.ExtractionDetailsControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
 import javafx.application.Application;
@@ -17,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import twitter4j.TwitterException;
 
 
 
@@ -25,6 +28,7 @@ public class MainApplication extends Application {
     private BorderPane rootLayout;
     /*Available filters for Queries*/
     private ObservableList<Filter> availableFilters = FXCollections.observableArrayList(); 
+    private User currentUser= new User("Test", "Test");
 
     
 	public MainApplication() {
@@ -101,20 +105,26 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
-	public void showQueryDetails(ObservableList<Filter> listafiltros ) {
+	public void showExtractionDetails(Extraction extraction ) {
         try {
             // Load query constructor
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("view/QueryDetails.fxml"));
+            loader.setLocation(MainApplication.class.getResource("view/ExtractionDetails.fxml"));
             
             AnchorPane queryDetails = (AnchorPane) loader.load();
-            // Set query constructor into the center of root layout.
-            rootLayout.setCenter(queryDetails);
+
             
             // Give the controller access to the main app.
-            QueryDetailsControl controller = loader.getController();
+            ExtractionDetailsControl controller = loader.getController();
+            controller.setExtraction(extraction);
             controller.setMainApplication(this);
-            controller.setAddedFiltersList(listafiltros);
+            try {
+				controller.executeQuery();
+	            // Set query constructor into the center of root layout.
+	            rootLayout.setCenter(queryDetails);
+			} catch (TwitterException e) {
+				e.printStackTrace();
+			}
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -177,6 +187,20 @@ public class MainApplication extends Application {
 	 */
 	public void setRootLayout(BorderPane rootLayout) {
 		this.rootLayout = rootLayout;
+	}
+
+	/**
+	 * @return the currentUser
+	 */
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
+	/**
+	 * @param currentUser the currentUser to set
+	 */
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
 	}
 	
 }

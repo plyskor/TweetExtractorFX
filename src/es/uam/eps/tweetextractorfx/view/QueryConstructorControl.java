@@ -3,6 +3,7 @@ package es.uam.eps.tweetextractorfx.view;
 import java.io.IOException;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import es.uam.eps.tweetextractorfx.model.filter.impl.*;
 import es.uam.eps.tweetextractorfx.util.FilterManager;
@@ -37,6 +38,8 @@ public class QueryConstructorControl {
 	private ObservableList<Filter> addedFiltersList = FXCollections.observableArrayList();
 
 	private Filter selectedAvailableFilter;
+	
+	private Extraction extraction;
 
 	/**
 	 * @return the availableFiltersTable
@@ -64,6 +67,20 @@ public class QueryConstructorControl {
 	 */
 	public TableColumn<Filter, String> getAddedFiltersColumn() {
 		return addedFiltersColumn;
+	}
+
+	/**
+	 * @return the extraction
+	 */
+	public Extraction getExtraction() {
+		return extraction;
+	}
+
+	/**
+	 * @param extraction the extraction to set
+	 */
+	public void setExtraction(Extraction extraction) {
+		this.extraction = extraction;
 	}
 
 	/**
@@ -265,7 +282,10 @@ public class QueryConstructorControl {
 
 	@FXML
 	public void handleSaveQuery() {
-		this.getMainApplication().showQueryDetails(addedFiltersList);
+		extraction = new Extraction();
+		extraction.addFilters(addedFiltersList);
+		this.getMainApplication().getCurrentUser().addExtractionToList(extraction);
+		this.getMainApplication().showExtractionDetails(extraction);
 	}
 
 	@FXML
@@ -351,7 +371,7 @@ public class QueryConstructorControl {
 
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null) {
+			if (controller.getFilter() != null&&controller.getFilter().getKeywordsList()!=null&&!controller.getFilter().getKeywordsList().isEmpty()) {
 				addedFiltersList.add(new FilterContains(controller.getFilter()));
 			}
 			return;
@@ -379,7 +399,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null) {
+			if (controller.getFilter() != null&&controller.getFilter().getKeywordsList()!=null&&!controller.getFilter().getKeywordsList().isEmpty()) {
 				addedFiltersList.add(new FilterContainsExact(controller.getFilter()));
 			}
 			return;
@@ -406,7 +426,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null) {
+			if (controller.getFilter() != null&&controller.getFilter().getDate()!=null) {
 				addedFiltersList.add(new FilterSince(controller.getFilter()));
 			}
 			return;
@@ -433,7 +453,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null) {
+			if (controller.getFilter() != null&&controller.getFilter().getDate()!=null) {
 				addedFiltersList.add(new FilterUntil(controller.getFilter()));
 			}
 			return;
@@ -463,7 +483,7 @@ public class QueryConstructorControl {
 
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null) {
+			if (controller.getFilter() != null&&controller.getFilter().getMentionList()!=null&&controller.getFilter().getMentionList().size()>0) {
 				addedFiltersList.add(new FilterMention(controller.getFilter()));
 			}
 			return;
@@ -490,7 +510,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null) {
+			if (controller.getFilter() != null&&controller.getFilter().getNickName()!=null&&controller.getFilter().getNickName().isNotEmpty().get()) {
 				addedFiltersList.add(new FilterFrom(controller.getFilter()));
 			}
 			return;
@@ -517,7 +537,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null) {
+			if (controller.getFilter() != null&&controller.getFilter().getNickName()!=null&&controller.getFilter().getNickName().isNotEmpty().get()) {
 				addedFiltersList.add(new FilterTo(controller.getFilter()));
 			}
 			return;
@@ -544,7 +564,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null) {
+			if (controller.getFilter() != null&&controller.getFilter().getHashtagList()!=null&&controller.getFilter().getHashtagList().size()>0) {
 				addedFiltersList.add(new FilterHashtag(controller.getFilter()));
 			}
 			return;
@@ -571,7 +591,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null) {
+			if (controller.getFilter() != null&&controller.getFilter().getKeyWord()!=null&&controller.getFilter().getKeyWord().isNotEmpty().get()) {
 				addedFiltersList.add(new FilterUrl(controller.getFilter()));
 			}
 			return;
@@ -598,7 +618,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null) {
+			if (controller.getFilter() != null&& controller.getFilter().getAccount() !=null && controller.getFilter().getAccount().isNotEmpty().get()&&controller.getFilter().getListName()!=null&&controller.getFilter().getListName().isNotEmpty().get()) {
 				addedFiltersList.add(new FilterList(controller.getFilter()));
 			}
 			return;
@@ -607,4 +627,5 @@ public class QueryConstructorControl {
 			return;
 		}
 	}
+	
 }
