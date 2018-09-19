@@ -30,6 +30,13 @@
 					<include>*.ttf</include>
 				</includes>
 			</resource>
+			<resource>
+				<directory>resources/icon</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>*.png</include>
+				</includes>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>
@@ -74,24 +81,10 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <groupId>sh.tak.appbundler</groupId> <artifactId>appbundle-maven-plugin</artifactId> 
-				<version>1.2.0</version> <configuration> <mainClass>es.uam.eps.tweetextractorfx.MainApplication</mainClass> 
-				<iconFile>icon/icon.icns</iconFile> <generateDiskImageFile>true</generateDiskImageFile> 
-				</configuration> <executions> <execution> <phase>package</phase> <goals> 
-				<goal>bundle</goal> </goals> </execution> </executions> </plugin> -->
+			
 		</plugins>
 	</build>
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-model</artifactId>
-			<version>3.3.9</version>
-		</dependency>
-		<dependency>
-			<groupId>com.guigarage</groupId>
-			<artifactId>flatter</artifactId>
-			<version>0.7</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core -->
 		<dependency>
 			<groupId>org.twitter4j</groupId>

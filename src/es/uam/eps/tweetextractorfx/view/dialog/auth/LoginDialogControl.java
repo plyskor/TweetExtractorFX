@@ -1,11 +1,12 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractorfx.view.dialog;
+package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * @author Jose Antonio García del Saz
@@ -16,7 +17,7 @@ public class LoginDialogControl {
 	private TextField userField;
 	@FXML
 	private PasswordField passField;
-	
+	private Stage dialogStage;
 	/**
 	 * 
 	 */
@@ -55,6 +56,23 @@ public class LoginDialogControl {
 	public void setPassField(PasswordField passField) {
 		this.passField = passField;
 	}
-	
+
+	/**
+	 * @return the dialogStage
+	 */
+	public Stage getDialogStage() {
+		return dialogStage;
+	}
+
+	/**
+	 * @param dialogStage the dialogStage to set
+	 */
+	public void setDialogStage(Stage dialogState) {
+		this.dialogStage = dialogState;
+	}
+	@FXML 
+	public void handleCancel() {
+		this.getDialogStage().close();
+	}
 	
 }
