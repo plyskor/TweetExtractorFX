@@ -3,12 +3,12 @@
  */
 package es.uam.eps.tweetextractorfx.model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import es.uam.eps.tweetextractorfx.util.DateAdapter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,12 +17,11 @@ import javafx.collections.ObservableList;
  *
  */
 public class User {
-	private TwitterExtractor twitterExtractor;
 	private String nickname;
 	private String password;
-	private LocalDate creationDate;
-	private LocalDate lastConnectionDate=null;
-	private List<Map> credentials;
+	private Date creationDate;
+	private Date lastConnectionDate=null;
+	private List<HashMap> credentials;
 	private ObservableList<Extraction> extractionList;
 	private ObservableList<Extraction> extractionQueue;
 	/**
@@ -31,24 +30,17 @@ public class User {
 	public User(String nickname,String password) {
 			this.setNickname(nickname);
 			this.setPassword(password);
-			creationDate=LocalDate.now();
-			twitterExtractor= new TwitterExtractor(null, null);
+			creationDate=new Date();
 			extractionList= FXCollections.observableArrayList(); 
 			extractionQueue= FXCollections.observableArrayList();
-			credentials = new ArrayList<Map>();
+			credentials = new ArrayList<HashMap>();
 	}
-	/**
-	 * @return the twitterExtractor
-	 */
-	public TwitterExtractor getTwitterExtractor() {
-		return twitterExtractor;
+	public User() {
+		extractionList= FXCollections.observableArrayList(); 
+		extractionQueue= FXCollections.observableArrayList();
+		credentials = new ArrayList<HashMap>();
 	}
-	/**
-	 * @param twitterExtractor the twitterExtractor to set
-	 */
-	public void setTwitterExtractor(TwitterExtractor twitterExtractor) {
-		this.twitterExtractor = twitterExtractor;
-	}
+
 	/**
 	 * @return the nickname
 	 */
@@ -76,43 +68,44 @@ public class User {
 	/**
 	 * @return the creationDate
 	 */
-	public LocalDate getCreationDate() {
+	@XmlJavaTypeAdapter(DateAdapter.class)
+	public Date getCreationDate() {
 		return creationDate;
 	}
 	/**
 	 * @param creationDate the creationDate to set
 	 */
-	public void setCreationDate(LocalDate creationDate) {
+	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
 	/**
 	 * @return the lastConnectionDate
 	 */
-	public LocalDate getLastConnectionDate() {
+	public Date getLastConnectionDate() {
 		return lastConnectionDate;
 	}
 	/**
 	 * @param lastConnectionDate the lastConnectionDate to set
 	 */
-	public void setLastConnectionDate(LocalDate lastConnectionDate) {
+	public void setLastConnectionDate(Date lastConnectionDate) {
 		this.lastConnectionDate = lastConnectionDate;
 	}
 	/**
 	 * @return the credentials
 	 */
-	public List<Map> getCredentials() {
+	public List<HashMap> getCredentials() {
 		return credentials;
 	}
 	/**
 	 * @param credentials the credentials to set
 	 */
-	public void setCredentials(List<Map> credentials) {
+	public void setCredentials(List<HashMap> credentials) {
 		this.credentials = credentials;
 	}
 	/**
 	 * @param credentials the credentials to add
 	 */
-	public void addCredentials(Map<String,String> credentials) {
+	public void addCredentials(HashMap<String,String> credentials) {
 		if(credentials!=null) {
 			this.credentials.add(credentials);
 		}

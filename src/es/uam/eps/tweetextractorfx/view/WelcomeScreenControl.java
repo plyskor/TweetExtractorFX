@@ -78,6 +78,7 @@ public class WelcomeScreenControl {
 			// Set the dialogStage to the controller.
 			LoginDialogControl controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+			controller.setWelcomeScreenControl(this);
 			dialogStage.showAndWait();
 			return;
 		} catch (IOException e) {
@@ -100,6 +101,7 @@ public class WelcomeScreenControl {
 			// Set the dialogStage to the controller.
 			NewUserDialogControl controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+			controller.setMainApplication(getMainApplication());
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			return;

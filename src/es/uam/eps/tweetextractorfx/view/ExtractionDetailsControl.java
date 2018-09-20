@@ -179,7 +179,7 @@ public class ExtractionDetailsControl {
 	}
 
 	public void executeQuery() throws TwitterException {
-		this.getMainApplication().getCurrentUser().getTwitterExtractor()
+		/*this.getMainApplication().getCurrentUser().getTwitterExtractor()
 				.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()) + "-filter:retweets");
 		if (this.getMainApplication().getCurrentUser().getTwitterExtractor() != null
 				&& this.getMainApplication().getCurrentUser().getTwitterExtractor().getQuery() != null) {
@@ -191,7 +191,7 @@ public class ExtractionDetailsControl {
 			}
 		}
 
-		return;
+		return;*/
 	}
 
 	@FXML

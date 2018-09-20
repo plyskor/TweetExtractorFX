@@ -65,7 +65,7 @@
                                        <children>
                                           <StackPane layoutX="25.0" layoutY="59.0" prefHeight="96.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="userField" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -83,7 +83,7 @@
                                        <children>
                                           <StackPane layoutX="25.0" layoutY="59.0" prefHeight="96.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <PasswordField />
+                                                <PasswordField fx:id="passField" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -101,8 +101,8 @@
                                        <children>
                                           <HBox spacing="15.0" AnchorPane.rightAnchor="15.0">
                                              <children>
-                                                <Button mnemonicParsing="false" text="Iniciar sesión" />
-                                                <Button mnemonicParsing="false" text="Registrarse" />
+                                                <Button mnemonicParsing="false" onAction="#handleLogin" text="Iniciar sesión" />
+                                                <Button mnemonicParsing="false" onAction="#handleRegister" text="Registrarse" />
                                              </children>
                                           </HBox>
                                        </children>

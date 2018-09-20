@@ -61,4 +61,15 @@ public final class Constants {
 			public final static String CLASS_FILTER_UNTIL= "es.uam.eps.tweetextractorfx.model.filter.impl.FilterUntil";
 			public final static String CLASS_FILTER_ATTITUDE= "Con una actitud";
 			public final static String CLASS_FILTER_QUESTION= "Contiene una o más preguntas";
+			
+	/*
+	 * Paths
+	 */
+			public static final String persistencePath = System.getProperty("user.home") + "/TweetExtractorFX/";
+			public static final String authPath = persistencePath+".auth/";
+	/*
+	 * Files
+	 */
+			public static final String usersFile = authPath+"users.xml";
+
 }
