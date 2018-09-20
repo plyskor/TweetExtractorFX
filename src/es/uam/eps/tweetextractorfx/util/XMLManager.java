@@ -1,6 +1,9 @@
 package es.uam.eps.tweetextractorfx.util;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
@@ -45,7 +48,15 @@ public  class XMLManager {
 	    try {
 	    	/* Si el fichero de usuarios no existe, lo creamos */
 	    	File authDir = new File (Constants.authPath);
-			authDir.mkdirs();
+	    	if(!authDir.exists()) {
+	    		authDir.mkdirs();
+				/*Ocultamos el directorio auth en entornos DOS*/
+	    		String OS = System.getProperty("os.name").toLowerCase();
+	    		if(OS.indexOf("win") >= 0) {
+	            Path path = Paths.get(Constants.authPath);
+	            Files.setAttribute(path, "dos:hidden", true);
+	    		}
+	    	}
 			File file = new File(Constants.usersFile);
 			if(!file.exists())
 			file.createNewFile();

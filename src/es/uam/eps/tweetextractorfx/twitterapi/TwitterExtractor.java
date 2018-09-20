@@ -61,6 +61,10 @@ public class TwitterExtractor {
             return ret;
         } catch (TwitterException te) {
             te.printStackTrace();
+            //*CONNECTION ISSUE
+            if(te.getStatusCode()==-1&&te.getErrorCode()==-1) {
+            handleConnectionIssue();
+            }
             //*RATELIMIT
             if(te.getStatusCode()==429&&te.getErrorCode()==88) {
             	handleRateLimit();
@@ -106,6 +110,16 @@ public class TwitterExtractor {
 		alert.showAndWait();
 		
 		return;
+	}
+	public void handleConnectionIssue() {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Atención");
+        alert.setHeaderText("Error de conexión");
+        alert.setContentText(
+                      "Se ha producido un error no determinado conectándose a Twitter. Revise su configuración de red y reinténtelo");
+        alert.showAndWait();
+       
+        return;
 	}
 	public RateLimitStatus limit(String endpoint) {
 		  String family = endpoint.split("/", 3)[1];
