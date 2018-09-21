@@ -11,11 +11,11 @@ import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.model.filter.*;
 import es.uam.eps.tweetextractorfx.model.filter.impl.*;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
-import es.uam.eps.tweetextractorfx.view.QueryConstructorControl;
-import es.uam.eps.tweetextractorfx.view.ExtractionDetailsControl;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
+import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
+import es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +33,7 @@ public class MainApplication extends Application {
 	private ObservableList<Filter> availableFilters = FXCollections.observableArrayList();
 	private List<User> userList = new ArrayList<User>();
 	private User currentUser = null;
-
+	private RootLayoutControl rootLayoutController;
 	public MainApplication() {
 		initAvailableFilters();
 		/* Inicializamos el directorio de persistencia */
@@ -48,7 +48,7 @@ public class MainApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("AddressApp");
+		this.primaryStage.setTitle("TweetExtractorFX");
 
 		initRootLayout();
 
@@ -68,8 +68,8 @@ public class MainApplication extends Application {
 			primaryStage.setScene(scene);
 
 			// Give the controller access to the main app.
-			RootLayoutControl controller = loader.getController();
-			controller.setMainApplication(this);
+			rootLayoutController = loader.getController();
+			rootLayoutController.setMainApplication(this);
 			showWelcomeScreen();
 			primaryStage.show();
 		} catch (IOException e) {
@@ -101,7 +101,7 @@ public class MainApplication extends Application {
 		try {
 			// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/QueryConstructor.fxml"));
+			loader.setLocation(MainApplication.class.getResource("view/extraction/QueryConstructor.fxml"));
 
 			AnchorPane queryConstructor = (AnchorPane) loader.load();
 			// Set query constructor into the center of root layout.
@@ -119,7 +119,7 @@ public class MainApplication extends Application {
 		try {
 			// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/ExtractionDetails.fxml"));
+			loader.setLocation(MainApplication.class.getResource("view/extraction/ExtractionDetails.fxml"));
 			AnchorPane queryDetails = (AnchorPane) loader.load();
 			// Give the controller access to the main app.
 			ExtractionDetailsControl controller = loader.getController();
@@ -268,4 +268,19 @@ public class MainApplication extends Application {
 		}
 		return null;
 	}
+
+	/**
+	 * @return the rootLayoutController
+	 */
+	public RootLayoutControl getRootLayoutController() {
+		return rootLayoutController;
+	}
+
+	/**
+	 * @param rootLayoutController the rootLayoutController to set
+	 */
+	public void setRootLayoutController(RootLayoutControl rootLayoutController) {
+		this.rootLayoutController = rootLayoutController;
+	}
+	
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractorfx.view;
+package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -11,17 +11,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.sun.javafx.tk.FontLoader;
-
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
-import es.uam.eps.tweetextractorfx.util.FilterManager;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Control;

@@ -3,14 +3,21 @@ package es.uam.eps.tweetextractorfx.view;
 import java.io.IOException;
 import java.util.Properties;
 import es.uam.eps.tweetextractorfx.MainApplication;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 
 public class RootLayoutControl {
 	/*Reference to the MainApplication*/
     private MainApplication mainApplication;
-
+    @FXML
+    private Menu archivoMenu;
+    
+    private MenuItem logoutmenuitem ;
 	/**
 	 * @return the mainApplication
 	 */
@@ -23,6 +30,34 @@ public class RootLayoutControl {
 	 */
 	public void setMainApplication(MainApplication mainApplication) {
 		this.mainApplication = mainApplication;
+	}
+
+	/**
+	 * @return the logoutmenuitem
+	 */
+	public MenuItem getLogoutmenuitem() {
+		return logoutmenuitem;
+	}
+
+	/**
+	 * @param logoutmenuitem the logoutmenuitem to set
+	 */
+	public void setLogoutmenuitem(MenuItem logoutmenuitem) {
+		this.logoutmenuitem = logoutmenuitem;
+	}
+
+	/**
+	 * @return the archivoMenu
+	 */
+	public Menu getArchivoMenu() {
+		return archivoMenu;
+	}
+
+	/**
+	 * @param archivoMenu the archivoMenu to set
+	 */
+	public void setArchivoMenu(Menu archivoMenu) {
+		this.archivoMenu = archivoMenu;
 	}
 
 	/**
@@ -44,19 +79,17 @@ public class RootLayoutControl {
     	alert.setContentText(message);
     	alert.showAndWait();
     }
+
     /**
-     * Opens the new query constructor
+     * Gets you to the home/welcome screen
      */
     @FXML
-    private void handleNewQuery() {
-    	mainApplication.showQueryConstructor();
-    }
-    /**
-     * Closes the application.
-     */
-    @FXML
-    private void handleStart() {
-    	mainApplication.showWelcomeScreen();
+    private void handleHome() {
+    	if(this.getMainApplication().getCurrentUser()==null) {
+        	this.getMainApplication().showWelcomeScreen();
+    	}else {
+    		this.getMainApplication().showHomeScreen();
+    	}
     }
     /**
      * Closes the application.
@@ -68,4 +101,16 @@ public class RootLayoutControl {
     /**
      * Opens the birthday statistics.
      */
+    public void addLogOut() {
+    	logoutmenuitem = new MenuItem("Cerrar sesión");
+    	logoutmenuitem.setOnAction(new EventHandler<ActionEvent>() {
+    	    @Override public void handle(ActionEvent e) {
+    	        mainApplication.setCurrentUser(null);
+    	        mainApplication.getRootLayoutController().getArchivoMenu().getItems().remove(mainApplication.getRootLayoutController().getLogoutmenuitem());
+    	        mainApplication.showWelcomeScreen();
+    	    }
+    	});
+    	archivoMenu.getItems().add(1, logoutmenuitem);
+    }
+    
 }

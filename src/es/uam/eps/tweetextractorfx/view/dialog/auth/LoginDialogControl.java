@@ -4,9 +4,12 @@
 package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 
+import java.util.Date;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import es.uam.eps.tweetextractorfx.model.User;
+import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -121,6 +124,8 @@ public class LoginDialogControl {
 		boolean passOK = BCrypt.checkpw(pass, userLogged.getPassword());
 		if(passOK) {
 			this.getWelcomeScreenControl().getMainApplication().setCurrentUser(userLogged);
+			this.getWelcomeScreenControl().getMainApplication().getCurrentUser().setLastConnectionDate(new Date());
+			XMLManager.saveUserList(this.getWelcomeScreenControl().getMainApplication().getUserList());
 			this.getDialogStage().close();
 			this.getWelcomeScreenControl().getMainApplication().showHomeScreen();
 			return;

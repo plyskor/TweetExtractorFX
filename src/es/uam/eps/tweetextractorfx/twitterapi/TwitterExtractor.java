@@ -4,7 +4,6 @@ package es.uam.eps.tweetextractorfx.twitterapi;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import twitter4j.Query;
@@ -122,7 +121,6 @@ public class TwitterExtractor {
         return;
 	}
 	public RateLimitStatus limit(String endpoint) {
-		  String family = endpoint.split("/", 3)[1];
 		  try {
 			  RateLimitStatus status = twitter.getRateLimitStatus().get(endpoint);
 			return status;

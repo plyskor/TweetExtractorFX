@@ -1,4 +1,4 @@
-package es.uam.eps.tweetextractorfx.view;
+package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.io.IOException;
 import es.uam.eps.tweetextractorfx.MainApplication;
@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -33,6 +34,8 @@ public class QueryConstructorControl {
 	private TableView<Filter> addedFilterTable;
 	@FXML
 	private TableColumn<Filter, String> addedFiltersColumn;
+	@FXML
+    private ImageView logoView;
 
 	/* Added filters to the Query */
 	private ObservableList<Filter> addedFiltersList = FXCollections.observableArrayList();
@@ -74,6 +77,20 @@ public class QueryConstructorControl {
 	 */
 	public Extraction getExtraction() {
 		return extraction;
+	}
+
+	/**
+	 * @return the logoView
+	 */
+	public ImageView getLogoView() {
+		return logoView;
+	}
+
+	/**
+	 * @param logoView the logoView to set
+	 */
+	public void setLogoView(ImageView logoView) {
+		this.logoView = logoView;
 	}
 
 	/**

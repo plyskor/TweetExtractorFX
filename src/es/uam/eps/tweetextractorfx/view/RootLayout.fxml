@@ -5,20 +5,14 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.RootLayoutControl">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.RootLayoutControl">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Archivo">
+          <Menu fx:id="archivoMenu" mnemonicParsing="false" text="Archivo">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleStart" text="Inicio" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleNewQuery" text="Nueva Extracción..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleHome" text="Inicio" />
               <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Salir" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Editar">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Borrar" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">

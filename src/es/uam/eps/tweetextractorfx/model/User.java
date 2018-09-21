@@ -5,23 +5,28 @@ package es.uam.eps.tweetextractorfx.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import es.uam.eps.tweetextractorfx.util.DateAdapter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+
 /**
  * @author Jose Antonio García del Saz
  *
  */
+@XmlType(propOrder={"nickname", "password", "creationDate","lastConnectionDate","credentials"})
 public class User {
 	private String nickname;
 	private String password;
 	private Date creationDate;
 	private Date lastConnectionDate=null;
-	private List<HashMap> credentials;
+    // XmlElement sets the name of the entities
+	private List<Credentials> credentialList;
 	private ObservableList<Extraction> extractionList;
 	private ObservableList<Extraction> extractionQueue;
 	/**
@@ -33,12 +38,12 @@ public class User {
 			creationDate=new Date();
 			extractionList= FXCollections.observableArrayList(); 
 			extractionQueue= FXCollections.observableArrayList();
-			credentials = new ArrayList<HashMap>();
+			credentialList = new ArrayList<Credentials>();
 	}
 	public User() {
 		extractionList= FXCollections.observableArrayList(); 
 		extractionQueue= FXCollections.observableArrayList();
-		credentials = new ArrayList<HashMap>();
+		credentialList = new ArrayList<Credentials>();
 	}
 
 	/**
@@ -81,6 +86,7 @@ public class User {
 	/**
 	 * @return the lastConnectionDate
 	 */
+	@XmlJavaTypeAdapter(DateAdapter.class)
 	public Date getLastConnectionDate() {
 		return lastConnectionDate;
 	}
@@ -93,21 +99,22 @@ public class User {
 	/**
 	 * @return the credentials
 	 */
-	public List<HashMap> getCredentials() {
-		return credentials;
+	@XmlElementWrapper(name = "credentialsList")
+	public List<Credentials> getCredentials() {
+		return credentialList;
 	}
 	/**
 	 * @param credentials the credentials to set
 	 */
-	public void setCredentials(List<HashMap> credentials) {
-		this.credentials = credentials;
+	public void setCredentials(List<Credentials> credentials) {
+		this.credentialList = credentials;
 	}
 	/**
 	 * @param credentials the credentials to add
 	 */
-	public void addCredentials(HashMap<String,String> credentials) {
+	public void addCredentials(Credentials credentials) {
 		if(credentials!=null) {
-			this.credentials.add(credentials);
+			this.credentialList.add(credentials);
 		}
 	}
 	/**

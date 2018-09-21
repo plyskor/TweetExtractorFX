@@ -1,6 +1,5 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
-import org.w3c.dom.ls.LSInput;
 
 import es.uam.eps.tweetextractorfx.model.filter.impl.FilterList;
 import javafx.fxml.FXML;

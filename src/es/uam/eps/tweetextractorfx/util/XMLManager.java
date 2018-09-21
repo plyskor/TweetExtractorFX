@@ -68,7 +68,7 @@ public  class XMLManager {
 	        // Wrapping our person data.
 	        UserListWrapper wrapper = new UserListWrapper();
 	        wrapper.setUsers(userList);
-
+	        
 	        // Marshalling and saving XML to the file.
 	        m.marshal(wrapper, file);
 
