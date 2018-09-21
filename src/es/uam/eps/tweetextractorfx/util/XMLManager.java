@@ -11,7 +11,10 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.Extraction;
+import es.uam.eps.tweetextractorfx.model.Tweet;
 import es.uam.eps.tweetextractorfx.model.User;
+import es.uam.eps.tweetextractorfx.model.wrapper.TweetListWrapper;
 import es.uam.eps.tweetextractorfx.model.wrapper.UserListWrapper;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -26,7 +29,7 @@ public  class XMLManager {
 	public static List<User> loadUserList() {
 		try {
 			List<User> ret = new ArrayList<User>();
-			File file = new File(Constants.persistencePath + ".auth/users.xml");
+			File file = new File(Constants.PERSISTENCE_PATH + ".auth/users.xml");
 			if(!file.exists())return null;
 			/* Cargamos el contexto XML */
 			JAXBContext context = JAXBContext.newInstance(UserListWrapper.class);
@@ -47,17 +50,17 @@ public  class XMLManager {
 	public static void saveUserList(List<User> userList) throws Exception {
 	    try {
 	    	/* Si el fichero de usuarios no existe, lo creamos */
-	    	File authDir = new File (Constants.authPath);
+	    	File authDir = new File (Constants.AUTH_PATH);
 	    	if(!authDir.exists()) {
 	    		authDir.mkdirs();
 				/*Ocultamos el directorio auth en entornos DOS*/
 	    		String OS = System.getProperty("os.name").toLowerCase();
 	    		if(OS.indexOf("win") >= 0) {
-	            Path path = Paths.get(Constants.authPath);
+	            Path path = Paths.get(Constants.AUTH_PATH);
 	            Files.setAttribute(path, "dos:hidden", true);
 	    		}
 	    	}
-			File file = new File(Constants.usersFile);
+			File file = new File(Constants.FILE_USERS);
 			if(!file.exists())
 			file.createNewFile();
 	        JAXBContext context = JAXBContext
@@ -72,6 +75,68 @@ public  class XMLManager {
 	        // Marshalling and saving XML to the file.
 	        m.marshal(wrapper, file);
 
+	    } catch (Exception e) { // catches ANY exception
+	    	e.printStackTrace();
+	       throw(e);
+	    }
+	}
+	private static void saveTweetList(Extraction extraction) throws Exception {
+	    try {
+	    	/* Si el fichero de usuarios no existe, lo creamos */
+	    	File extractionDir = new File (Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/");
+	    	if(!extractionDir.exists()) {
+	    		extractionDir.mkdirs();
+				/*Ocultamos el directorio auth en entornos DOS*/
+	    		String OS = System.getProperty("os.name").toLowerCase();
+	    		if(OS.indexOf("win") >= 0) {
+	            Path path = Paths.get(Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/");
+	            Files.setAttribute(path, "dos:hidden", true);
+	    		}
+	    	}
+			File file = new File(Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/"+"tweets.xml");
+			if(!file.exists())
+			file.createNewFile();
+	        JAXBContext context = JAXBContext
+	                .newInstance(TweetListWrapper.class);
+	        Marshaller m = context.createMarshaller();
+	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+	        // Wrapping our person data.
+	        TweetListWrapper wrapper = new TweetListWrapper();
+	        wrapper.setUsers(extraction.getTweetList());
+	        
+	        // Marshalling and saving XML to the file.
+	        m.marshal(wrapper, file);
+
+	    } catch (Exception e) { // catches ANY exception
+	    	e.printStackTrace();
+	       throw(e);
+	    }
+	}
+	public static void saveExtraction(Extraction extraction) throws Exception {
+	    try {
+	    	/* Si el fichero de usuarios no existe, lo creamos */
+	    	File extractionDir = new File (Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/");
+	    	if(!extractionDir.exists()) {
+	    		extractionDir.mkdirs();
+				/*Ocultamos el directorio auth en entornos DOS*/
+	    		String OS = System.getProperty("os.name").toLowerCase();
+	    		if(OS.indexOf("win") >= 0) {
+	            Path path = Paths.get(Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/");
+	            Files.setAttribute(path, "dos:hidden", true);
+	    		}
+	    	}
+			File file = new File(Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/"+"properties.xml");
+			if(!file.exists())
+			file.createNewFile();
+	        JAXBContext context = JAXBContext
+	                .newInstance(Extraction.class);
+	        Marshaller m = context.createMarshaller();
+	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	        
+	        // Marshalling and saving XML to the file.
+	        m.marshal(extraction, file);
+	        saveTweetList(extraction);
 	    } catch (Exception e) { // catches ANY exception
 	    	e.printStackTrace();
 	       throw(e);

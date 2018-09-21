@@ -29,7 +29,7 @@ public final class Constants {
 			public final static Integer INTEGER_FILTER_ATTITUDE=12;
 			public final static Integer INTEGER_FILTER_QUESTION=13;
 	/*
-	*  Strings
+	*  Generic Strings
 	*/
 			//Available filters
 			public final static String STRING_FILTER_CONTAINS= "Contiene";
@@ -65,11 +65,12 @@ public final class Constants {
 	/*
 	 * Paths
 	 */
-			public static final String persistencePath = System.getProperty("user.home") + "/TweetExtractorFX/";
-			public static final String authPath = persistencePath+".auth/";
+			public static final String PERSISTENCE_PATH = System.getProperty("user.home") + "/TweetExtractorFX/";
+			public static final String AUTH_PATH = PERSISTENCE_PATH+".auth/";
+			public static final String EXTRACTION_DATA_PATH = PERSISTENCE_PATH+".extractionData/";
 	/*
 	 * Files
 	 */
-			public static final String usersFile = authPath+"users.xml";
+			public static final String FILE_USERS = AUTH_PATH+"users.xml";
 
 }

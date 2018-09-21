@@ -37,7 +37,7 @@ public class MainApplication extends Application {
 	public MainApplication() {
 		initAvailableFilters();
 		/* Inicializamos el directorio de persistencia */
-		File dataDir = new File(Constants.persistencePath);
+		File dataDir = new File(Constants.PERSISTENCE_PATH);
 		dataDir.mkdirs();
 		/*
 		 * Cargamos la lista de usuarios List<User> readList =XMLManager.loadUserList();

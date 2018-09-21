@@ -3,35 +3,46 @@
  */
 package es.uam.eps.tweetextractorfx.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
+import es.uam.eps.tweetextractorfx.util.DateAdapter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import twitter4j.Status;
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
+@XmlRootElement(name="extraction")
 public class Extraction {
 
 	/**
 	 * 
 	 */
-	private LocalDate creatingDate;
-	private LocalDate lastModificationDate;
-	private ObservableList<Status> tweetList;
+	private String id; 
+	private Date creatingDate;
+	private Date lastModificationDate;
+	@XmlTransient
+	private ObservableList<Tweet> tweetList;
+	@XmlTransient
 	private ObservableList<Filter> filterList;
 	
 	
 	public Extraction() {
-		creatingDate=LocalDate.now();
-		lastModificationDate=LocalDate.now();
+		creatingDate=new Date();
+		lastModificationDate=new Date();
 		tweetList= FXCollections.observableArrayList();
 		filterList= FXCollections.observableArrayList();
-		
+		id = UUID.randomUUID().toString();
 	}
 	public int howManyTweets() {
 		if(tweetList==null) {
@@ -43,51 +54,67 @@ public class Extraction {
 	/**
 	 * @return the creatingDate
 	 */
-	public LocalDate getCreatingDate() {
+	@XmlJavaTypeAdapter(DateAdapter.class)
+	public Date getCreatingDate() {
 		return creatingDate;
 	}
 	/**
 	 * @param creatingDate the creatingDate to set
 	 */
-	public void setCreatingDate(LocalDate creatingDate) {
+	public void setCreatingDate(Date creatingDate) {
 		this.creatingDate = creatingDate;
 	}
 	/**
 	 * @return the lastModificationDate
 	 */
-	public LocalDate getLastModificationDate() {
+	@XmlJavaTypeAdapter(DateAdapter.class)
+	public Date getLastModificationDate() {
 		return lastModificationDate;
 	}
 	/**
 	 * @param lastModificationDate the lastModificationDate to set
 	 */
-	public void setLastModificationDate(LocalDate lastModificationDate) {
+	public void setLastModificationDate(Date lastModificationDate) {
 		this.lastModificationDate = lastModificationDate;
 	}
 	/**
 	 * @return the tweetList
 	 */
-	public ObservableList<Status> getTweetList() {
+	@XmlTransient
+	public ObservableList<Tweet> getTweetList() {
 		return tweetList;
 	}
 	/**
 	 * @param tweetList the tweetList to set
 	 */
-	public void setTweetList(ObservableList<Status> tweetList) {
+	public void setTweetList(ObservableList<Tweet> tweetList) {
 		this.tweetList = tweetList;
 	}
 	/**
 	 * @param list the list of tweets to add
 	 */
-	public void addTweets(List<Status> list) {
+	public void addTweets(List<Tweet> list) {
 		if(list!=null) {
 			tweetList.addAll(list);
 		}
 	}
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 	/**
 	 * @param tweet the tweet to add
 	 */
-	public void addTweet(Status tweet) {
+	public void addTweet(Tweet tweet) {
 		if(tweet!=null) {
 			tweetList.add(tweet);
 		}
@@ -111,6 +138,7 @@ public class Extraction {
 	/**
 	 * @return the filterList
 	 */
+	@XmlTransient
 	public ObservableList<Filter> getFilterList() {
 		return filterList;
 	}

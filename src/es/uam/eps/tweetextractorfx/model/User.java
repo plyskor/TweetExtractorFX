@@ -6,8 +6,11 @@ package es.uam.eps.tweetextractorfx.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import es.uam.eps.tweetextractorfx.util.DateAdapter;
@@ -19,16 +22,17 @@ import javafx.collections.ObservableList;
  * @author Jose Antonio García del Saz
  *
  */
-@XmlType(propOrder={"nickname", "password", "creationDate","lastConnectionDate","credentials"})
+@XmlType(propOrder={"id","nickname", "password", "creationDate","lastConnectionDate","credentialList","extractionIDList"})
 public class User {
 	private String nickname;
 	private String password;
 	private Date creationDate;
 	private Date lastConnectionDate=null;
-    // XmlElement sets the name of the entities
+    private List<String> extractionIDList;
 	private List<Credentials> credentialList;
+	@XmlTransient
 	private ObservableList<Extraction> extractionList;
-	private ObservableList<Extraction> extractionQueue;
+	private String id;
 	/**
 	 * 
 	 */
@@ -37,15 +41,37 @@ public class User {
 			this.setPassword(password);
 			creationDate=new Date();
 			extractionList= FXCollections.observableArrayList(); 
-			extractionQueue= FXCollections.observableArrayList();
 			credentialList = new ArrayList<Credentials>();
+			extractionIDList= new ArrayList<String>();
+			id= UUID.randomUUID().toString();
 	}
 	public User() {
 		extractionList= FXCollections.observableArrayList(); 
-		extractionQueue= FXCollections.observableArrayList();
 		credentialList = new ArrayList<Credentials>();
+		extractionIDList= new ArrayList<String>();
 	}
 
+	/**
+	 * @return the extractionIDList
+	 */
+	@XmlElementWrapper(name = "extractionIDList")
+    @XmlElement(name = "extractionID")
+	public List<String> getExtractionIDList() {
+		return extractionIDList;
+	}
+	/**
+	 * @param extractionIDList the extractionIDList to set
+	 */
+	public void setExtractionIDList(List<String> extractionIDList) {
+		this.extractionIDList = extractionIDList;
+	}
+
+	/**
+	 * @param credentialList the credentialList to set
+	 */
+	public void setCredentialList(List<Credentials> credentialList) {
+		this.credentialList = credentialList;
+	}
 	/**
 	 * @return the nickname
 	 */
@@ -96,11 +122,25 @@ public class User {
 	public void setLastConnectionDate(Date lastConnectionDate) {
 		this.lastConnectionDate = lastConnectionDate;
 	}
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 	/**
 	 * @return the credentials
 	 */
-	@XmlElementWrapper(name = "credentialsList")
-	public List<Credentials> getCredentials() {
+	@XmlElementWrapper(name = "credentialList")
+	@XmlElement(name="credential")
+	public List<Credentials> getCredentialList() {
 		return credentialList;
 	}
 	/**
@@ -129,34 +169,17 @@ public class User {
 	public void setExtractionList(ObservableList<Extraction> extractionList) {
 		this.extractionList = extractionList;
 	}
-	/**
-	 * @return the extractionQueue
-	 */
-	public List<Extraction> getExtractionQueue() {
-		return extractionQueue;
-	}
-	/**
-	 * @param extractionQueue the extractionQueue to set
-	 */
-	public void setExtractionQueue(ObservableList<Extraction> extractionQueue) {
-		this.extractionQueue = extractionQueue;
-	}
+
 	/**
 	 * @param extraction the extraction to add to the list
 	 */
 	public void addExtractionToList(Extraction extraction) {
 		if (extraction!=null) {
+			this.extractionIDList.add(extraction.getId());
 			this.getExtractionList().add(extraction);
 		}
 	}
-	/**
-	 * @param extraction the extraction to add to the queue
-	 */
-	public void addExtractionToQueue(Extraction extraction) {
-		if(extraction!=null) {
-			this.getExtractionQueue().add(extraction);
-		}
-	}
+
 	public boolean hasCredentials(Credentials credentials) {
 		if(credentials==null)return false;
 		for(Credentials own : credentialList) {

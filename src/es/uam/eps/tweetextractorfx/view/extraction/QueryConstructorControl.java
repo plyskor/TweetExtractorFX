@@ -7,6 +7,7 @@ import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import es.uam.eps.tweetextractorfx.model.filter.impl.*;
 import es.uam.eps.tweetextractorfx.util.FilterManager;
+import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.dialog.filter.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -302,6 +303,11 @@ public class QueryConstructorControl {
 		extraction = new Extraction();
 		extraction.addFilters(addedFiltersList);
 		this.getMainApplication().getCurrentUser().addExtractionToList(extraction);
+		try {
+			XMLManager.saveUserList(this.getMainApplication().getUserList());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		this.getMainApplication().showExtractionDetails(extraction);
 	}
 

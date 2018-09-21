@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.uam.eps.tweetextractorfx.model.Credentials;
+import es.uam.eps.tweetextractorfx.model.Tweet;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import twitter4j.Query;
@@ -48,15 +49,15 @@ public class TwitterExtractor {
 			this.query = new Query(query);
 		}
 	}
-	public List<Status> execute() throws TwitterException{
-		List<Status> ret = new ArrayList<Status>();
+	public List<Tweet> execute() throws TwitterException{
+		List<Tweet> ret = new ArrayList<Tweet>();
 		try {
             QueryResult result;
             do {
                 result = twitter.search(query);
                 List<Status> tweets = result.getTweets();
                 for (Status tweet : tweets) {
-                	ret.add(tweet);
+                	ret.add(new Tweet(tweet));
                 }
             } while ((query = result.nextQuery()) != null);
             return ret;

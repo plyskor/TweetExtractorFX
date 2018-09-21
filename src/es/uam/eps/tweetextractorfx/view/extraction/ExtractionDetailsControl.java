@@ -13,9 +13,11 @@ import java.util.List;
 import java.util.Locale;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.model.Extraction;
+import es.uam.eps.tweetextractorfx.model.Tweet;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
 import es.uam.eps.tweetextractorfx.util.FilterManager;
+import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,9 +37,9 @@ import twitter4j.TwitterException;
 public class ExtractionDetailsControl {
 	private MainApplication mainApplication;
 	@FXML
-	private TableView<Status> tweetsTable;
+	private TableView<Tweet> tweetsTable;
 	@FXML
-	private TableColumn<Status, String> tweetsColumn;
+	private TableColumn<Tweet, String> tweetsColumn;
 	@FXML
 	private Label authorLabel;
 	@FXML
@@ -47,8 +49,9 @@ public class ExtractionDetailsControl {
 	@FXML
 	private Label langLabel;
 
-	private Status selectedQueryResult;
+	private Tweet selectedQueryResult;
 	private Extraction extraction;
+
 private TwitterExtractor twitterextractor;
 	/**
 	 * 
@@ -60,7 +63,7 @@ private TwitterExtractor twitterextractor;
 	@FXML
 	private void initialize() {
 		tweetsColumn.setCellFactory(tc -> {
-			TableCell<Status, String> cell = new TableCell<>();
+			TableCell<Tweet, String> cell = new TableCell<>();
 			Text text = new Text();
 			cell.setGraphic(text);
 			cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
@@ -88,32 +91,32 @@ private TwitterExtractor twitterextractor;
 	/**
 	 * @return the tweetsTable
 	 */
-	public TableView<Status> getTweetsTable() {
+	public TableView<Tweet> getTweetsTable() {
 		return tweetsTable;
 	}
 
 	/**
 	 * @param tweetsTable the tweetsTable to set
 	 */
-	public void setTweetsTable(TableView<Status> tweetsTable) {
+	public void setTweetsTable(TableView<Tweet> tweetsTable) {
 		this.tweetsTable = tweetsTable;
 	}
 
 	/**
 	 * @return the selectedQueryResult
 	 */
-	public Status getSelectedQueryResult() {
+	public Tweet getSelectedQueryResult() {
 		return selectedQueryResult;
 	}
 
 	/**
 	 * @param selectedQueryResult the selectedQueryResult to set
 	 */
-	public void setSelectedQueryResult(Status selectedQueryResult) {
+	public void setSelectedQueryResult(Tweet selectedQueryResult) {
 		this.selectedQueryResult = selectedQueryResult;
 		if (selectedQueryResult != null) {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			authorLabel.setText(selectedQueryResult.getUser().getScreenName());
+			authorLabel.setText(selectedQueryResult.getUserScreenName());
 			dateLabel.setText(df.format(selectedQueryResult.getCreatedAt()));
 			idLabel.setText(new String("" + selectedQueryResult.getId()));
 			Locale loc = new Locale(selectedQueryResult.getLang());
@@ -129,14 +132,14 @@ private TwitterExtractor twitterextractor;
 	/**
 	 * @return the tweetsColumn
 	 */
-	public TableColumn<Status, String> getTweetsColumn() {
+	public TableColumn<Tweet, String> getTweetsColumn() {
 		return tweetsColumn;
 	}
 
 	/**
 	 * @param tweetsColumn the tweetsColumn to set
 	 */
-	public void setTweetsColumn(TableColumn<Status, String> tweetsColumn) {
+	public void setTweetsColumn(TableColumn<Tweet, String> tweetsColumn) {
 		this.tweetsColumn = tweetsColumn;
 	}
 
@@ -164,17 +167,17 @@ private TwitterExtractor twitterextractor;
 	/**
 	 * @param queryResult the queryResult to set
 	 */
-	public void setQueryResult(List<Status> queryResult) {
+	public void setQueryResult(List<Tweet> queryResult) {
 		if (queryResult != null) {
 			this.getExtraction().getTweetList().clear();
-			for (Status tweet : queryResult) {
+			for (Tweet tweet : queryResult) {
 				this.getExtraction().getTweetList().add(tweet);
 			}
 		}
 	}
 
 	public void executeQuery() throws TwitterException {
-		twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentials().get(0));
+		twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentialList().get(0));
 		twitterextractor.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()) + "-filter:retweets");
 		if (twitterextractor != null&& twitterextractor.getQuery() != null) {
 			try {
@@ -184,7 +187,12 @@ private TwitterExtractor twitterextractor;
 				throw (e);
 			}
 		}
-
+		try {
+			XMLManager.saveExtraction(extraction);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return;
 	}
 
