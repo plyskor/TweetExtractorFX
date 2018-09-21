@@ -122,8 +122,21 @@ public class AddCredentialsDialogControl {
 			return;
 		}
 		this.getMainApplication().getCurrentUser().addCredentials(credentials);
-		XMLManager.saveUserList(this.getMainApplication().getUserList());
+		try {
+			XMLManager.saveUserList(this.getMainApplication().getUserList());
+		} catch (Exception e) {
+			showErrorSaveCredentials(e.getMessage());
+			return;
+		}
 		this.dialogStage.close();
+	}
+	private void showErrorSaveCredentials(String message) {
+		Alert alert = new Alert(AlertType.WARNING);
+    	alert.setTitle("Error");
+    	alert.setHeaderText("Error al guardar los credenciales");
+    	alert.setContentText("Se ha producido un error desconocido al guardar los credenciales para la cuenta. ERROR:\n"+message);
+    	alert.showAndWait();
+        return;	
 	}
 	private void showErrorExistingCredentials() {
 		Alert alert = new Alert(AlertType.INFORMATION);

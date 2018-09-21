@@ -121,9 +121,22 @@ public class NewUserDialogControl {
 		}
 		User newUser = new User(userName,BCrypt.hashpw(password1, BCrypt.gensalt(12)));
 		this.getMainApplication().getUserList().add(newUser);
-		XMLManager.saveUserList(this.getMainApplication().getUserList());
+		try {
+			XMLManager.saveUserList(this.getMainApplication().getUserList());
+		} catch (Exception e) {
+			showErrorSaveUser(e.getMessage());
+			return;
+		}
 		showSuccessCreateUser();
 		this.dialogStage.close();
+	}
+	private static void showErrorSaveUser(String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+    	alert.setTitle("Error");
+    	alert.setHeaderText("Error de escritura de usuarios");
+    	alert.setContentText("Se ha producido un error guardando el nuevo usuario:\n"+message);
+    	alert.showAndWait();
+        return;
 	}
 	private void showSuccessCreateUser() {
 		Alert alert = new Alert(AlertType.INFORMATION);

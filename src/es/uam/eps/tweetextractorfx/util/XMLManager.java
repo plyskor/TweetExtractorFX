@@ -44,7 +44,7 @@ public  class XMLManager {
 			return null;
 		}
 	}
-	public static void saveUserList(List<User> userList) {
+	public static void saveUserList(List<User> userList) throws Exception {
 	    try {
 	    	/* Si el fichero de usuarios no existe, lo creamos */
 	    	File authDir = new File (Constants.authPath);
@@ -74,7 +74,7 @@ public  class XMLManager {
 
 	    } catch (Exception e) { // catches ANY exception
 	    	e.printStackTrace();
-	       showErrorSaveUsers(e.getMessage());
+	       throw(e);
 	    }
 	}
 	private static void showErrorLoadUsers(String message) {
@@ -85,12 +85,5 @@ public  class XMLManager {
     	alert.showAndWait();
         return;
 	}
-	private static void showErrorSaveUsers(String message) {
-		Alert alert = new Alert(AlertType.ERROR);
-    	alert.setTitle("Error");
-    	alert.setHeaderText("Error de lectura de usuarios");
-    	alert.setContentText("Se ha producido un error guardando los usuarios:\n"+message);
-    	alert.showAndWait();
-        return;
-	}
+
 }

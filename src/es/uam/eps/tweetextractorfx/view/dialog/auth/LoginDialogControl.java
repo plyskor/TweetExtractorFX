@@ -8,6 +8,8 @@ import java.util.Date;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.sun.media.jfxmedia.logging.Logger;
+
 import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
@@ -125,7 +127,11 @@ public class LoginDialogControl {
 		if(passOK) {
 			this.getWelcomeScreenControl().getMainApplication().setCurrentUser(userLogged);
 			this.getWelcomeScreenControl().getMainApplication().getCurrentUser().setLastConnectionDate(new Date());
-			XMLManager.saveUserList(this.getWelcomeScreenControl().getMainApplication().getUserList());
+			try {
+				XMLManager.saveUserList(this.getWelcomeScreenControl().getMainApplication().getUserList());
+			} catch (Exception e) {
+
+			}
 			this.getDialogStage().close();
 			this.getWelcomeScreenControl().getMainApplication().showHomeScreen();
 			return;
