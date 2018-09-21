@@ -10,6 +10,8 @@ import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogC
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -67,8 +69,13 @@ public class HomeScreenControl {
 	}
 	@FXML
 	public void handleCreateExtraction() {
+		if(!this.getMainApplication().getCurrentUser().hasAnyCredentials()) {
+			showErrorNoCredentials();
+			return;
+		}
 		this.getMainApplication().showQueryConstructor();
 	}
+
 	@FXML
 	public void handleAddCredentials() {
 		showAddCredentials();
@@ -100,5 +107,13 @@ public class HomeScreenControl {
 			e.printStackTrace();
 			return;
 		}
+	}
+	private void showErrorNoCredentials() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Información");
+		alert.setHeaderText("No hay credenciales");
+		alert.setContentText("Este usuario no tiene credenciales para la API de Twitter.\nAñada unos credenciales desde el menú principal.");
+		alert.showAndWait();
+		return;		
 	}
 }

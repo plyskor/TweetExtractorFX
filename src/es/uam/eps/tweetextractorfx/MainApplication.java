@@ -126,7 +126,7 @@ public class MainApplication extends Application {
 			controller.setExtraction(extraction);
 			controller.setMainApplication(this);
 			try {
-				controller.executeQuery();
+				if(extraction.getTweetList()==null||extraction.getTweetList().size()==0)	controller.executeQuery();
 				// Set query constructor into the center of root layout.
 				rootLayout.setCenter(queryDetails);
 			} catch (TwitterException e) {

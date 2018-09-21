@@ -2,8 +2,9 @@ package es.uam.eps.tweetextractorfx.twitterapi;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
+import es.uam.eps.tweetextractorfx.model.Credentials;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import twitter4j.Query;
@@ -19,18 +20,19 @@ public class TwitterExtractor {
 	private ConfigurationBuilder cb;
 	private TwitterFactory tf;
 	private Twitter twitter;
-	private HashMap<String,String> credentials;
+	private Credentials credentials;
 	private Query query;
 
-	public TwitterExtractor(String consulta,HashMap<String,String> credentials) {
+	public TwitterExtractor(String consulta,Credentials credentials) {
 		super();
+		if(credentials==null)return;
 		/*Configuramos la API con nuestros datos provisionales*/
 		setCredentials(credentials);
 		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(false).setOAuthConsumerKey(this.credentials.get("consumerKey"))
-		.setOAuthConsumerSecret(this.credentials.get("consumerSecret"))
-		.setOAuthAccessToken(this.credentials.get("accessToken")).setTweetModeExtended(true)
-		.setOAuthAccessTokenSecret(this.credentials.get("accessTokenSecret"));
+		cb.setDebugEnabled(false).setOAuthConsumerKey(this.credentials.getConsumerKey())
+		.setOAuthConsumerSecret(this.credentials.getConsumerSecret())
+		.setOAuthAccessToken(this.credentials.getAccessToken()).setTweetModeExtended(true)
+		.setOAuthAccessTokenSecret(this.credentials.getAccessTokenSecret());
 		/*Instanciamos la conexión*/
 		 tf = new TwitterFactory(cb.build());
 		twitter = tf.getInstance();
@@ -85,20 +87,8 @@ public class TwitterExtractor {
 	public void setCb(ConfigurationBuilder cb) {
 		this.cb = cb;
 	}
-	public void setCredentials(HashMap<String,String> credentials) {
-		if(credentials==null){
-			this.credentials = new HashMap<String,String>();
-			this.credentials.put("consumerKey", "WHnn9ajf9fRiEjoQ400vJjR28");
-			this.credentials.put("consumerSecret","YmtYa3xLn8bhix0mqq90We3ldVGfX2laqDlIhxY31X07Psz7Bp");
-			this.credentials.put("accessToken","985480472896724997-9pXqJgxLfDseps3ZvVRaz2IQjtht13j");
-			this.credentials.put("accessTokenSecret", "TWffQRGH4WwPnSgjCvlRVwHN9gpsbn1TelzktzSu2NHWa");
-		}else {
-			this.credentials = new HashMap<String,String>();
-			this.credentials.put("consumerKey", credentials.get("consumerKey"));
-			this.credentials.put("consumerSecret",credentials.get("consumerSecret"));
-			this.credentials.put("accessToken",credentials.get("accessToken"));
-			this.credentials.put("accessTokenSecret", credentials.get("accessTokenSecret"));
-		}
+	public void setCredentials(Credentials credentials) {
+			this.credentials=credentials;
 	}
 	public void handleRateLimit() {
 		Alert alert = new Alert(AlertType.WARNING);

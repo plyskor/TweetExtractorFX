@@ -164,4 +164,7 @@ public class User {
 		}
 		return false;
 	}
+	public boolean hasAnyCredentials() {
+		return (credentialList!=null&&credentialList.size()>0);
+	}
 }

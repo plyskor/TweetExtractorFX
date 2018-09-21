@@ -372,7 +372,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterContainsDialog.fxml"));
+			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterContainsDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -403,7 +403,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(
-					QueryConstructorControl.class.getResource("dialog/filter/FilterContainsExactDialog.fxml"));
+					QueryConstructorControl.class.getResource("../dialog/filter/FilterContainsExactDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -430,7 +430,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterSinceDialog.fxml"));
+			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterSinceDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -457,7 +457,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterUntilDialog.fxml"));
+			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterUntilDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -484,7 +484,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterMentionDialog.fxml"));
+			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterMentionDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -514,7 +514,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterFromDialog.fxml"));
+			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterFromDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -541,7 +541,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterToDialog.fxml"));
+			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterToDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -568,7 +568,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterHashtagDialog.fxml"));
+			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterHashtagDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -595,7 +595,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterUrlDialog.fxml"));
+			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterUrlDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -622,7 +622,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("dialog/filter/FilterListDialog.fxml"));
+			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterListDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();

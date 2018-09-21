@@ -14,6 +14,8 @@ import java.util.Locale;
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
+import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
+import es.uam.eps.tweetextractorfx.util.FilterManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -47,7 +49,7 @@ public class ExtractionDetailsControl {
 
 	private Status selectedQueryResult;
 	private Extraction extraction;
-
+private TwitterExtractor twitterextractor;
 	/**
 	 * 
 	 */
@@ -172,19 +174,18 @@ public class ExtractionDetailsControl {
 	}
 
 	public void executeQuery() throws TwitterException {
-		/*this.getMainApplication().getCurrentUser().getTwitterExtractor()
-				.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()) + "-filter:retweets");
-		if (this.getMainApplication().getCurrentUser().getTwitterExtractor() != null
-				&& this.getMainApplication().getCurrentUser().getTwitterExtractor().getQuery() != null) {
+		twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentials().get(0));
+		twitterextractor.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()) + "-filter:retweets");
+		if (twitterextractor != null&& twitterextractor.getQuery() != null) {
 			try {
-				this.setQueryResult(this.getMainApplication().getCurrentUser().getTwitterExtractor().execute());
+				this.setQueryResult(twitterextractor.execute());
 			} catch (TwitterException e) {
 				e.printStackTrace();
 				throw (e);
 			}
 		}
 
-		return;*/
+		return;
 	}
 
 	@FXML
