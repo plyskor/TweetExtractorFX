@@ -157,5 +157,11 @@ public class User {
 			this.getExtractionQueue().add(extraction);
 		}
 	}
-	
+	public boolean hasCredentials(Credentials credentials) {
+		if(credentials==null)return false;
+		for(Credentials own : credentialList) {
+			if(credentials.equals(own))return true;
+		}
+		return false;
+	}
 }

@@ -66,5 +66,9 @@ public class Credentials {
 	public void setAccessTokenSecret(String accessTokenSecret) {
 		this.accessTokenSecret = accessTokenSecret;
 	}
-	
+
+	public boolean equals(Credentials credentials) {
+		if(credentials==null)return false;
+		return(consumerKey.equals(credentials.getConsumerKey())&&consumerSecret.equals(credentials.getConsumerSecret())&&accessToken.equals(credentials.getAccessToken())&&accessTokenSecret.equals(credentials.getAccessTokenSecret()));
+	}
 }

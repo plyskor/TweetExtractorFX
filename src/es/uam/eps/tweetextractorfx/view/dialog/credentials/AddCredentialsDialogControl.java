@@ -117,9 +117,21 @@ public class AddCredentialsDialogControl {
 		credentials.setConsumerSecret(consumerSecretField.getText().trim());
 		credentials.setAccessToken(accessTokenField.getText().trim());
 		credentials.setAccessTokenSecret(accessTokenSecretField.getText().trim());
+		if(this.getMainApplication().getCurrentUser().hasCredentials(credentials)) {
+			showErrorExistingCredentials();
+			return;
+		}
 		this.getMainApplication().getCurrentUser().addCredentials(credentials);
 		XMLManager.saveUserList(this.getMainApplication().getUserList());
 		this.dialogStage.close();
+	}
+	private void showErrorExistingCredentials() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("Información");
+    	alert.setHeaderText("Credenciales ya existentes");
+    	alert.setContentText("Esta cuenta ya es propietaria de esos credenciales, introduce unos nuevos para añadirlos a la cuenta.");
+    	alert.showAndWait();
+        return;	
 	}
 	private void showErrorEmptyCredentials() {
 		Alert alert = new Alert(AlertType.INFORMATION);
