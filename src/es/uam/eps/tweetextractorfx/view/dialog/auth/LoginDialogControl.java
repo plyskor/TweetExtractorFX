@@ -10,6 +10,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import com.sun.media.jfxmedia.logging.Logger;
 
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
@@ -110,16 +111,16 @@ public class LoginDialogControl {
 	public void handleLogin() {
 		String userName=userField.getText().trim();
 		if(userName.isEmpty()) {
-			showErrorUserEmpty();
+			ErrorDialog.showErrorUserEmpty();
 			return;
 		}
 		if(!this.getWelcomeScreenControl().getMainApplication().existsUser(userName)) {
-			showErrorExistsUSer();
+			ErrorDialog.showErrorExistsUSer();
 			return;
 		}
 		String pass = passField.getText().trim();
 		if(pass.isEmpty()) {
-			showErrorPassEmpty();
+			ErrorDialog.showErrorPassEmpty();
 			return;
 		}
 		User userLogged = this.getWelcomeScreenControl().getMainApplication().getUser(userName);
@@ -136,7 +137,7 @@ public class LoginDialogControl {
 			this.getWelcomeScreenControl().getMainApplication().showHomeScreen();
 			return;
 		}else {
-			showErrorLoginFailed();
+			ErrorDialog.showErrorLoginFailed();
 			return;
 		}
 	}
@@ -146,40 +147,6 @@ public class LoginDialogControl {
 		this.getDialogStage().close();
 
 	}
-	private void showErrorLoginFailed() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Contraseña incorrecta");
-		alert.setContentText("La contraseña introducida es incorrecta. Inténtalo de nuevo.");
-		alert.showAndWait();
-		return;
-	}
-
-	private void showErrorExistsUSer() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Usuario inexistente");
-		alert.setContentText("No existe ninguna cuenta registrada con ese nombre de usuario. Por favor, inténtalo de nuevo.");
-		alert.showAndWait();
-		return;
-	}
-
-	private void showErrorPassEmpty() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Contraseña vacía");
-		alert.setContentText("Por favor, introduzca la contraseña para iniciar sesión.");
-		alert.showAndWait();
-		return;
-	}
-
-	private void showErrorUserEmpty() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Nombre de usuario vacío");
-		alert.setContentText("Por favor, introduzca un nombre de usuario para iniciar sesión.");
-		alert.showAndWait();
-		return;
-	}
+	
 	
 }

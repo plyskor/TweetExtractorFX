@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import org.mindrot.jbcrypt.BCrypt;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.fxml.FXML;
@@ -102,21 +103,21 @@ public class NewUserDialogControl {
 	public void handleCreateUser() {
 		String userName=userNameField.getText().trim();
 		if(userName.trim().isEmpty()||userName.length()<3) {
-			showErrorEmptyUser();
+			ErrorDialog.showErrorEmptyUser();
 			return;
 		}
 		if(this.getMainApplication().existsUser(userName)) {
-			showErrorExistingUser();
+			ErrorDialog.showErrorExistingUser();
 			return;
 		}
 		String password1=passwordField1.getText().replace("\r", "").replace("\n", "");
 		if(password1.trim().isEmpty()||!checkPassword(password1)) {
-			showErrorPasswordCheck();
+			ErrorDialog.showErrorPasswordCheck();
 			return;
 		}
 		String password2=passwordField2.getText();
 		if(!password1.equals(password2)) {
-			showErrorPasswordMismatch();
+			ErrorDialog.showErrorPasswordMismatch();
 			return;
 		}
 		User newUser = new User(userName,BCrypt.hashpw(password1, BCrypt.gensalt(12)));
@@ -124,61 +125,14 @@ public class NewUserDialogControl {
 		try {
 			XMLManager.saveUserList(this.getMainApplication().getUserList());
 		} catch (Exception e) {
-			showErrorSaveUser(e.getMessage());
+			ErrorDialog.showErrorSaveUser(e.getMessage());
 			return;
 		}
-		showSuccessCreateUser();
+		ErrorDialog.showSuccessCreateUser();
 		this.dialogStage.close();
 	}
-	private static void showErrorSaveUser(String message) {
-		Alert alert = new Alert(AlertType.ERROR);
-    	alert.setTitle("Error");
-    	alert.setHeaderText("Error de escritura de usuarios");
-    	alert.setContentText("Se ha producido un error guardando el nuevo usuario:\n"+message);
-    	alert.showAndWait();
-        return;
-	}
-	private void showSuccessCreateUser() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Usuario creado");
-		alert.setContentText("La nueva cuenta de usuario se ha creado correctamente.");
-		alert.showAndWait();
-		return;	
-	}
-	private void showErrorPasswordCheck() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Contraseña incorrecta");
-		alert.setContentText("Introduzca una contraseña de al menos 8 caracteres.\nDebe contener una minúscula, una mayúscula, un número y ningún espacio.");
-		alert.showAndWait();
-		return;		
-	}
-	private void showErrorExistingUser() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Usuario existente");
-		alert.setContentText("Este usuario ya está registrado. Por favor, elija otro nombre de usuario o inicie sesión.");
-		alert.showAndWait();
-		return;
-	}
-	private void showErrorEmptyUser() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Nombre de usuario vacío");
-		alert.setContentText("Por favor, elija un nombre de usuario de al menos 3 caracteres.");
-		alert.showAndWait();
-		return;
-	}
-	private void showErrorPasswordMismatch() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Las contrasñas no coinciden");
-		alert.setContentText("Las contraseñas introducidas no coinciden. Por favor, inténtalo de nuevo.");
-		alert.showAndWait();
-		return;
-	}
-	private boolean checkPassword(String password) {
+	
+	public static boolean checkPassword(String password) {
 		 String pattern = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z]).{6,16})";
 		 Pattern p = Pattern.compile(pattern);
 	     Matcher m = p.matcher(password);

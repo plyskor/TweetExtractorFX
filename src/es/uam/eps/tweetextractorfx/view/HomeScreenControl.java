@@ -6,6 +6,8 @@ package es.uam.eps.tweetextractorfx.view;
 import java.io.IOException;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.view.dialog.auth.ChangePasswordDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,7 +72,7 @@ public class HomeScreenControl {
 	@FXML
 	public void handleCreateExtraction() {
 		if(!this.getMainApplication().getCurrentUser().hasAnyCredentials()) {
-			showErrorNoCredentials();
+			ErrorDialog.showErrorNoCredentials();
 			return;
 		}
 		this.getMainApplication().showQueryConstructor();
@@ -79,6 +81,10 @@ public class HomeScreenControl {
 	@FXML
 	public void handleAddCredentials() {
 		showAddCredentials();
+	}
+	@FXML
+	public void handleChangePassword() {
+		showUpdatePassword();
 	}
 	/*DIALOGOS*/
 	public void showAddCredentials() {
@@ -108,12 +114,32 @@ public class HomeScreenControl {
 			return;
 		}
 	}
-	private void showErrorNoCredentials() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("No hay credenciales");
-		alert.setContentText("Este usuario no tiene credenciales para la API de Twitter.\nAñada unos credenciales desde el menú principal.");
-		alert.showAndWait();
-		return;		
+	public void showUpdatePassword() {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(HomeScreenControl.class.getResource("dialog/auth/ChangePasswordDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(mainApplication.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the dialogStage to the controller.
+			ChangePasswordDialogControl controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMainApplication(mainApplication);
+			// Show the dialog and wait until the user closes it, then add filter
+			dialogStage.showAndWait();
+			
+			return;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
 	}
+
 }

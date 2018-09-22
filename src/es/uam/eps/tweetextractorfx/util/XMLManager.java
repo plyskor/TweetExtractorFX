@@ -10,14 +10,13 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.Extraction;
-import es.uam.eps.tweetextractorfx.model.Tweet;
 import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.model.wrapper.TweetListWrapper;
 import es.uam.eps.tweetextractorfx.model.wrapper.UserListWrapper;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+
 
 public  class XMLManager {
 	
@@ -43,7 +42,7 @@ public  class XMLManager {
 
 		} catch (Exception e) { // catches ANY exception
 			e.printStackTrace();
-			showErrorLoadUsers(e.getMessage());
+			ErrorDialog.showErrorLoadUsers(e.getMessage());
 			return null;
 		}
 	}
@@ -82,16 +81,20 @@ public  class XMLManager {
 	}
 	private static void saveTweetList(Extraction extraction) throws Exception {
 	    try {
-	    	/* Si el fichero de usuarios no existe, lo creamos */
+	    	/* Creamos ficheros y directorios */
+	    	File extractionsDir = new File (Constants.EXTRACTION_DATA_PATH);
+	    	if(!extractionsDir.exists()) {
+	    		extractionsDir.mkdirs();
+				/*Ocultamos el directorio extractionData en entornos DOS*/
+	    		String OS = System.getProperty("os.name").toLowerCase();
+	    		if(OS.indexOf("win") >= 0) {
+	            Path path = Paths.get(Constants.EXTRACTION_DATA_PATH);
+	            Files.setAttribute(path, "dos:hidden", true);
+	    		}
+	    	}
 	    	File extractionDir = new File (Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/");
 	    	if(!extractionDir.exists()) {
 	    		extractionDir.mkdirs();
-				/*Ocultamos el directorio auth en entornos DOS*/
-	    		String OS = System.getProperty("os.name").toLowerCase();
-	    		if(OS.indexOf("win") >= 0) {
-	            Path path = Paths.get(Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/");
-	            Files.setAttribute(path, "dos:hidden", true);
-	    		}
 	    	}
 			File file = new File(Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/"+"tweets.xml");
 			if(!file.exists())
@@ -115,16 +118,20 @@ public  class XMLManager {
 	}
 	public static void saveExtraction(Extraction extraction) throws Exception {
 	    try {
-	    	/* Si el fichero de usuarios no existe, lo creamos */
+	    	/* Creamos ficheros y archivos */
+	    	File extractionsDir = new File (Constants.EXTRACTION_DATA_PATH);
+	    	if(!extractionsDir.exists()) {
+	    		extractionsDir.mkdirs();
+				/*Ocultamos el directorio extractionData en entornos DOS*/
+	    		String OS = System.getProperty("os.name").toLowerCase();
+	    		if(OS.indexOf("win") >= 0) {
+	            Path path = Paths.get(Constants.EXTRACTION_DATA_PATH);
+	            Files.setAttribute(path, "dos:hidden", true);
+	    		}
+	    	}
 	    	File extractionDir = new File (Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/");
 	    	if(!extractionDir.exists()) {
 	    		extractionDir.mkdirs();
-				/*Ocultamos el directorio auth en entornos DOS*/
-	    		String OS = System.getProperty("os.name").toLowerCase();
-	    		if(OS.indexOf("win") >= 0) {
-	            Path path = Paths.get(Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/");
-	            Files.setAttribute(path, "dos:hidden", true);
-	    		}
 	    	}
 			File file = new File(Constants.EXTRACTION_DATA_PATH+extraction.getId()+"/"+"properties.xml");
 			if(!file.exists())
@@ -142,13 +149,6 @@ public  class XMLManager {
 	       throw(e);
 	    }
 	}
-	private static void showErrorLoadUsers(String message) {
-		Alert alert = new Alert(AlertType.ERROR);
-    	alert.setTitle("Error");
-    	alert.setHeaderText("Error de lectura de usuarios");
-    	alert.setContentText("Se ha producido un error leyendo los usuarios:\n"+message);
-    	alert.showAndWait();
-        return;
-	}
+	
 
 }

@@ -1,6 +1,7 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.filter.impl.FilterList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -74,14 +75,14 @@ public class FilterListDialogControl {
 	public void handleDone() {
 		if(accountField.getText().trim().isEmpty()||listField.getText().trim().isEmpty()) {
 			//Algún campo está vacío
-			showErrorEmptyFields();
+			ErrorDialog.showErrorEmptyFields();
 			accountField.clear();
 			listField.clear();
 		}else{
 			String[] accountChecker =accountField.getText().replaceAll("^[,\\s]+", "").split("[,\\s]+");
 			String[] listChecker =listField.getText().replaceAll("^[,\\s]+", "").split("[,\\s]+");
 			if(accountChecker.length>1||listChecker.length>1) {
-				showErrorWrongValues();
+				ErrorDialog.showErrorWrongValues();
 			}else {
 				filter.setAccount(accountField.getText());
 				filter.setListName(listField.getText());
@@ -89,22 +90,7 @@ public class FilterListDialogControl {
 			}
 		}
 	}
-	private void showErrorWrongValues() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Alguno de los campos es incoherente");
-    	alert.setContentText("Recuerde que las cuentas de Twitter y los nombres de listas se componen de una sola expresión sin espacios.");
-    	alert.showAndWait();
-        return;
-	}
-	private void showErrorEmptyFields() {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Alguno de los campos está vacío");
-    	alert.setContentText("Por favor, seleccione una cuenta de Twitter y un nombre de lista existente en esa cuenta.");
-    	alert.showAndWait();
-        return;
-    }
+	
 	public void handelCancel() {
 		this.filter=null;
 		this.getDialogStage().close();

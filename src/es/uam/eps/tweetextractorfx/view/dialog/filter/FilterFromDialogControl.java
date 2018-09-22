@@ -1,5 +1,6 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -58,21 +59,14 @@ public class FilterFromDialogControl {
 	}
 	public void handleAddNick() {
 		if (nickToAdd.getText().trim().isEmpty()) {
-			showErrorEmptyNickname();
+			ErrorDialog.showErrorEmptyNickname();
 		}else {
 			filter.setNickName(nickToAdd.getText().trim());
 			this.getDialogStage().close();
 		}
 		
 	}
-	private void showErrorEmptyNickname() {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Ningún nombre de usuario seleccionado");
-    	alert.setContentText("Por favor, seleccione un nombre de usuario como origen de los tweets.");
-    	alert.showAndWait();
-        return;
-    }
+	
 	public void handelCancel() {
 		this.filter=null;
 		this.getDialogStage().close();

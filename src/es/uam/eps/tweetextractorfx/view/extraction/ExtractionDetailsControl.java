@@ -156,6 +156,10 @@ private TwitterExtractor twitterextractor;
 	public void setMainApplication(MainApplication mainApplication) {
 		this.mainApplication = mainApplication;
 		this.getTweetsTable().setItems(extraction.getTweetList());
+		authorLabel.setText("");
+		dateLabel.setText("");
+		idLabel.setText("");
+		langLabel.setText("");
 	}
 
 	/**

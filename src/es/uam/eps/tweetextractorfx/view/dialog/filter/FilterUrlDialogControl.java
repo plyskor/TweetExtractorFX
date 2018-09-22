@@ -1,5 +1,6 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.filter.impl.FilterUrl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -59,21 +60,14 @@ public class FilterUrlDialogControl {
 	}
 	public void handleAddKeyWord() {
 		if (keyWordField.getText().trim().isEmpty()) {
-			showErrorEmptyNickname();
+			ErrorDialog.showErrorEmptyNicknameFrom();
 		}else {
 			filter.setKeyWord(keyWordField.getText().trim());
 			this.getDialogStage().close();
 		}
 		
 	}
-	private void showErrorEmptyNickname() {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Ningún nombre de usuario seleccionado");
-    	alert.setContentText("Por favor, seleccione un nombre de usuario como origen de los tweets.");
-    	alert.showAndWait();
-        return;
-    }
+	
 	public void handelCancel() {
 		this.filter=null;
 		this.getDialogStage().close();

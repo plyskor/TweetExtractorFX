@@ -2,12 +2,14 @@ package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.io.IOException;
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import es.uam.eps.tweetextractorfx.model.filter.impl.*;
 import es.uam.eps.tweetextractorfx.util.FilterManager;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
+import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.dialog.filter.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -196,7 +198,7 @@ public class QueryConstructorControl {
 	public void handleAddFilter() {
 		if (selectedAvailableFilter == null) {
 			/* No se ha seleccionado ningún filtro para añadir a la lista */
-			showErrorSelectFilterAdd();
+			ErrorDialog.showErrorSelectFilterAdd();
 		} else {
 			/* Multiplexado de filtros para añadir */
 			switch (selectedAvailableFilter.getClass().getCanonicalName()) {
@@ -241,63 +243,14 @@ public class QueryConstructorControl {
 			}
 		}
 	}
-
-	private void showErrorSelectFilterAdd() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Ningún filtro seleccionado");
-		alert.setContentText("Por favor, seleccione un filtro para añadir de la lista de la izquierda");
-		alert.showAndWait();
-		return;
-	}
-
 	@FXML
 	public void handleDeleteFilter() {
 		if (addedFilterTable.getSelectionModel().getSelectedItems().size() == 0) {
-			showErrorSelectFilterRemove();
+			ErrorDialog.showErrorSelectFilterRemove();
 		} else {
 			addedFiltersList.removeAll(addedFilterTable.getSelectionModel().getSelectedItems());
 		}
 	}
-
-	private void showErrorSelectFilterRemove() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Ningún filtro seleccionado");
-		alert.setContentText("Por favor, seleccione un filtro para eliminar de la lista de la derecha");
-		alert.showAndWait();
-		return;
-	}
-
-	private void showErrorNotEnoughFilters() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Operaciones Lógicas");
-		alert.setContentText(
-				"Por favor, seleccione al menos dos filtros aplicados para poder aplicar la operación OR lógica.");
-		alert.showAndWait();
-		return;
-	}
-
-	private void showErrorNotEnoughFiltersNot() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Operaciones Lógicas");
-		alert.setContentText(
-				"Por favor, seleccione al menos un filtro aplicado para poder aplicar la operación NOT lógica.");
-		alert.showAndWait();
-		return;
-	}
-
-	private void showErrorUndoLogic() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Operaciones Lógicas");
-		alert.setContentText("Por favor, seleccione filtros de tipo lógico para deshacerlos.");
-		alert.showAndWait();
-		return;
-	}
-
 	@FXML
 	public void handleSaveQuery() {
 		extraction = new Extraction();
@@ -314,7 +267,7 @@ public class QueryConstructorControl {
 	@FXML
 	public void handleOr() {
 		if (addedFilterTable.getSelectionModel().getSelectedItems().size() < 2) {
-			showErrorNotEnoughFilters();
+			ErrorDialog.showErrorNotEnoughFilters();
 		} else {
 			FilterOr newFilter = new FilterOr();
 			newFilter.addAll(addedFilterTable.getSelectionModel().getSelectedItems());
@@ -326,7 +279,7 @@ public class QueryConstructorControl {
 	@FXML
 	public void handleNot() {
 		if (addedFilterTable.getSelectionModel().getSelectedItems().size() == 0) {
-			showErrorNotEnoughFiltersNot();
+			ErrorDialog.showErrorNotEnoughFiltersNot();
 		} else {
 			for (Filter filter : addedFilterTable.getSelectionModel().getSelectedItems()) {
 				if(filter.getClass().getCanonicalName().equals(Constants.CLASS_FILTER_NOT)) {
@@ -344,7 +297,7 @@ public class QueryConstructorControl {
 	@FXML
 	public void handleUndoLogic() {
 		if (addedFilterTable.getSelectionModel().getSelectedItems().size() < 1) {
-			showErrorUndoLogic();
+			ErrorDialog.showErrorUndoLogic();
 		} else if(FilterManager.isFilterListLogic(addedFilterTable.getSelectionModel().getSelectedItems())){
 			for (Filter filter : addedFilterTable.getSelectionModel().getSelectedItems()) {
 				switch (filter.getClass().getCanonicalName()) {
@@ -358,19 +311,19 @@ public class QueryConstructorControl {
 					}
 					break;
 				default:
-					showErrorUndoLogic();
+					ErrorDialog.showErrorUndoLogic();
 					break;
 				}
 			}
 			addedFiltersList.removeAll(addedFilterTable.getSelectionModel().getSelectedItems());
 		}else {
-			showErrorUndoLogic();
+			ErrorDialog.showErrorUndoLogic();
 		}
 	}
 
 	/*
 	 * 
-	 * FUNCIONES PARA MOSTRAR EL DÍALOGO MODAL DE CADA FILTRO Y AÑADIRLO A LA LISTA
+	 * FUNCIONES PARA MOSTRAR EL DIÁLOGO MODAL DE CADA FILTRO Y AÑADIRLO A LA LISTA
 	 * DE FILTROS SELECCIONADOS
 	 * 
 	 */
@@ -378,7 +331,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterContainsDialog.fxml"));
+			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterContainsDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -409,7 +362,7 @@ public class QueryConstructorControl {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(
-					QueryConstructorControl.class.getResource("../dialog/filter/FilterContainsExactDialog.fxml"));
+					RootLayoutControl.class.getResource("dialog/filter/FilterContainsExactDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -436,7 +389,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterSinceDialog.fxml"));
+			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterSinceDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -463,7 +416,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterUntilDialog.fxml"));
+			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterUntilDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -490,7 +443,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterMentionDialog.fxml"));
+			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterMentionDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -520,7 +473,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterFromDialog.fxml"));
+			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterFromDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -547,7 +500,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterToDialog.fxml"));
+			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterToDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -574,7 +527,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterHashtagDialog.fxml"));
+			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterHashtagDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -601,7 +554,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterUrlDialog.fxml"));
+			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterUrlDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -628,7 +581,7 @@ public class QueryConstructorControl {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(QueryConstructorControl.class.getResource("../dialog/filter/FilterListDialog.fxml"));
+			loader.setLocation(RootLayoutControl.class.getResource("dialog/filter/FilterListDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();

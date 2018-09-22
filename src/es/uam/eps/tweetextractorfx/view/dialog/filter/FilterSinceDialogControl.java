@@ -2,6 +2,7 @@ package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 import java.time.LocalDate;
 
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.filter.impl.FilterSince;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -64,18 +65,11 @@ public class FilterSinceDialogControl {
 	@FXML
 	public void handleDone() {
 		if(datePicker.getValue()==null) {
-			showErrorSelectDate();
+			ErrorDialog.showErrorSelectDateSince();
 		}else {
 			filter.setDate(datePicker.getValue());
 			dialogStage.close();
 		}
 	}
-	private void showErrorSelectDate() {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Ninguna fecha seleccionada");
-    	alert.setContentText("Por favor, seleccione la fecha desde la que realizar la extracción.");
-    	alert.showAndWait();
-        return;
-    }
+	
 }

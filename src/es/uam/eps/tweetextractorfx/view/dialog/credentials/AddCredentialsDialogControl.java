@@ -1,6 +1,7 @@
 package es.uam.eps.tweetextractorfx.view.dialog.credentials;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Credentials;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.fxml.FXML;
@@ -109,7 +110,7 @@ public class AddCredentialsDialogControl {
 	@FXML
 	public void handleDone() {
 		if(consumerKeyField.getText().trim().isEmpty()||consumerSecretField.getText().trim().isEmpty()||accessTokenField.getText().trim().isEmpty()||accessTokenSecretField.getText().trim().isEmpty()) {
-			showErrorEmptyCredentials();
+			ErrorDialog.showErrorEmptyCredentials();
 			return;
 		}
 		Credentials credentials = new Credentials();
@@ -118,40 +119,17 @@ public class AddCredentialsDialogControl {
 		credentials.setAccessToken(accessTokenField.getText().trim());
 		credentials.setAccessTokenSecret(accessTokenSecretField.getText().trim());
 		if(this.getMainApplication().getCurrentUser().hasCredentials(credentials)) {
-			showErrorExistingCredentials();
+			ErrorDialog.showErrorExistingCredentials();
 			return;
 		}
 		this.getMainApplication().getCurrentUser().addCredentials(credentials);
 		try {
 			XMLManager.saveUserList(this.getMainApplication().getUserList());
 		} catch (Exception e) {
-			showErrorSaveCredentials(e.getMessage());
+			ErrorDialog.showErrorSaveCredentials(e.getMessage());
 			return;
 		}
 		this.dialogStage.close();
 	}
-	private void showErrorSaveCredentials(String message) {
-		Alert alert = new Alert(AlertType.WARNING);
-    	alert.setTitle("Error");
-    	alert.setHeaderText("Error al guardar los credenciales");
-    	alert.setContentText("Se ha producido un error desconocido al guardar los credenciales para la cuenta. ERROR:\n"+message);
-    	alert.showAndWait();
-        return;	
-	}
-	private void showErrorExistingCredentials() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Credenciales ya existentes");
-    	alert.setContentText("Esta cuenta ya es propietaria de esos credenciales, introduce unos nuevos para añadirlos a la cuenta.");
-    	alert.showAndWait();
-        return;	
-	}
-	private void showErrorEmptyCredentials() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Campos vacíos");
-    	alert.setContentText("Por favor, introduzca los tokens de la nueva cuenta de Twitter");
-    	alert.showAndWait();
-        return;		
-	}
+	
 }
