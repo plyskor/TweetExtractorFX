@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.Tweet;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
@@ -203,6 +204,18 @@ private TwitterExtractor twitterextractor;
 	@FXML
 	public void handleCancel() {
 		this.mainApplication.showHomeScreen();
+	}
+	@FXML
+	public void handleUpdateExtraction() {
+		try {
+			twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentialList().get(0));
+			int added=twitterextractor.updateExtraction(extraction);
+			ErrorDialog.showUpdateQueryResults(added);
+			XMLManager.saveExtraction(extraction);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		} 
 	}
 
 	/**

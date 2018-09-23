@@ -276,4 +276,12 @@ public class ErrorDialog {
 		alert.showAndWait();
 		return;	
 	}
+	public static void showUpdateQueryResults(int added) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Información");
+		alert.setHeaderText("Actualización de extracción terminada");
+		alert.setContentText("Se han encontrado "+added+" tweets nuevos para la extracción");
+		alert.showAndWait();
+		return;	
+	}
 }

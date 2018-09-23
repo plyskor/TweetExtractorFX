@@ -6,7 +6,9 @@ import java.util.List;
 
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Credentials;
+import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.Tweet;
+import es.uam.eps.tweetextractorfx.util.FilterManager;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import twitter4j.Query;
@@ -52,13 +54,22 @@ public class TwitterExtractor {
 	}
 	public List<Tweet> execute() throws TwitterException{
 		List<Tweet> ret = new ArrayList<Tweet>();
+		List<Status> statusList = getStatusListExecution();
+		if(statusList==null)return ret;
+		for(Status status : statusList) {
+			ret.add(new Tweet(status));
+		}
+		return ret;
+	}
+	public List<Status> getStatusListExecution() throws TwitterException{
+		List<Status>ret=new ArrayList<Status>();
 		try {
             QueryResult result;
             do {
                 result = twitter.search(query);
                 List<Status> tweets = result.getTweets();
                 for (Status tweet : tweets) {
-                	ret.add(new Tweet(tweet));
+                	ret.add(tweet);
                 }
             } while ((query = result.nextQuery()) != null);
             return ret;
@@ -78,10 +89,8 @@ public class TwitterExtractor {
             	ErrorDialog.showErrorTwitterExecution(te.getMessage());
                 System.out.println("Failed to search tweets: " + te.getMessage());
             }
-            
             throw(te);
         }
-		
 	}
 	public TwitterFactory getTf() {
 		return tf;
@@ -117,6 +126,20 @@ public class TwitterExtractor {
         alert.showAndWait();
        
         return;
+	}
+	public int updateExtraction(Extraction extraction) throws TwitterException {
+		if (extraction==null)return -1;
+		int ret=0;
+		this.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()));
+		List<Status>toAdd= getStatusListExecution();
+		if(toAdd==null)return -1;
+		for(Status status:toAdd) {
+			if(!extraction.contains(status)) {
+				extraction.addTweet(new Tweet(status));
+				ret++;
+			}
+		}
+		return ret;
 	}
 	public RateLimitStatus limit(String endpoint) {
 		  try {

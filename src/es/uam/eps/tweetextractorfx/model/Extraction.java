@@ -19,6 +19,7 @@ import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import es.uam.eps.tweetextractorfx.util.DateAdapter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import twitter4j.Status;
 
 /**
  * @author Jose Antonio García del Saz
@@ -197,5 +198,15 @@ public class Extraction {
 	for(Filter filter:filterXmlList) {
 		filterList.add(filter);
 	}
+	}
+	public boolean contains(Status tweet) {
+		if(tweet==null||tweetList==null||tweetList.isEmpty()) return false;
+		for(Tweet own : tweetList) {
+			if(own.getId()==tweet.getId())return true;
+			if(tweet.getRetweetedStatus()!=null) {
+				if(tweet.getRetweetedStatus().getId()==own.getId())return true;
+			}
+		}
+		return false;
 	}
 }

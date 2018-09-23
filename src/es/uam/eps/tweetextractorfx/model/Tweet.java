@@ -44,6 +44,7 @@ public class Tweet {
 	private boolean favorited;
 	private boolean retweet;
 	private boolean retweeted;
+	private long retweetedTweet;
 	
 	public Tweet() {
 		super();
@@ -89,6 +90,11 @@ public class Tweet {
 		this.favorited=tweet.isFavorited();
 		this.possiblySensitive=tweet.isPossiblySensitive();
 		this.retweet=tweet.isRetweet();
+		if(tweet.isRetweet()) {
+			this.setRetweetedTweet(tweet.getRetweetedStatus().getId());
+		}else {
+			this.setRetweetedTweet(-1);
+		}
 		this.retweeted=tweet.isRetweeted();
 	}
 	
@@ -97,6 +103,20 @@ public class Tweet {
 	 */
 	public boolean isPossiblySensitive() {
 		return possiblySensitive;
+	}
+
+	/**
+	 * @return the retweetedTweet
+	 */
+	public long getRetweetedTweet() {
+		return retweetedTweet;
+	}
+
+	/**
+	 * @param retweetedTweet the retweetedTweet to set
+	 */
+	public void setRetweetedTweet(long retweetedTweet) {
+		this.retweetedTweet = retweetedTweet;
 	}
 
 	/**
