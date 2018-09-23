@@ -202,7 +202,7 @@ private TwitterExtractor twitterextractor;
 
 	@FXML
 	public void handleCancel() {
-		this.mainApplication.showQueryConstructor();
+		this.mainApplication.showHomeScreen();
 	}
 
 	/**

@@ -268,4 +268,12 @@ public class ErrorDialog {
 		alert.showAndWait();
 		return;	
 	}
+	public static void showErrorTwitterExecution(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Error de búsqueda");
+		alert.setHeaderText("Error de API de Twitter");
+		alert.setContentText(message);
+		alert.showAndWait();
+		return;	
+	}
 }

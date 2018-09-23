@@ -30,6 +30,9 @@ import javafx.collections.ObservableList;
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterContainsExact.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterList.class,
+		es.uam.eps.tweetextractorfx.model.filter.impl.FilterMention.class,
+		es.uam.eps.tweetextractorfx.model.filter.impl.FilterSince.class,
+		es.uam.eps.tweetextractorfx.model.filter.impl.FilterUntil.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom.class })
 @XmlType(propOrder={"id","creationDate","lastModificationDate","filterXmlList"})
 public class Extraction {

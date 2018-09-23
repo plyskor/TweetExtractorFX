@@ -70,6 +70,7 @@ public class ShowUserExtractionsControl {
 				"Extracciones de " + this.getMainApplication().getCurrentUser().getNickname());
 		extractionTableView.setRoot(root);
 		for (Extraction extraction : this.getMainApplication().getCurrentUser().getExtractionList()) {
+			if(extraction!=null) {
 			TreeItem<String> extractionNode = new TreeItem<String>("Extracción " + extraction.getId());
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			TreeItem<String> createdAt = new TreeItem<String>("Creada el: " + df.format(extraction.getCreationDate()));
@@ -83,6 +84,7 @@ public class ShowUserExtractionsControl {
 			extractionNode.getChildren().addAll(createdAt,lastModified,filtersNode);
 			root.getChildren().add(extractionNode);
 		}
+		}	
 	}
 
 	/**
@@ -138,7 +140,7 @@ public class ShowUserExtractionsControl {
 
 	@FXML
 	public void handleEditExtraction() {
-		
+		this.getMainApplication().showExtractionDetails(selectedExtraction);
 	}
 
 	@FXML

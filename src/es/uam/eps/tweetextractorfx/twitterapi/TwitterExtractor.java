@@ -4,6 +4,7 @@ package es.uam.eps.tweetextractorfx.twitterapi;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Credentials;
 import es.uam.eps.tweetextractorfx.model.Tweet;
 import javafx.scene.control.Alert;
@@ -66,12 +67,18 @@ public class TwitterExtractor {
             //*CONNECTION ISSUE
             if(te.getStatusCode()==-1&&te.getErrorCode()==-1) {
             handleConnectionIssue();
-            }
+            }else 
             //*RATELIMIT
             if(te.getStatusCode()==429&&te.getErrorCode()==88) {
             	handleRateLimit();
+            	if(ret!=null&&!ret.isEmpty()) {
+            		return ret;
+            	}
+            }else {
+            	ErrorDialog.showErrorTwitterExecution(te.getMessage());
+                System.out.println("Failed to search tweets: " + te.getMessage());
             }
-            System.out.println("Failed to search tweets: " + te.getMessage());
+            
             throw(te);
         }
 		
