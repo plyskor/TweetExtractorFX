@@ -130,7 +130,7 @@ public class TwitterExtractor {
 	public int updateExtraction(Extraction extraction) throws TwitterException {
 		if (extraction==null)return -1;
 		int ret=0;
-		this.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()));
+		this.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList())+"-filter:retweets");
 		List<Status>toAdd= getStatusListExecution();
 		if(toAdd==null)return -1;
 		for(Status status:toAdd) {

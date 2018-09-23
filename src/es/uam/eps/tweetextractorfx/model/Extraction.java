@@ -34,6 +34,7 @@ import twitter4j.Status;
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterMention.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterSince.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterUntil.class,
+		es.uam.eps.tweetextractorfx.model.filter.impl.FilterOr.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom.class })
 @XmlType(propOrder={"id","creationDate","lastModificationDate","filterXmlList"})
 public class Extraction {

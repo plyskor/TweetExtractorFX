@@ -6,6 +6,12 @@ package es.uam.eps.tweetextractorfx.model.filter.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,17 +22,21 @@ import javafx.collections.ObservableList;
  * @author Jose Antonio García del Saz
  *
  */
+@XmlRootElement(name="FilterOr")
 public class FilterOr implements Filter {
+	@XmlTransient
 	private final static Integer ID=Constants.INTEGER_FILTER_OR;
 	private List<Filter> filterList=new ArrayList<Filter>();
+	@XmlTransient
 	private StringProperty summary=new SimpleStringProperty();
+	@XmlTransient
 	private String summaryString= new String("");;
 
 	/**
 	 * 
 	 */
 	public FilterOr() {
-		
+		super();
 	}
 	
 	public void addAll(ObservableList<Filter> observableList) {
@@ -45,6 +55,7 @@ public class FilterOr implements Filter {
 	/* (non-Javadoc)
 	 * @see es.uam.eps.tweetextractorfx.model.filter.Filter#getId()
 	 */
+	@XmlTransient
 	@Override
 	public Integer getId() {
 		return ID;
@@ -53,6 +64,7 @@ public class FilterOr implements Filter {
 	/* (non-Javadoc)
 	 * @see es.uam.eps.tweetextractorfx.model.filter.Filter#getLabel()
 	 */
+	@XmlTransient
 	@Override
 	public StringProperty getLabel() {
 		return null;
@@ -61,6 +73,7 @@ public class FilterOr implements Filter {
 	/* (non-Javadoc)
 	 * @see es.uam.eps.tweetextractorfx.model.filter.Filter#getSummary()
 	 */
+	@XmlTransient
 	@Override
 	public StringProperty getSummary() {
 		return summary;
@@ -69,6 +82,8 @@ public class FilterOr implements Filter {
 	/**
 	 * @return the filterList
 	 */
+	@XmlElementWrapper(name = "filterOrList")
+	@XmlAnyElement(lax = true)
 	public List<Filter> getFilterList() {
 		return filterList;
 	}
@@ -83,6 +98,7 @@ public class FilterOr implements Filter {
 	/**
 	 * @return the summaryString
 	 */
+	@XmlTransient
 	public String getSummaryString() {
 		return summaryString;
 	}
