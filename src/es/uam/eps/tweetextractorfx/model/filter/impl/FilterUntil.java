@@ -84,5 +84,10 @@ public class FilterUntil implements Filter {
 			return new String("until:"+(date).format(formatter)+" ");
 		}
 	}
+	@Override
+	public void loadXml() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

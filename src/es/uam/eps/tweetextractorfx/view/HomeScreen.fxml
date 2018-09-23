@@ -124,12 +124,12 @@
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                                    <children>
-                                                      <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" text="Consultar extracciones..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button mnemonicParsing="false" onAction="#handleManageExtractions" prefHeight="61.0" prefWidth="398.0" text="Consultar extracciones..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                                                    <children>
-                                                      <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" text="Exportar extracciones..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </children>
@@ -171,12 +171,12 @@
                                              <children>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="61.0" prefWidth="398.0" text="Cambiar contraseña..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="61.0" prefWidth="398.0" text="Cambiar Contraseña..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                                    <children>
-                                                      <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" text="Cerrar sesión..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" text="Cerrar sesión" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
@@ -246,7 +246,7 @@
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                                    <children>
-                                                      <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" text="Gestionar Credenciales..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button mnemonicParsing="false" onAction="#handleManageCredentials" prefHeight="61.0" prefWidth="398.0" text="Gestionar Credenciales..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">

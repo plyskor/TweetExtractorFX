@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.credentials.ManageCredentialsControl">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl">
    <children>
       <GridPane layoutX="400.0" layoutY="278.0" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -37,9 +37,9 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TreeTableView fx:id="credentialsTableView" layoutX="300.0" layoutY="159.0" prefHeight="540.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TreeTableView fx:id="extractionTableView" layoutX="300.0" layoutY="159.0" prefHeight="540.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TreeTableColumn fx:id="credentialsColumn" prefWidth="75.0" text="Credenciales de la cuenta" />
+                                  <TreeTableColumn fx:id="extractionColumn" prefWidth="75.0" text="Extracciones Guardadas" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -73,7 +73,7 @@
                                        <children>
                                           <StackPane layoutX="84.0" layoutY="17.0" prefHeight="60.0" prefWidth="226.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleRemoveCredentials" text="Eliminar" />
+                                                <Button mnemonicParsing="false" onAction="#handleRemoveExtraction" text="Eliminar" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -82,7 +82,7 @@
                                        <children>
                                           <StackPane layoutX="84.0" layoutY="17.0" prefHeight="60.0" prefWidth="227.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleEditCredentials" text="Editar..." />
+                                                <Button mnemonicParsing="false" onAction="#handleEditExtraction" text="Editar..." />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -91,7 +91,7 @@
                                        <children>
                                           <StackPane layoutX="84.0" layoutY="17.0" prefHeight="60.0" prefWidth="227.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleAddCredentials" text="Añadir..." />
+                                                <Button mnemonicParsing="false" onAction="#handleAddExtraction" text="Añadir..." />
                                              </children>
                                           </StackPane>
                                        </children>

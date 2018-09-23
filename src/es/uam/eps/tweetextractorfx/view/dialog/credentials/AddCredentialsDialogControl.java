@@ -5,12 +5,12 @@ import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Credentials;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class AddCredentialsDialogControl {
+	@FXML
+	private TextField accountScreenNameField;
 	@FXML
 	private TextField consumerKeyField;
 	@FXML
@@ -21,6 +21,7 @@ public class AddCredentialsDialogControl {
 	private TextField accessTokenSecretField;
 	private Stage dialogStage;
 	private MainApplication mainApplication;
+	private boolean modifcation=false;
 	
 	public AddCredentialsDialogControl() {
 		
@@ -67,6 +68,32 @@ public class AddCredentialsDialogControl {
 	public TextField getAccessTokenSecretField() {
 		return accessTokenSecretField;
 	}
+	
+	/**
+	 * @return the accountScreenNameField
+	 */
+	public TextField getAccountScreenNameField() {
+		return accountScreenNameField;
+	}
+	
+	/**
+	 * @return the modifcation
+	 */
+	public boolean isModifcation() {
+		return modifcation;
+	}
+	/**
+	 * @param modifcation the modifcation to set
+	 */
+	public void setModifcation(boolean modifcation) {
+		this.modifcation = modifcation;
+	}
+	/**
+	 * @param accountScreenNameField the accountScreenNameField to set
+	 */
+	public void setAccountScreenNameField(TextField accountScreenNameField) {
+		this.accountScreenNameField = accountScreenNameField;
+	}
 	/**
 	 * @param accessTokenSecretField the accessTokenSecretField to set
 	 */
@@ -98,6 +125,7 @@ public class AddCredentialsDialogControl {
 	 */
 	public void setMainApplication(MainApplication mainApplication) {
 		this.mainApplication = mainApplication;
+		accountScreenNameField.setText("jgarciasaz");
 		consumerKeyField.setText("WHnn9ajf9fRiEjoQ400vJjR28");
 		consumerSecretField.setText("YmtYa3xLn8bhix0mqq90We3ldVGfX2laqDlIhxY31X07Psz7Bp");
 		accessTokenField.setText("985480472896724997-9pXqJgxLfDseps3ZvVRaz2IQjtht13j");
@@ -105,23 +133,32 @@ public class AddCredentialsDialogControl {
 	}
 	@FXML
 	public void handleCancel() {
-		
+		this.getDialogStage().close();
 	}
 	@FXML
 	public void handleDone() {
-		if(consumerKeyField.getText().trim().isEmpty()||consumerSecretField.getText().trim().isEmpty()||accessTokenField.getText().trim().isEmpty()||accessTokenSecretField.getText().trim().isEmpty()) {
+		if(accessTokenField.getText().trim().isEmpty()||consumerKeyField.getText().trim().isEmpty()||consumerSecretField.getText().trim().isEmpty()||accessTokenField.getText().trim().isEmpty()||accessTokenSecretField.getText().trim().isEmpty()) {
 			ErrorDialog.showErrorEmptyCredentials();
 			return;
 		}
 		Credentials credentials = new Credentials();
+		credentials.setAccountScreenName(accountScreenNameField.getText().trim());
 		credentials.setConsumerKey(consumerKeyField.getText().trim());
 		credentials.setConsumerSecret(consumerSecretField.getText().trim());
 		credentials.setAccessToken(accessTokenField.getText().trim());
 		credentials.setAccessTokenSecret(accessTokenSecretField.getText().trim());
-		if(this.getMainApplication().getCurrentUser().hasCredentials(credentials)) {
-			ErrorDialog.showErrorExistingCredentials();
-			return;
+		if (isModifcation()) {
+			if(this.getMainApplication().getCurrentUser().hasCredentials(credentials)) {
+				ErrorDialog.showErrorExistingCredentials();
+				return;
+			}
+		}else {
+			if(this.getMainApplication().getCurrentUser().hasCredentials(credentials.getAccountScreenName())||this.getMainApplication().getCurrentUser().hasCredentials(credentials)) {
+				ErrorDialog.showErrorExistingCredentials();
+				return;
+			}
 		}
+		
 		this.getMainApplication().getCurrentUser().addCredentials(credentials);
 		try {
 			XMLManager.saveUserList(this.getMainApplication().getUserList());
@@ -130,6 +167,21 @@ public class AddCredentialsDialogControl {
 			return;
 		}
 		this.dialogStage.close();
+	}
+	public void setCredentials(Credentials credentials) {
+		if (credentials==null) {
+			accountScreenNameField.setText("");
+			consumerKeyField.setText("");
+			consumerSecretField.setText("");
+			accessTokenField.setText("");
+			accessTokenSecretField.setText("");
+			return;
+		}
+		accountScreenNameField.setText(credentials.getAccountScreenName());
+		consumerKeyField.setText(credentials.getConsumerKey());
+		consumerSecretField.setText(credentials.getConsumerSecret());
+		accessTokenField.setText(credentials.getAccessToken());
+		accessTokenSecretField.setText(credentials.getAccessTokenSecret());
 	}
 	
 }

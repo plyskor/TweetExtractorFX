@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import es.uam.eps.tweetextractorfx.util.DateAdapter;
+import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -179,6 +180,12 @@ public class User {
 			this.getExtractionList().add(extraction);
 		}
 	}
+	public void removeExtractionFromList(Extraction extraction) {
+		if (extraction!=null) {
+			this.extractionIDList.remove(extraction.getId());
+			this.extractionList.remove(extraction);
+		}
+	}
 
 	public boolean hasCredentials(Credentials credentials) {
 		if(credentials==null)return false;
@@ -187,7 +194,38 @@ public class User {
 		}
 		return false;
 	}
+	public boolean hasCredentials(String accountScreenName) {
+		if(accountScreenName==null)return false;
+		for(Credentials own : credentialList) {
+			if(accountScreenName.equals(own.getAccountScreenName()))return true;
+		}
+		return false;
+	}
 	public boolean hasAnyCredentials() {
 		return (credentialList!=null&&credentialList.size()>0);
 	}
+	public Credentials getCredentials(String accountscreenName) {
+		Credentials ret=null;
+		for(Credentials credentials: credentialList) {
+			if(accountscreenName.equals(credentials.getAccountScreenName())) {
+				ret=credentials;
+			}
+		}
+		return ret;
+	}
+	public Extraction getExtraction(String id) {
+		Extraction ret=null;
+		for(Extraction extraction: extractionList) {
+			if(id.equals(extraction.getId())) {
+				ret=extraction;
+			}
+		}
+		return ret;
+	}
+	public void loadXmlData() {
+		for(String id: extractionIDList) {
+			this.extractionList.add(XMLManager.loadExtraction(id));
+		}
+	}
+	
 }

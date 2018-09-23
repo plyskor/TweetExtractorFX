@@ -72,5 +72,10 @@ public class FilterSince implements Filter {
 			return new String("since:"+(date).format(formatter)+" ");
 		}
 	}
+	@Override
+	public void loadXml() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

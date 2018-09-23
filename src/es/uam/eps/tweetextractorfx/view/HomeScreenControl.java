@@ -9,11 +9,11 @@ import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.view.dialog.auth.ChangePasswordDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
+import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -82,11 +82,20 @@ public class HomeScreenControl {
 	public void handleAddCredentials() {
 		showAddCredentials();
 	}
+	public void handleManageCredentials() {
+		this.getMainApplication().showManageCredentials();
+	}
+	
 	@FXML
 	public void handleChangePassword() {
 		showUpdatePassword();
 	}
+	@FXML 
+	public void handleManageExtractions() {
+		this.getMainApplication().showUserExtractions();
+	}
 	/*DIALOGOS*/
+
 	public void showAddCredentials() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -141,5 +150,5 @@ public class HomeScreenControl {
 			return;
 		}
 	}
-
+	
 }

@@ -244,4 +244,28 @@ public class ErrorDialog {
 		alert.showAndWait();
 		return;		
 	}
+	public static void showErrorNoSelectedCredentials() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Información");
+		alert.setHeaderText("No hay credenciales seleccionados");
+		alert.setContentText("Selecciona unos credenciales para llevar a cabo esta acción");
+		alert.showAndWait();
+		return;	
+	}
+	public static void showErrorLoadExtraction(String message) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Atención");
+		alert.setHeaderText("Error de lectura");
+		alert.setContentText("Se ha producido un error desconocido cargando una exxtracción:\n"+message);
+		alert.showAndWait();
+		return;
+	}
+	public static void showErrorNoSelectedExtraction() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Información");
+		alert.setHeaderText("Ninguna extracción seleccionada");
+		alert.setContentText("Selecciona una extracción para llevar a cabo esta acción");
+		alert.showAndWait();
+		return;	
+	}
 }

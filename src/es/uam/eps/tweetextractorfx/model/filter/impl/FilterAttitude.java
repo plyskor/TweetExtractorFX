@@ -43,5 +43,10 @@ public class FilterAttitude implements Filter {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public void loadXml() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -14,8 +14,10 @@ import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
+import es.uam.eps.tweetextractorfx.view.credentials.ManageCredentialsControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
 import es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl;
+import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -145,6 +147,36 @@ public class MainApplication extends Application {
 			AnchorPane homeScreen = (AnchorPane) loader.load();
 			// Give the controller access to the main app.
 			HomeScreenControl controller = loader.getController();
+			controller.setMainApplication(this);
+			// Set query constructor into the center of root layout.
+			rootLayout.setCenter(homeScreen);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void showManageCredentials() {
+		try {
+			// Load query constructor
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource("view/credentials/ManageCredentials.fxml"));
+			AnchorPane homeScreen = (AnchorPane) loader.load();
+			// Give the controller access to the main app.
+			ManageCredentialsControl controller = loader.getController();
+			controller.setMainApplication(this);
+			// Set query constructor into the center of root layout.
+			rootLayout.setCenter(homeScreen);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void showUserExtractions() {
+		try {
+			// Load query constructor
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApplication.class.getResource("view/extraction/ShowUserExtractions.fxml"));
+			AnchorPane homeScreen = (AnchorPane) loader.load();
+			// Give the controller access to the main app.
+			ShowUserExtractionsControl controller = loader.getController();
 			controller.setMainApplication(this);
 			// Set query constructor into the center of root layout.
 			rootLayout.setCenter(homeScreen);
@@ -282,5 +314,7 @@ public class MainApplication extends Application {
 	public void setRootLayoutController(RootLayoutControl rootLayoutController) {
 		this.rootLayoutController = rootLayoutController;
 	}
+
+	
 	
 }

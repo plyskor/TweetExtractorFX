@@ -119,4 +119,10 @@ public class FilterOr implements Filter {
 		}
 	}
 
+	@Override
+	public void loadXml() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

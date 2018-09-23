@@ -92,5 +92,10 @@ public class FilterUrl implements Filter {
 			return new String("url:"+keyWord+" ");
 		}
 	}
+	@Override
+	public void loadXml() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

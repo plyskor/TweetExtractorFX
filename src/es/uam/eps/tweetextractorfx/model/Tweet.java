@@ -44,6 +44,11 @@ public class Tweet {
 	private boolean favorited;
 	private boolean retweet;
 	private boolean retweeted;
+	
+	public Tweet() {
+		super();
+	}
+
 	public Tweet(Status tweet) {
 		if (tweet==null)return;
 		lastUpdated= new Date();

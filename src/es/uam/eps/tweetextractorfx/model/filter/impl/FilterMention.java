@@ -95,5 +95,10 @@ public class FilterMention implements Filter {
 			return ret;
 		}
 	}
+	@Override
+	public void loadXml() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

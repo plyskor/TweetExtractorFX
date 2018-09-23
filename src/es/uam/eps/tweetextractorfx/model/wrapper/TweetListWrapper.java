@@ -17,21 +17,21 @@ import es.uam.eps.tweetextractorfx.model.Tweet;
  */
 @XmlRootElement(name = "tweets")
 public class TweetListWrapper {
-	private List<Tweet> users;
+	private List<Tweet> tweets;
 
 	/**
 	 * @return the users
 	 */
 	@XmlElement(name="tweet")
-	public List<Tweet> getUsers() {
-		return users;
+	public List<Tweet> getTweets() {
+		return tweets;
 	}
 
 	/**
 	 * @param users the users to set
 	 */
-	public void setUsers(List<Tweet> users) {
-		this.users = users;
+	public void setTweets(List<Tweet> tweets) {
+		this.tweets = tweets;
 	}
 	
 }

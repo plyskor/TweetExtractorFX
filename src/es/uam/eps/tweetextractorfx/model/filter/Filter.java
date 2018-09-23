@@ -27,4 +27,5 @@ public interface Filter {
 	 * @return the query
 	 */
 	public String toQuery();
+	public void loadXml();
 }

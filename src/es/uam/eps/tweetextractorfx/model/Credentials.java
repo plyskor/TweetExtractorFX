@@ -1,13 +1,14 @@
 package es.uam.eps.tweetextractorfx.model;
 
-
+import javax.xml.bind.annotation.XmlAttribute;
 
 public class Credentials {
 	private String consumerKey;
 	private String consumerSecret;
 	private String accessToken;
 	private String accessTokenSecret;
-
+	
+	private String accountScreenName;
 	public Credentials() {
 	}
 
@@ -16,6 +17,21 @@ public class Credentials {
 	 */
 	public String getConsumerKey() {
 		return consumerKey;
+	}
+
+	/**
+	 * @return the accountScreenName
+	 */
+	@XmlAttribute(name="acoountScreenName")
+	public String getAccountScreenName() {
+		return accountScreenName;
+	}
+
+	/**
+	 * @param accountScreenName the accountScreenName to set
+	 */
+	public void setAccountScreenName(String accountScreenName) {
+		this.accountScreenName = accountScreenName;
 	}
 
 	/**
@@ -69,6 +85,7 @@ public class Credentials {
 
 	public boolean equals(Credentials credentials) {
 		if(credentials==null)return false;
-		return(consumerKey.equals(credentials.getConsumerKey())&&consumerSecret.equals(credentials.getConsumerSecret())&&accessToken.equals(credentials.getAccessToken())&&accessTokenSecret.equals(credentials.getAccessTokenSecret()));
+		return(accountScreenName.equals(credentials.getAccountScreenName())&&(consumerKey.equals(credentials.getConsumerKey())&&consumerSecret.equals(credentials.getConsumerSecret())&&accessToken.equals(credentials.getAccessToken())&&accessTokenSecret.equals(credentials.getAccessTokenSecret())));
 	}
+
 }

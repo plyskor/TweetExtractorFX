@@ -94,4 +94,10 @@ public class FilterNot implements Filter {
 		}
 	}
 
+	@Override
+	public void loadXml() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

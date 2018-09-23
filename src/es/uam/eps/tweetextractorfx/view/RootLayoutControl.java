@@ -30,6 +30,14 @@ public class RootLayoutControl {
 	 */
 	public void setMainApplication(MainApplication mainApplication) {
 		this.mainApplication = mainApplication;
+		logoutmenuitem = new MenuItem("Cerrar sesión");
+    	logoutmenuitem.setOnAction(new EventHandler<ActionEvent>() {
+    	    @Override public void handle(ActionEvent e) {
+    	        mainApplication.setCurrentUser(null);
+    	        mainApplication.getRootLayoutController().getArchivoMenu().getItems().remove(mainApplication.getRootLayoutController().getLogoutmenuitem());
+    	        mainApplication.showWelcomeScreen();
+    	    }
+    	});
 	}
 
 	/**
@@ -102,15 +110,9 @@ public class RootLayoutControl {
      * Opens the birthday statistics.
      */
     public void addLogOut() {
-    	logoutmenuitem = new MenuItem("Cerrar sesión");
-    	logoutmenuitem.setOnAction(new EventHandler<ActionEvent>() {
-    	    @Override public void handle(ActionEvent e) {
-    	        mainApplication.setCurrentUser(null);
-    	        mainApplication.getRootLayoutController().getArchivoMenu().getItems().remove(mainApplication.getRootLayoutController().getLogoutmenuitem());
-    	        mainApplication.showWelcomeScreen();
-    	    }
-    	});
-    	archivoMenu.getItems().add(1, logoutmenuitem);
+    	if(!archivoMenu.getItems().contains(logoutmenuitem)) {
+    		archivoMenu.getItems().add(1, logoutmenuitem);
+    	}
     }
     
 }

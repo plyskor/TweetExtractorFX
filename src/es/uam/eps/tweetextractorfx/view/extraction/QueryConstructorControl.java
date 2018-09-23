@@ -261,6 +261,7 @@ public class QueryConstructorControl {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		this.getMainApplication().showExtractionDetails(extraction);
 	}
 
