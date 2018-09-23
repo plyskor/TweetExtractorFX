@@ -280,7 +280,7 @@ public class ErrorDialog {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Información");
 		alert.setHeaderText("Actualización de extracción terminada");
-		alert.setContentText("Se han encontrado "+added+" tweets nuevos para la extracción");
+		alert.setContentText("Se han encontrado "+added+" tweet(s) nuevos para la extracción");
 		alert.showAndWait();
 		return;	
 	}

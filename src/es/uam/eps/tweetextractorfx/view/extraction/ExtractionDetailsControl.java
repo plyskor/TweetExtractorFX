@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import es.uam.eps.tweetextractorfx.MainApplication;
@@ -210,6 +211,7 @@ private TwitterExtractor twitterextractor;
 		try {
 			twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentialList().get(0));
 			int added=twitterextractor.updateExtraction(extraction);
+			if(added>0)this.extraction.setLastModificationDate(new Date());
 			ErrorDialog.showUpdateQueryResults(added);
 			XMLManager.saveExtraction(extraction);
 		} catch (Exception e) {
