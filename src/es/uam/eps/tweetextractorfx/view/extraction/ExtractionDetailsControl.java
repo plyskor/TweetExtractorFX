@@ -233,6 +233,7 @@ private TwitterExtractor twitterextractor;
 	    		if(loadingDialog!=null)loadingDialog.close();
 		    });
              Thread thread = new Thread(updateTask);
+             thread.setName("TweetExtractorFXUpdater");
              thread.start();
              loadingDialog=mainApplication.showLoadingDialog();    
              loadingDialog.showAndWait();

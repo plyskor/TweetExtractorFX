@@ -22,6 +22,7 @@ public class UpdateExtractionTask extends Task<Integer>{
 		super();
 		this.twitter = twitter;
 		this.extraction = extraction;
+		
 	}
 
 	@Override
