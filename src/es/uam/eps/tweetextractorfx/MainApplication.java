@@ -16,6 +16,8 @@ import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.credentials.ManageCredentialsControl;
+import es.uam.eps.tweetextractorfx.view.dialog.LoadingDialogControl;
+import es.uam.eps.tweetextractorfx.view.dialog.filter.FilterUntilDialogControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
 import es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;
@@ -26,6 +28,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import twitter4j.TwitterException;
 
@@ -139,7 +142,29 @@ public class MainApplication extends Application {
 			e.printStackTrace();
 		}
 	}
+	public Stage showLoadingDialog() {
+		try {
 
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(RootLayoutControl.class.getResource("dialog/LoadingDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(this.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			// Set the dialogStage to the controller.
+			LoadingDialogControl controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			// Show the dialog and wait until the user closes it, then add filter
+			return	dialogStage;		
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public void showHomeScreen() {
 		try {
 			// Load query constructor

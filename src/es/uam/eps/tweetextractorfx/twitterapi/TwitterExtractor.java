@@ -128,11 +128,11 @@ public class TwitterExtractor {
         return;
 	}
 	public int updateExtraction(Extraction extraction) throws TwitterException {
-		if (extraction==null)return -1;
+		if (extraction==null)return 0;
 		int ret=0;
 		this.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList())+"-filter:retweets");
 		List<Status>toAdd= getStatusListExecution();
-		if(toAdd==null)return -1;
+		if(toAdd==null)return 0;
 		for(Status status:toAdd) {
 			if(!extraction.contains(status)) {
 				extraction.addTweet(new Tweet(status));

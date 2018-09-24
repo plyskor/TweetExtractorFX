@@ -3,8 +3,18 @@
  */
 package es.uam.eps.tweetextractorfx.error;
 
+import java.io.IOException;
+
+import es.uam.eps.tweetextractorfx.model.filter.impl.FilterUntil;
+import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
+import es.uam.eps.tweetextractorfx.view.dialog.filter.FilterUntilDialogControl;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * @author plysk
@@ -276,12 +286,12 @@ public class ErrorDialog {
 		alert.showAndWait();
 		return;	
 	}
-	public static void showUpdateQueryResults(int added) {
+	public static Alert showUpdateQueryResults(int added) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Información");
 		alert.setHeaderText("Actualización de extracción terminada");
 		alert.setContentText("Se han encontrado "+added+" tweet(s) nuevos para la extracción");
-		alert.showAndWait();
-		return;	
+		return alert;	
 	}
+	
 }

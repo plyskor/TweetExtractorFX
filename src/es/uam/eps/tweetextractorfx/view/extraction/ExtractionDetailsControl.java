@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import es.uam.eps.tweetextractorfx.MainApplication;
@@ -19,17 +18,20 @@ import es.uam.eps.tweetextractorfx.model.Tweet;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
 import es.uam.eps.tweetextractorfx.util.FilterManager;
+import es.uam.eps.tweetextractorfx.util.UpdateExtractionTask;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
-import twitter4j.Status;
+import javafx.stage.Stage;
 import twitter4j.TwitterException;
 
 /**
@@ -53,6 +55,8 @@ public class ExtractionDetailsControl {
 
 	private Tweet selectedQueryResult;
 	private Extraction extraction;
+	private Stage loadingDialog = null;
+	private Alert alertUpdate; 
 
 private TwitterExtractor twitterextractor;
 	/**
@@ -185,6 +189,7 @@ private TwitterExtractor twitterextractor;
 	public void executeQuery() throws TwitterException {
 		twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentialList().get(0));
 		twitterextractor.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()) + "-filter:retweets");
+	
 		if (twitterextractor != null&& twitterextractor.getQuery() != null) {
 			try {
 				this.setQueryResult(twitterextractor.execute());
@@ -208,16 +213,30 @@ private TwitterExtractor twitterextractor;
 	}
 	@FXML
 	public void handleUpdateExtraction() {
-		try {
 			twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentialList().get(0));
-			int added=twitterextractor.updateExtraction(extraction);
-			if(added>0)this.extraction.setLastModificationDate(new Date());
-			ErrorDialog.showUpdateQueryResults(added);
-			XMLManager.saveExtraction(extraction);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
-		} 
+			Task<Integer> updateTask = new UpdateExtractionTask(twitterextractor,extraction);
+		    updateTask.setOnSucceeded(e -> {
+		    	Integer result = updateTask.getValue();
+		    	if (result>0) {
+		    		if(loadingDialog!=null)loadingDialog.close();
+					try {
+						XMLManager.saveExtraction(extraction);
+					} catch (Exception e1) {
+			    		if(loadingDialog!=null)loadingDialog.close();
+						e1.printStackTrace();
+					}
+		    	}
+	    		if(loadingDialog!=null)loadingDialog.close();
+				alertUpdate=ErrorDialog.showUpdateQueryResults(result);
+		    });
+		    updateTask.setOnFailed(e->{
+	    		if(loadingDialog!=null)loadingDialog.close();
+		    });
+             Thread thread = new Thread(updateTask);
+             thread.start();
+             loadingDialog=mainApplication.showLoadingDialog();    
+             loadingDialog.showAndWait();
+             if(alertUpdate!=null)alertUpdate.showAndWait();
 	}
 
 	/**
