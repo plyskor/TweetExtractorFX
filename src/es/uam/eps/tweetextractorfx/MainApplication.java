@@ -2,8 +2,12 @@ package es.uam.eps.tweetextractorfx;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Constants;
@@ -40,16 +44,23 @@ public class MainApplication extends Application {
 	private List<User> userList = new ArrayList<User>();
 	private User currentUser = null;
 	private RootLayoutControl rootLayoutController;
+	private SessionFactory sessionFactory;
 	public MainApplication() {
 		initAvailableFilters();
 		/* Inicializamos el directorio de persistencia */
 		File dataDir = new File(Constants.PERSISTENCE_PATH);
 		dataDir.mkdirs();
+		initializeDB();
 		/*
 		 * Cargamos la lista de usuarios List<User> readList =XMLManager.loadUserList();
 		 * if(readList!=null)userList.addAll(readList);
 		 */
 	}
+	private void initializeDB() {
+		sessionFactory = new Configuration().configure("tweetextractordb.xml").buildSessionFactory();
+	}
+		
+
 
 	@Override
 	public void start(Stage primaryStage) {
