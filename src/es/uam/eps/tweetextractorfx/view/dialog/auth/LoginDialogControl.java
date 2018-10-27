@@ -6,6 +6,8 @@ package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 import java.util.Date;
 import org.mindrot.jbcrypt.BCrypt;
+
+import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
@@ -103,12 +105,13 @@ public class LoginDialogControl {
 	}
 	@FXML
 	public void handleLogin() {
+		UserService userService=new UserService();
 		String userName=userField.getText().trim();
 		if(userName.isEmpty()) {
 			ErrorDialog.showErrorUserEmpty();
 			return;
 		}
-		if(!this.getWelcomeScreenControl().getMainApplication().existsUser(userName)) {
+		if(!userService.existsUser(userName)) {
 			ErrorDialog.showErrorExistsUSer();
 			return;
 		}
@@ -117,7 +120,7 @@ public class LoginDialogControl {
 			ErrorDialog.showErrorPassEmpty();
 			return;
 		}
-		User userLogged = this.getWelcomeScreenControl().getMainApplication().getUser(userName);
+		User userLogged = userService.findByNickname(userName);
 		boolean passOK = BCrypt.checkpw(pass, userLogged.getPassword());
 		if(passOK) {
 			userLogged.loadXmlData();

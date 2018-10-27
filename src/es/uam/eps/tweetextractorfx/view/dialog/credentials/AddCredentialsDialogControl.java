@@ -1,6 +1,7 @@
 package es.uam.eps.tweetextractorfx.view.dialog.credentials;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Credentials;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
@@ -160,6 +161,8 @@ public class AddCredentialsDialogControl {
 		}
 		
 		this.getMainApplication().getCurrentUser().addCredentials(credentials);
+		UserService userService=new UserService();
+		userService.update(this.getMainApplication().getCurrentUser());
 		try {
 			XMLManager.saveUserList(this.getMainApplication().getUserList());
 		} catch (Exception e) {

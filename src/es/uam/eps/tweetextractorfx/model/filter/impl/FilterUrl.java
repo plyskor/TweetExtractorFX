@@ -12,9 +12,7 @@ import javafx.beans.property.StringProperty;
  * @author Jose Antonio García del Saz
  *
  */
-public class FilterUrl implements Filter {
-	private final static Integer ID=Constants.INTEGER_FILTER_URL;
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_URL);
+public class FilterUrl extends Filter {
 	private StringProperty keyWord= new SimpleStringProperty();
 	private StringProperty summary=new SimpleStringProperty();
 	private String summaryString = new String("Con una URL que contiene: ");
@@ -22,9 +20,10 @@ public class FilterUrl implements Filter {
 	 * 
 	 */
 	public FilterUrl() {
-
+		this.setLABEL(Constants.STRING_FILTER_URL);
 	}
 	public FilterUrl(FilterUrl filter) {
+		this.setLABEL(Constants.STRING_FILTER_URL);
 		if(filter!=null) {
 			summaryString=filter.getSummary().get();
 			summary.set(filter.getSummary().get());
@@ -68,18 +67,6 @@ public class FilterUrl implements Filter {
 		this.summary.set(summary);
 	}
 
-	/**
-	 * @return the id
-	 */
-	public  Integer getId() {
-		return ID;
-	}
-	/**
-	 * @return the label
-	 */
-	public  StringProperty getLabel() {
-		return LABEL;
-	}
 	@Override
 	public StringProperty getSummary() {
 		return summary;

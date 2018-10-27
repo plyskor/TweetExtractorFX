@@ -21,11 +21,7 @@ import javafx.beans.property.StringProperty;
  *
  */
 @XmlRootElement(name="filterSince")
-public class FilterSince implements Filter {
-	@XmlTransient
-	private final static Integer ID=Constants.INTEGER_FILTER_SINCE;
-	@XmlTransient
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_SINCE);
+public class FilterSince extends Filter {
 	@XmlTransient
 	private StringProperty summary=new SimpleStringProperty();
 	private LocalDate date;
@@ -33,27 +29,15 @@ public class FilterSince implements Filter {
 	 * 
 	 */
 	public FilterSince() {
-
+		this.setLABEL(Constants.STRING_FILTER_SINCE);
 	}
 	public FilterSince(FilterSince filter) {
+		this.setLABEL(Constants.STRING_FILTER_SINCE);
 		if(filter!=null) {
 			this.date=filter.getDate();
 		}
 	}
-	/**
-	 * @return the id
-	 */
-	@XmlTransient
-	public  Integer getId() {
-		return ID;
-	}
-	/**
-	 * @return the label
-	 */
-	@XmlTransient
-	public  StringProperty getLabel() {
-		return LABEL;
-	}
+
 	@XmlTransient
 	@Override
 	public StringProperty getSummary() {

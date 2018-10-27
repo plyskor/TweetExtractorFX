@@ -21,11 +21,7 @@ import javafx.collections.ObservableList;
  *
  */
 @XmlRootElement(name = "filterMention")
-public class FilterMention implements Filter {
-	@XmlTransient
-	private final static Integer ID = Constants.INTEGER_FILTER_MENTION;
-	@XmlTransient
-	private final static StringProperty LABEL = new SimpleStringProperty(Constants.STRING_FILTER_MENTION);
+public class FilterMention extends Filter {
 	@XmlTransient
 	private StringProperty summary = new SimpleStringProperty("");
 	@XmlTransient
@@ -35,6 +31,7 @@ public class FilterMention implements Filter {
 	private List<String> mentionXmlList = new ArrayList<String>();
 
 	public FilterMention(FilterMention filter) {
+		this.setLABEL(Constants.STRING_FILTER_MENTION);
 		if (filter != null) {
 			for (String word : filter.getMentionList()) {
 				mentionList.add(word);
@@ -68,23 +65,7 @@ public class FilterMention implements Filter {
 	}
 
 	public FilterMention() {
-
-	}
-
-	/**
-	 * @return the id
-	 */
-	@XmlTransient
-	public Integer getId() {
-		return ID;
-	}
-
-	/**
-	 * @return the label
-	 */
-	@XmlTransient
-	public StringProperty getLabel() {
-		return LABEL;
+		this.setLABEL(Constants.STRING_FILTER_MENTION);
 	}
 
 	@XmlTransient

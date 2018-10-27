@@ -7,12 +7,21 @@ package es.uam.eps.tweetextractorfx.model.filter.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.Constants.FilterTypes;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -23,21 +32,25 @@ import javafx.collections.ObservableList;
  * @author Jose Antonio García del Saz
  *
  */
+@Entity
+@DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_CONTAINS)
 @XmlRootElement(name="filterContains")
-public class FilterContains implements Filter {
-	@XmlTransient
-	private final static Integer ID=Constants.INTEGER_FILTER_CONTAINS;
-	@XmlTransient
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_CONTAINS);
+public class FilterContains extends Filter {
+	@Transient
 	@XmlTransient
 	private ObservableList<String> keywordsList=FXCollections.observableArrayList();
+	@Transient
 	@XmlTransient
 	private StringProperty summary=new SimpleStringProperty();
+	@ElementCollection
+	@CollectionTable(name="perm_filter_contains_keyword_list", joinColumns=@JoinColumn(name="filter"))
+	@Column(name="keyword_list", length=20)
 	private List<String>keywordsXmlList=new ArrayList<String>();
+	@Transient
 	@XmlTransient
 	private String summaryString= new String("Contiene: ");;
 	public FilterContains() {
-		
+		this.setLABEL(Constants.STRING_FILTER_CONTAINS);
 	}
 
 	public FilterContains(FilterContains filter) {
@@ -49,22 +62,6 @@ public class FilterContains implements Filter {
 			summaryString=filter.getSummary().get();
 			summary.set(filter.getSummary().get());
 		}
-	}
-
-	/**
-	 * @return the id
-	 */
-	@XmlTransient
-	public  Integer getId() {
-		return ID;
-	}
-
-	/**
-	 * @return the label
-	 */
-	@XmlTransient
-	public  StringProperty getLabel() {
-		return LABEL;
 	}
 
 	/**
@@ -85,6 +82,7 @@ public class FilterContains implements Filter {
 	/**
 	 * @return the keywordsXmlList
 	 */
+	
 	@XmlElementWrapper(name = "keywordList")
     @XmlElement(name = "keyword")
 	public List<String> getKeywordsXmlList() {

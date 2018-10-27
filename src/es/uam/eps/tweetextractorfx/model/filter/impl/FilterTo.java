@@ -12,37 +12,25 @@ import javafx.beans.property.StringProperty;
  * @author Jose Antonio García del Saz
  *
  */
-public class FilterTo implements Filter {
-	private final static Integer ID=Constants.INTEGER_FILTER_TO;
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_TO);
+public class FilterTo extends Filter {
 	private StringProperty nickName= new SimpleStringProperty();
 	private StringProperty summary=new SimpleStringProperty();
 	private String summaryString = new String("Respondiendo a: @");
 	
 	public FilterTo (FilterTo filter) {
+		this.setLABEL(Constants.STRING_FILTER_TO);
 		if(filter!=null) {
 			summaryString=filter.getSummary().get();
 			summary.set(filter.getSummary().get());
 			this.nickName.set(filter.getNickName().get());
 		}
 	}
-	/**
-	 * @return the id
-	 */
-	public  Integer getId() {
-		return ID;
-	}
-	/**
-	 * @return the label
-	 */
-	public  StringProperty getLabel() {
-		return LABEL;
-	}
+
 	/**
 	 * 
 	 */
 	public FilterTo() {
-
+		this.setLABEL(Constants.STRING_FILTER_TO);
 	}
 	@Override
 	public StringProperty getSummary() {

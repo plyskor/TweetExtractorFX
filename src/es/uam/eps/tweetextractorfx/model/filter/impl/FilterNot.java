@@ -12,8 +12,7 @@ import javafx.beans.property.StringProperty;
  * @author Jose Antonio García del Saz
  *
  */
-public class FilterNot implements Filter {
-	private final static Integer ID=Constants.INTEGER_FILTER_OR;
+public class FilterNot extends Filter {
 	private Filter filter;
 	private StringProperty summary=new SimpleStringProperty();
 	private String summaryString= new String("");;
@@ -21,24 +20,9 @@ public class FilterNot implements Filter {
 	 * 
 	 */
 	public FilterNot() {
-
+		this.setLABEL("");
 	}
 
-	/* (non-Javadoc)
-	 * @see es.uam.eps.tweetextractorfx.model.filter.Filter#getId()
-	 */
-	@Override
-	public Integer getId() {
-		return ID;
-	}
-
-	/* (non-Javadoc)
-	 * @see es.uam.eps.tweetextractorfx.model.filter.Filter#getLabel()
-	 */
-	@Override
-	public StringProperty getLabel() {
-		return null;
-	}
 	
 	/**
 	 * @return the filter

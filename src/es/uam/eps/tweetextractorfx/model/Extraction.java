@@ -8,6 +8,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,6 +27,10 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import es.uam.eps.tweetextractorfx.util.DateAdapter;
 import javafx.collections.FXCollections;
@@ -36,22 +52,38 @@ import twitter4j.Status;
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterUntil.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterOr.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom.class })
-@XmlType(propOrder={"id","creationDate","lastModificationDate","filterXmlList"})
+@XmlType(propOrder={"id","idDB","creationDate","lastModificationDate","filterXmlList"})
+@Entity
+@Table(name = "perm_extraction")
 public class Extraction {
 
 	/**
 	 * 
 	 */
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "identifier")
+	private int idDB;
+	@Column(name = "id", length=36, unique=true, nullable=false)
 	private String id;
+	@Column(name = "creation_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
+	@Column(name = "last_modification_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastModificationDate;
 	@XmlTransient
-	private ObservableList<Tweet> tweetList;
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="extraction")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Tweet> tweetList;
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="extraction")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@XmlTransient
-	private ObservableList<Filter> filterList;
-	
+	private List<Filter> filterList;
+	@Transient
 	private List<Filter> filterXmlList = new ArrayList<Filter>();
-
+	@XmlTransient
+	@ManyToOne
+	private User user;
 	public Extraction() {
 		creationDate = new Date();
 		lastModificationDate = new Date();
@@ -60,12 +92,41 @@ public class Extraction {
 		id = UUID.randomUUID().toString();
 	}
 
+	/**
+	 * @return the idDB
+	 */
+	public int getIdDB() {
+		return idDB;
+	}
+
+	/**
+	 * @param idDB the idDB to set
+	 */
+	public void setIdDB(int idDB) {
+		this.idDB = idDB;
+	}
+
 	public int howManyTweets() {
 		if (tweetList == null) {
 			return 0;
 		} else {
 			return tweetList.size();
 		}
+	}
+
+	/**
+	 * @return the user
+	 */
+	@XmlTransient
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	/**
@@ -102,7 +163,7 @@ public class Extraction {
 	 * @return the tweetList
 	 */
 	@XmlTransient
-	public ObservableList<Tweet> getTweetList() {
+	public List<Tweet> getTweetList() {
 		return tweetList;
 	}
 
@@ -141,6 +202,7 @@ public class Extraction {
 	 */
 	public void addTweet(Tweet tweet) {
 		if (tweet != null) {
+			tweet.setExtraction(this);
 			tweetList.add(tweet);
 		}
 	}
@@ -150,6 +212,9 @@ public class Extraction {
 	 */
 	public void addFilters(List<Filter> list) {
 		if (list != null) {
+			for(Filter f:list) {
+				f.setExtraction(this);
+			}
 			filterList.addAll(list);
 			filterXmlList.addAll(list);
 		}
@@ -185,7 +250,7 @@ public class Extraction {
 	 * @return the filterList
 	 */
 	@XmlTransient
-	public ObservableList<Filter> getFilterList() {
+	public List<Filter> getFilterList() {
 		return filterList;
 	}
 

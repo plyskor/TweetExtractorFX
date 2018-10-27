@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import org.hibernate.annotations.Type;
 
 import es.uam.eps.tweetextractorfx.util.DateAdapter;
 import twitter4j.HashtagEntity;
@@ -24,28 +28,62 @@ import twitter4j.UserMentionEntity;
  * @author Jose Antonio García del Saz
  *
  */
+@Entity
+@Table(name="perm_tweet")
 public class Tweet {
+	@Id@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "identifier")
+	private int idDB;
+	@Column(name = "creation_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
+	@Column(name = "last_update_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdated;
+	@Column(name = "favourite_count")
 	private int favouriteCount;
+	@OneToOne(optional=true,orphanRemoval=true)
 	private GeoLocation geoLocation;
+	@ElementCollection
+	@CollectionTable(name="perm_hashtag_list", joinColumns=@JoinColumn(name="tweet"))
+	@Column(name="hashtag_list")
 	private List<String> hashtagList;
+	@Column(name = "id")
 	private long id;
+	@Column(name = "in_reply_to_screen_name")
 	private String inReplyToScreenName;
+	@Column(name = "in_reply_to_status_id")
 	private long inReplyToStatusId;
+	@Column(name = "lang")
 	private String lang;
+	@ManyToOne(optional=true)
 	private Tweet quotedTweet;
+	@Column(name = "retweet_count")
 	private int retweetCount;
+	@Column(name = "source")
 	private String source;
+	@Column(name = "text")
+	@Type(type="text")
 	private String text;
+	@Column(name = "user_screen_name")
 	private String userScreenName;
+	@ElementCollection
+	@CollectionTable(name="perm_user_mention_list", joinColumns=@JoinColumn(name="tweet"))
+	@Column(name="user_mention_list")
 	private List<String> userMentions;
+	@Column(name = "possibly_sensitive")
 	private boolean possiblySensitive;
+	@Column(name = "favourited")
 	private boolean favorited;
+	@Column(name = "is_retweet")
 	private boolean retweet;
+	@Column(name = "is_retweeted")
 	private boolean retweeted;
+	@Column(name = "retweeted_tweet")
 	private long retweetedTweet;
-	
+	@ManyToOne
+	@XmlTransient
+	private Extraction extraction;
 	public Tweet() {
 		super();
 	}
@@ -103,6 +141,34 @@ public class Tweet {
 	 */
 	public boolean isPossiblySensitive() {
 		return possiblySensitive;
+	}
+
+	/**
+	 * @return the idDB
+	 */
+	public int getIdDB() {
+		return idDB;
+	}
+
+	/**
+	 * @param idDB the idDB to set
+	 */
+	public void setIdDB(int idDB) {
+		this.idDB = idDB;
+	}
+
+	/**
+	 * @return the extraction
+	 */
+	public Extraction getExtraction() {
+		return extraction;
+	}
+
+	/**
+	 * @param extraction the extraction to set
+	 */
+	public void setExtraction(Extraction extraction) {
+		this.extraction = extraction;
 	}
 
 	/**

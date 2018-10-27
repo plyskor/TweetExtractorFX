@@ -21,40 +21,21 @@ import javafx.beans.property.StringProperty;
  *
  */
 @XmlRootElement(name="filterUntil")
-public class FilterUntil implements Filter {
-	@XmlTransient
-	private final static Integer ID=Constants.INTEGER_FILTER_UNTIL;
-	@XmlTransient
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_UNTIL);
+public class FilterUntil extends Filter {
 	@XmlTransient
 	private StringProperty summary=new SimpleStringProperty();
 	private LocalDate date;
 	public FilterUntil(FilterUntil filter) {
+		this.setLABEL(Constants.STRING_FILTER_UNTIL);
 		if(filter!=null) {
 			this.date=filter.getDate();
 		}
 	}
 	/**
-	 * @return the id
-	 */
-	@XmlTransient
-	public  Integer getId() {
-		return ID;
-	}
-
-	/**
-	 * @return the label
-	 */
-	@XmlTransient
-	public  StringProperty getLabel() {
-		return LABEL;
-	}
-
-	/**
 	 * 
 	 */
 	public FilterUntil() {
-		// TODO Auto-generated constructor stub
+		this.setLABEL(Constants.STRING_FILTER_UNTIL);
 	}
 	@XmlTransient
 	@Override

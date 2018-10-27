@@ -12,27 +12,14 @@ import javafx.beans.property.StringProperty;
  * @author Jose Antonio García del Saz
  *
  */
-public class FilterQuestion implements Filter {
-	private final static Integer ID=Constants.INTEGER_FILTER_QUESTION;
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_QUESTION);
+public class FilterQuestion extends Filter {
 	/**
 	 * 
 	 */
 	public FilterQuestion() {
-		// TODO Auto-generated constructor stub
-	}
-	/**
-	 * @return the id
-	 */
-	public  Integer getId() {
-		return ID;
-	}
-	/**
-	 * @return the label
-	 */
-	public  StringProperty getLabel() {
-		return LABEL;
-	}
+		this.setLABEL(Constants.STRING_FILTER_QUESTION);	
+		}
+
 	@Override
 	public StringProperty getSummary() {
 		// TODO Auto-generated method stub

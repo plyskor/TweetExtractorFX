@@ -3,7 +3,12 @@
  */
 package es.uam.eps.tweetextractorfx.model.filter.impl;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.Constants.FilterTypes;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -12,27 +17,19 @@ import javafx.beans.property.StringProperty;
  * @author Jose Antonio García del Saz
  *
  */
-public class FilterAttitude implements Filter {
-	private final static Integer ID=Constants.INTEGER_FILTER_ATTITUDE;
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_ATTITUDE);
+@Entity
+@Table(name="perm_fiter_attitude")
+@DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_ATTITUDE)
+public class FilterAttitude extends Filter {
 	/**
 	 * 
 	 */
 	public FilterAttitude() {
-		// TODO Auto-generated constructor stub
+		this.setLABEL(Constants.STRING_FILTER_ATTITUDE);
 	}
 	/**
 	 * @return the id
 	 */
-	public  Integer getId() {
-		return ID;
-	}
-	/**
-	 * @return the label
-	 */
-	public StringProperty getLabel() {
-		return LABEL;
-	}
 	@Override
 	public StringProperty getSummary() {
 		// TODO Auto-generated method stub

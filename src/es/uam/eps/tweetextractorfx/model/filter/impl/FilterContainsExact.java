@@ -19,12 +19,8 @@ import javafx.collections.ObservableList;
  *
  */
 @XmlRootElement(name="filterContainsExact")
-public class FilterContainsExact implements Filter {
+public class FilterContainsExact extends Filter {
 	
-	@XmlTransient
-	private final static Integer ID=Constants.INTEGER_FILTER_CONTAINS_EXACT;
-	@XmlTransient
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_CONTAINS_EXACT);
 	@XmlTransient
 	private ObservableList<String> keywordsList=FXCollections.observableArrayList();
 	@XmlTransient
@@ -33,10 +29,11 @@ public class FilterContainsExact implements Filter {
 	private String summaryString= new String("Contiene exactamente: ");
 	private List<String>keywordXmlList = new ArrayList<String>();
 	public FilterContainsExact() {
-		
+		this.setLABEL(Constants.STRING_FILTER_CONTAINS_EXACT);
 	}
 	
 	public FilterContainsExact(FilterContainsExact filter) {
+		this.setLABEL(Constants.STRING_FILTER_CONTAINS_EXACT);
 		if(filter!=null) {
 			for(String word:filter.getKeywordsList()){
 				keywordsList.add(word);
@@ -45,21 +42,6 @@ public class FilterContainsExact implements Filter {
 			summaryString=filter.getSummary().get();
 			summary.set(filter.getSummary().get());
 		}
-	}
-	/**
-	 * @return the id
-	 */
-	@XmlTransient
-	public  Integer getId() {
-		return ID;
-	}
-
-	/**
-	 * @return the label
-	 */
-	@XmlTransient
-	public  StringProperty getLabel() {
-		return LABEL;
 	}
 
 	/**

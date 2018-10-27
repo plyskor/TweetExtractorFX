@@ -23,9 +23,7 @@ import javafx.collections.ObservableList;
  *
  */
 @XmlRootElement(name="FilterOr")
-public class FilterOr implements Filter {
-	@XmlTransient
-	private final static Integer ID=Constants.INTEGER_FILTER_OR;
+public class FilterOr extends Filter {
 	private List<Filter> filterList=new ArrayList<Filter>();
 	@XmlTransient
 	private StringProperty summary=new SimpleStringProperty();
@@ -37,6 +35,7 @@ public class FilterOr implements Filter {
 	 */
 	public FilterOr() {
 		super();
+		this.setLABEL("");
 	}
 	
 	public void addAll(ObservableList<Filter> observableList) {
@@ -52,23 +51,9 @@ public class FilterOr implements Filter {
 			summary.set(summaryString);
 		}
 	}
-	/* (non-Javadoc)
-	 * @see es.uam.eps.tweetextractorfx.model.filter.Filter#getId()
-	 */
-	@XmlTransient
-	@Override
-	public Integer getId() {
-		return ID;
-	}
 
-	/* (non-Javadoc)
-	 * @see es.uam.eps.tweetextractorfx.model.filter.Filter#getLabel()
-	 */
-	@XmlTransient
-	@Override
-	public StringProperty getLabel() {
-		return null;
-	}
+
+
 
 	/* (non-Javadoc)
 	 * @see es.uam.eps.tweetextractorfx.model.filter.Filter#getSummary()

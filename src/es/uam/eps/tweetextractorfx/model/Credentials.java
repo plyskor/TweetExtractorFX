@@ -1,15 +1,63 @@
 package es.uam.eps.tweetextractorfx.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
+@Entity
+@Table(name = "perm_credentials")
 public class Credentials {
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "identifier")
+	private int idDB;
+	@Column(name = "consumer_key", length=60, nullable=false)
 	private String consumerKey;
+	@Column(name = "consumer_secret", length=60, nullable=false)
 	private String consumerSecret;
+	@Column(name = "access_token", length=60, nullable=false)
 	private String accessToken;
+	@Column(name = "access_token_secret", length=60, nullable=false)
 	private String accessTokenSecret;
-	
+	@Column(name = "account_screen_name", length=30, nullable=false)
 	private String accountScreenName;
+	@ManyToOne
+	@XmlTransient
+	private User user;
 	public Credentials() {
+	}
+
+	/**
+	 * @return the idDB
+	 */
+	public int getIdDB() {
+		return idDB;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	/**
+	 * @param idDB the idDB to set
+	 */
+	public void setIdDB(int idDB) {
+		this.idDB = idDB;
 	}
 
 	/**

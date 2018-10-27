@@ -23,11 +23,7 @@ import javafx.collections.ObservableList;
  *
  */
 @XmlRootElement(name="filterHashtag")
-public class FilterHashtag implements Filter {
-	@XmlTransient
-	private final static Integer ID=Constants.INTEGER_FILTER_HASHTAG;
-	@XmlTransient
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_HASHTAG);
+public class FilterHashtag extends Filter {
 	@XmlTransient
 	private ObservableList<String> hashtagList=FXCollections.observableArrayList();
 	@XmlTransient
@@ -37,6 +33,7 @@ public class FilterHashtag implements Filter {
 	
 	private List<String> hashtagXmlList=new ArrayList<String>();
 	public FilterHashtag(FilterHashtag filter) {
+		this.setLABEL(Constants.STRING_FILTER_HASHTAG);
 		if(filter!=null) {
 			for(String word:filter.getHashtagList()){
 				hashtagList.add(word);
@@ -50,24 +47,10 @@ public class FilterHashtag implements Filter {
 	 * 
 	 */
 	public FilterHashtag() {
-		
+		this.setLABEL(Constants.STRING_FILTER_HASHTAG);
 	}
 
-	/**
-	 * @return the id
-	 */
-	@XmlTransient
-	public  Integer getId() {
-		return ID;
-	}
 
-	/**
-	 * @return the label
-	 */
-	@XmlTransient
-	public  StringProperty getLabel() {
-		return LABEL;
-	}
 	@XmlTransient
 	@Override
 	public StringProperty getSummary() {

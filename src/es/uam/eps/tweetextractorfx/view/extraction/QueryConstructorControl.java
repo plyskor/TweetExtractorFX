@@ -2,6 +2,7 @@ package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.io.IOException;
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.Extraction;
@@ -184,7 +185,7 @@ public class QueryConstructorControl {
 	@FXML
 	private void initialize() {
 		// Initialize the person table with the two columns.
-		availableFiltersColumn.setCellValueFactory(cellData -> cellData.getValue().getLabel());
+		availableFiltersColumn.setCellValueFactory(cellData -> cellData.getValue().getLABEL());
 		addedFiltersColumn.setCellValueFactory(cellData -> cellData.getValue().getSummary());
 
 		// Listen for selection changes and show the person details when changed.
@@ -256,6 +257,8 @@ public class QueryConstructorControl {
 		extraction = new Extraction();
 		extraction.addFilters(addedFiltersList);
 		this.getMainApplication().getCurrentUser().addExtractionToList(extraction);
+		UserService userService=new UserService();
+		userService.update(this.getMainApplication().getCurrentUser());
 		try {
 			XMLManager.saveUserList(this.getMainApplication().getUserList());
 		} catch (Exception e) {

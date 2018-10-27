@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import org.mindrot.jbcrypt.BCrypt;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
@@ -101,12 +102,13 @@ public class NewUserDialogControl {
 	}
 	@FXML
 	public void handleCreateUser() {
+		UserService userService = new UserService();
 		String userName=userNameField.getText().trim();
 		if(userName.trim().isEmpty()||userName.length()<3) {
 			ErrorDialog.showErrorEmptyUser();
 			return;
 		}
-		if(this.getMainApplication().existsUser(userName)) {
+		if(userService.existsUser(userName)) {
 			ErrorDialog.showErrorExistingUser();
 			return;
 		}
@@ -121,6 +123,7 @@ public class NewUserDialogControl {
 			return;
 		}
 		User newUser = new User(userName,BCrypt.hashpw(password1, BCrypt.gensalt(12)));
+		userService.persist(newUser);
 		this.getMainApplication().getUserList().add(newUser);
 		try {
 			XMLManager.saveUserList(this.getMainApplication().getUserList());

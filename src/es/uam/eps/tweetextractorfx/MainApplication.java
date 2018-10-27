@@ -44,21 +44,17 @@ public class MainApplication extends Application {
 	private List<User> userList = new ArrayList<User>();
 	private User currentUser = null;
 	private RootLayoutControl rootLayoutController;
-	private SessionFactory sessionFactory;
 	public MainApplication() {
 		initAvailableFilters();
 		/* Inicializamos el directorio de persistencia */
 		File dataDir = new File(Constants.PERSISTENCE_PATH);
 		dataDir.mkdirs();
-		initializeDB();
 		/*
 		 * Cargamos la lista de usuarios List<User> readList =XMLManager.loadUserList();
 		 * if(readList!=null)userList.addAll(readList);
 		 */
 	}
-	private void initializeDB() {
-		sessionFactory = new Configuration().configure("tweetextractordb.xml").buildSessionFactory();
-	}
+	
 		
 
 

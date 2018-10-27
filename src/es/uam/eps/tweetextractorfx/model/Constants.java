@@ -8,26 +8,47 @@ package es.uam.eps.tweetextractorfx.model;
  * @author Jose Antonio García del Saz
  *
  */
-public final class Constants {
 
-	/*
-	 * Integers
-	 */
+public final class Constants {
+	public enum FilterTypes{
+		FC(Values.TYPE_FILTER_CONTAINS), 
+		FCE(Values.TYPE_FILTER_CONTAINS_EXACT),
+		FOR(Values.TYPE_FILTER_OR), 	
+		FNOT(Values.TYPE_FILTER_NOT), 		
+		FHASH(Values.TYPE_FILTER_HASHTAG), 		
+		FFROM(Values.TYPE_FILTER_FROM), 		
+		FTO(Values.TYPE_FILTER_TO), 
+		FLST(Values.TYPE_FILTER_LIST), 
+		FMNT(Values.TYPE_FILTER_MENTION), 	
+		FURL(Values.TYPE_FILTER_URL),		
+		FSNC(Values.TYPE_FILTER_SINCE), 
+		FUNTL(Values.TYPE_FILTER_UNTIL), 
+		FATT(Values.TYPE_FILTER_ATTITUDE), 
+		FQST(Values.TYPE_FILTER_QUESTION);
+		private FilterTypes (String type) {
+		     //if (!this.name().equals(type))
+		       // throw new IllegalArgumentException("Incorrect use of FilterTypes");
+		  }
+		public static class Values{
 			//Available filters
-			public final static Integer INTEGER_FILTER_CONTAINS=0;
-			public final static Integer INTEGER_FILTER_CONTAINS_EXACT=1;
-			public final static Integer INTEGER_FILTER_OR=2;
-			public final static Integer INTEGER_FILTER_NOT=3;
-			public final static Integer INTEGER_FILTER_HASHTAG=4;
-			public final static Integer INTEGER_FILTER_FROM=5;
-			public final static Integer INTEGER_FILTER_TO=6;
-			public final static Integer INTEGER_FILTER_LIST=7;
-			public final static Integer INTEGER_FILTER_MENTION=8;
-			public final static Integer INTEGER_FILTER_URL=9;
-			public final static Integer INTEGER_FILTER_SINCE=10;
-			public final static Integer INTEGER_FILTER_UNTIL=11;
-			public final static Integer INTEGER_FILTER_ATTITUDE=12;
-			public final static Integer INTEGER_FILTER_QUESTION=13;
+			public final static String TYPE_FILTER_CONTAINS="FC";
+			public final static String TYPE_FILTER_CONTAINS_EXACT="FCE";
+			public final static String TYPE_FILTER_OR="FOR";
+			public final static String TYPE_FILTER_NOT="FNOT";
+			public final static String TYPE_FILTER_HASHTAG="FHASH";
+			public final static String TYPE_FILTER_FROM="FFROM";
+			public final static String TYPE_FILTER_TO="FTO";
+			public final static String TYPE_FILTER_LIST="FLST";
+			public final static String TYPE_FILTER_MENTION="FMNT";
+			public final static String TYPE_FILTER_URL="FURL";
+			public final static String TYPE_FILTER_SINCE="FSNC";
+			public final static String TYPE_FILTER_UNTIL="FUNTL";
+			public final static String TYPE_FILTER_ATTITUDE="FATT";
+			public final static String TYPE_FILTER_QUESTION="FQST";
+		}
+	}
+
+			
 	/*
 	*  Generic Strings
 	*/

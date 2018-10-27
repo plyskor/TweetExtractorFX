@@ -9,6 +9,7 @@
         <!-- Connection settings -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://10.2.0.1/te_dev01</property>
+        <property name="hibernate.default_schema">te_dev01</property>
         <property name="hibernate.connection.username">te_adm</property>
         <property name="hibernate.connection.password"></property>
  
@@ -22,7 +23,16 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
  
         <!-- Annotated entity classes -->
-        <!--  <mapping class="com.jvmhub.tutorial.entity.AppUser"/>-->
+         <mapping class="es.uam.eps.tweetextractorfx.model.User"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.Credentials"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.Extraction"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.GeoLocation"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.Tweet"/>         
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.Filter"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains"/>
+         
+         
         
     </session-factory>
+    
 </hibernate-configuration>

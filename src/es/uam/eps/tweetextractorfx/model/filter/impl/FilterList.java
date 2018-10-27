@@ -18,11 +18,8 @@ import javafx.beans.property.StringProperty;
  *
  */
 @XmlRootElement(name="filterList")
-public class FilterList implements Filter {
-	@XmlTransient
-	private final static Integer ID=Constants.INTEGER_FILTER_LIST;
-	@XmlTransient
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_LIST);
+public class FilterList extends Filter {
+	
 	@XmlTransient
 	private StringProperty listName= new SimpleStringProperty();
 	@XmlTransient
@@ -37,9 +34,10 @@ public class FilterList implements Filter {
 	 * 
 	 */
 	public FilterList() {
-		// TODO Auto-generated constructor stub
+		this.setLABEL(Constants.STRING_FILTER_LIST);
 	}
 	public FilterList(FilterList filter) {
+		this.setLABEL(Constants.STRING_FILTER_LIST);
 		if(filter!=null) {
 			this.setAccountXml(filter.getAccountXml());
 			this.setListNameXml(filter.getListNameXml());
@@ -145,20 +143,6 @@ public class FilterList implements Filter {
 	 */
 	public void setSummary(String summary) {
 		this.summary.set(summary);
-	}
-	/**
-	 * @return the id
-	 */
-	@XmlTransient
-	public  Integer getId() {
-		return ID;
-	}
-	/**
-	 * @return the label
-	 */
-	@XmlTransient
-	public  StringProperty getLabel() {
-		return LABEL;
 	}
 	@XmlTransient
 	@Override

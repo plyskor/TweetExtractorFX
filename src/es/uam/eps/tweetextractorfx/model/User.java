@@ -8,11 +8,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import es.uam.eps.tweetextractorfx.util.DateAdapter;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.collections.FXCollections;
@@ -23,16 +28,33 @@ import javafx.collections.ObservableList;
  * @author Jose Antonio García del Saz
  *
  */
-@XmlType(propOrder={"id","nickname", "password", "creationDate","lastConnectionDate","credentialList","extractionIDList"})
+@Entity
+@Table(name = "perm_user")
+@XmlType(propOrder={"id","idDB","nickname", "password", "creationDate","lastConnectionDate","credentialList","extractionIDList"})
 public class User {
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "identifier")
+	private int idDB;
+	@Column(name = "nickname", length=50, unique=true, nullable=false)
 	private String nickname;
+	@Column(name = "password", length=256, nullable=false)
 	private String password;
+	@Column(name = "creation_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
+	@Column(name = "last_connection_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastConnectionDate=null;
+	@Transient
     private List<String> extractionIDList;
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="user")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Credentials> credentialList;
 	@XmlTransient
-	private ObservableList<Extraction> extractionList;
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="user")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Extraction> extractionList;
+	@Column(name = "id",length=36,unique=true, nullable=false)
 	private String id;
 	/**
 	 * 
@@ -52,6 +74,18 @@ public class User {
 		extractionIDList= new ArrayList<String>();
 	}
 
+	/**
+	 * @return the idDB
+	 */
+	public int getIdDB() {
+		return idDB;
+	}
+	/**
+	 * @param idDB the idDB to set
+	 */
+	public void setIdDB(int idDB) {
+		this.idDB = idDB;
+	}
 	/**
 	 * @return the extractionIDList
 	 */
@@ -155,12 +189,15 @@ public class User {
 	 */
 	public void addCredentials(Credentials credentials) {
 		if(credentials!=null) {
+			credentials.setUser(this);
 			this.credentialList.add(credentials);
 		}
+		
 	}
 	/**
 	 * @return the extractionList
 	 */
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="user")
 	public List<Extraction> getExtractionList() {
 		return extractionList;
 	}
@@ -176,6 +213,7 @@ public class User {
 	 */
 	public void addExtractionToList(Extraction extraction) {
 		if (extraction!=null) {
+			extraction.setUser(this);
 			this.extractionIDList.add(extraction.getId());
 			this.getExtractionList().add(extraction);
 		}

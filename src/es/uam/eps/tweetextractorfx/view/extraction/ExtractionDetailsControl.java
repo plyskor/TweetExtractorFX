@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.Tweet;
@@ -21,6 +22,7 @@ import es.uam.eps.tweetextractorfx.util.FilterManager;
 import es.uam.eps.tweetextractorfx.util.UpdateExtractionTask;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -57,6 +59,7 @@ public class ExtractionDetailsControl {
 	private Extraction extraction;
 	private Stage loadingDialog = null;
 	private Alert alertUpdate; 
+	private ObservableList<Tweet> tweetObservableList=FXCollections.observableArrayList();
 
 private TwitterExtractor twitterextractor;
 	/**
@@ -106,6 +109,20 @@ private TwitterExtractor twitterextractor;
 	 */
 	public void setTweetsTable(TableView<Tweet> tweetsTable) {
 		this.tweetsTable = tweetsTable;
+	}
+
+	/**
+	 * @return the tweetObservableList
+	 */
+	public ObservableList<Tweet> getTweetObservableList() {
+		return tweetObservableList;
+	}
+
+	/**
+	 * @param tweetObservableList the tweetObservableList to set
+	 */
+	public void setTweetObservableList(ObservableList<Tweet> tweetObservableList) {
+		this.tweetObservableList = tweetObservableList;
 	}
 
 	/**
@@ -161,7 +178,8 @@ private TwitterExtractor twitterextractor;
 	 */
 	public void setMainApplication(MainApplication mainApplication) {
 		this.mainApplication = mainApplication;
-		this.getTweetsTable().setItems(extraction.getTweetList());
+		this.getTweetsTable().setItems(this.tweetObservableList);
+		refreshTweetObservableList();
 		authorLabel.setText("");
 		dateLabel.setText("");
 		idLabel.setText("");
@@ -181,9 +199,12 @@ private TwitterExtractor twitterextractor;
 		if (queryResult != null) {
 			this.getExtraction().getTweetList().clear();
 			for (Tweet tweet : queryResult) {
+				tweet.setExtraction(getExtraction());
 				this.getExtraction().getTweetList().add(tweet);
 			}
+			refreshTweetObservableList();
 		}
+		
 	}
 
 	public void executeQuery() throws TwitterException {
@@ -220,6 +241,7 @@ private TwitterExtractor twitterextractor;
 		    	if (result>0) {
 		    		if(loadingDialog!=null)loadingDialog.close();
 					try {
+						refreshTweetObservableList();
 						XMLManager.saveExtraction(extraction);
 					} catch (Exception e1) {
 			    		if(loadingDialog!=null)loadingDialog.close();
@@ -246,7 +268,14 @@ private TwitterExtractor twitterextractor;
 	public Extraction getExtraction() {
 		return extraction;
 	}
-
+	public void refreshTweetObservableList() {
+		UserService userService=new UserService();
+		userService.update(getMainApplication().getCurrentUser());
+		if(extraction!=null&&extraction.getFilterList()!=null) {
+			this.tweetObservableList.clear();
+			this.tweetObservableList.setAll(extraction.getTweetList());
+		}
+	}
 	/**
 	 * @param extraction the extraction to set
 	 */

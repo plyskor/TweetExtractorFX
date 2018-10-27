@@ -16,11 +16,7 @@ import javafx.beans.property.StringProperty;
  *
  */
 @XmlRootElement(name="filterFrom")
-public class FilterFrom implements Filter {
-	@XmlTransient
-	private final static Integer ID=Constants.INTEGER_FILTER_FROM;
-	@XmlTransient
-	private final static StringProperty LABEL=new SimpleStringProperty(Constants.STRING_FILTER_FROM);
+public class FilterFrom extends Filter {
 	@XmlTransient
 	private StringProperty nickName= new SimpleStringProperty();
 	@XmlTransient
@@ -30,6 +26,7 @@ public class FilterFrom implements Filter {
 	private String nickNameXml = new String("");
 
 	public FilterFrom(FilterFrom filter) {
+		this.setLABEL(Constants.STRING_FILTER_FROM);
 		if(filter!=null) {
 			summaryString=filter.getSummary().get();
 			summary.set(filter.getSummary().get());
@@ -103,26 +100,10 @@ public class FilterFrom implements Filter {
 	}
 
 	/**
-	 * @return the id
-	 */
-	@XmlTransient
-	public  Integer getId() {
-		return ID;
-	}
-
-	/**
-	 * @return the label
-	 */
-	@XmlTransient
-	public  StringProperty getLabel() {
-		return LABEL;
-	}
-
-	/**
 	 * 
 	 */
 	public FilterFrom() {
-		// TODO Auto-generated constructor stub
+		this.setLABEL(Constants.STRING_FILTER_FROM);
 	}
 	@XmlTransient
 	@Override
