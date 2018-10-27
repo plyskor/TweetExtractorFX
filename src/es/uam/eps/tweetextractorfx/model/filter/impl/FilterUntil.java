@@ -22,13 +22,13 @@ import javafx.beans.property.StringProperty;
  */
 @XmlRootElement(name="filterUntil")
 public class FilterUntil extends Filter {
-	@XmlTransient
-	private StringProperty summary=new SimpleStringProperty();
 	private LocalDate date;
 	public FilterUntil(FilterUntil filter) {
 		this.setLABEL(Constants.STRING_FILTER_UNTIL);
 		if(filter!=null) {
 			this.date=filter.getDate();
+			this.summary=filter.getSummary();
+			this.summaryProperty.set(filter.getSummary());
 		}
 	}
 	/**
@@ -39,12 +39,13 @@ public class FilterUntil extends Filter {
 	}
 	@XmlTransient
 	@Override
-	public StringProperty getSummary() {
+	public StringProperty getSummaryProperty() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		if(date!=null) {
-			summary.set("Hasta: "+(date).format(formatter));
+			summaryProperty.set("Hasta: "+(date).format(formatter));
+			summary= new String(summaryProperty.get());
 		}	
-		return summary;
+		return summaryProperty;
 	}
 
 	/**
@@ -62,12 +63,6 @@ public class FilterUntil extends Filter {
 		this.date = date;
 	}
 
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(String summary) {
-		this.summary.set(summary);
-	}
 	@Override
 	public String toQuery() {
 		if(date==null) {

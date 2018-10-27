@@ -19,17 +19,14 @@ import javafx.beans.property.StringProperty;
 public class FilterFrom extends Filter {
 	@XmlTransient
 	private StringProperty nickName= new SimpleStringProperty();
-	@XmlTransient
-	private StringProperty summary=new SimpleStringProperty();
-	@XmlTransient
-	private String summaryString = new String("Tweeteado por: @");
 	private String nickNameXml = new String("");
 
 	public FilterFrom(FilterFrom filter) {
+		this.summary=new String("Tweeteado por: @");
 		this.setLABEL(Constants.STRING_FILTER_FROM);
 		if(filter!=null) {
-			summaryString=filter.getSummary().get();
-			summary.set(filter.getSummary().get());
+			summary=filter.getSummary();
+			summaryProperty.set(filter.getSummary());
 			this.nickName.set(filter.getNickName().get());
 			this.setNickNameXml(filter.getNickNameXml());
 		}
@@ -48,17 +45,10 @@ public class FilterFrom extends Filter {
 	public void setNickName(String nickName) {
 		this.nickName.set(nickName);
 		this.nickNameXml=new String(nickName);
-		summaryString=summaryString.concat(nickName);
-		summary.set(summaryString);
+		summary=summary.concat(nickName);
+		summaryProperty.set(summary);
 	}
 
-	/**
-	 * @return the summaryString
-	 */
-	@XmlTransient
-	public String getSummaryString() {
-		return summaryString;
-	}
 
 	/**
 	 * @return the nickNameXml
@@ -79,37 +69,16 @@ public class FilterFrom extends Filter {
 	public void setNickName(StringProperty nickName) {
 		this.nickName = nickName;
 	}
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(StringProperty summary) {
-		this.summary = summary;
-	}
-	/**
-	 * @param summaryString the summaryString to set
-	 */
-	public void setSummaryString(String summaryString) {
-		this.summaryString = summaryString;
-	}
 
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(String summary) {
-		this.summary.set(summary);
-	}
 
 	/**
 	 * 
 	 */
 	public FilterFrom() {
+		this.summary=new String("Tweeteado por: @");
 		this.setLABEL(Constants.STRING_FILTER_FROM);
 	}
-	@XmlTransient
-	@Override
-	public StringProperty getSummary() {
-		return summary;
-	}
+
 	@Override
 	public String toQuery() {
 		if(nickName==null) {

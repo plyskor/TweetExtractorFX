@@ -14,14 +14,13 @@ import javafx.beans.property.StringProperty;
  */
 public class FilterTo extends Filter {
 	private StringProperty nickName= new SimpleStringProperty();
-	private StringProperty summary=new SimpleStringProperty();
-	private String summaryString = new String("Respondiendo a: @");
+ //new String("Respondiendo a: @");
 	
 	public FilterTo (FilterTo filter) {
 		this.setLABEL(Constants.STRING_FILTER_TO);
 		if(filter!=null) {
-			summaryString=filter.getSummary().get();
-			summary.set(filter.getSummary().get());
+			summary=filter.getSummary();
+			summaryProperty.set(filter.getSummary());
 			this.nickName.set(filter.getNickName().get());
 		}
 	}
@@ -32,10 +31,7 @@ public class FilterTo extends Filter {
 	public FilterTo() {
 		this.setLABEL(Constants.STRING_FILTER_TO);
 	}
-	@Override
-	public StringProperty getSummary() {
-		return summary;
-	}
+
 	/**
 	 * @return the nickName
 	 */
@@ -47,27 +43,10 @@ public class FilterTo extends Filter {
 	 */
 	public void setNickName(String nickName) {
 		this.nickName.set(nickName);
-		summaryString=summaryString.concat(nickName);
-		summary.set(summaryString);
+		summary=summary.concat(nickName);
+		summaryProperty.set(summary);
 	}
-	/**
-	 * @return the summaryString
-	 */
-	public String getSummaryString() {
-		return summaryString;
-	}
-	/**
-	 * @param summaryString the summaryString to set
-	 */
-	public void setSummaryString(String summaryString) {
-		this.summaryString = summaryString;
-	}
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(String summary) {
-		this.summary.set(summary);
-	}
+
 	@Override
 	public String toQuery() {
 		// TODO Auto-generated method stub

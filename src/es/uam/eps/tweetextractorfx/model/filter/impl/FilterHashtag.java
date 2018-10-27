@@ -26,36 +26,28 @@ import javafx.collections.ObservableList;
 public class FilterHashtag extends Filter {
 	@XmlTransient
 	private ObservableList<String> hashtagList=FXCollections.observableArrayList();
-	@XmlTransient
-	private StringProperty summary=new SimpleStringProperty();
-	@XmlTransient
-	private String summaryString= new String("Hashtags: ");;
-	
+
 	private List<String> hashtagXmlList=new ArrayList<String>();
 	public FilterHashtag(FilterHashtag filter) {
+		this.summary=new String("Hashtags: ");
 		this.setLABEL(Constants.STRING_FILTER_HASHTAG);
 		if(filter!=null) {
 			for(String word:filter.getHashtagList()){
 				hashtagList.add(word);
 				hashtagXmlList.add(word);
 			}
-			summaryString=filter.getSummary().get();
-			summary.set(filter.getSummary().get());
+			summary=filter.getSummary();
+			summaryProperty.set(filter.getSummary());
 		}
 	}
 	/**
 	 * 
 	 */
 	public FilterHashtag() {
+		this.summary=new String("Hashtags: ");
 		this.setLABEL(Constants.STRING_FILTER_HASHTAG);
 	}
 
-
-	@XmlTransient
-	@Override
-	public StringProperty getSummary() {
-		return summary;
-	}
 
 	/**
 	 * @return the hashtagList
@@ -70,28 +62,6 @@ public class FilterHashtag extends Filter {
 	 */
 	public void setHashtagList(ObservableList<String> hashtagList) {
 		this.hashtagList = hashtagList;
-	}
-
-	/**
-	 * @return the summaryString
-	 */
-	@XmlTransient
-	public String getSummaryString() {
-		return summaryString;
-	}
-
-	/**
-	 * @param summaryString the summaryString to set
-	 */
-	public void setSummaryString(String summaryString) {
-		this.summaryString = summaryString;
-	}
-
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(String summary) {
-		this.summary.set(summary);
 	}
 	
 	/**
@@ -113,12 +83,7 @@ public class FilterHashtag extends Filter {
 			}
 		}
 	}
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(StringProperty summary) {
-		this.summary = summary;
-	}
+	
 	/**
 	 * @param hashtag the hashtag to add
 	 */
@@ -128,11 +93,11 @@ public class FilterHashtag extends Filter {
 	}
 public void loadHashtag(String hashtag) {
 	if(hashtagList.isEmpty()) {
-		summaryString=summaryString.concat("#"+hashtag);
-		summary.set(summaryString);
+		summary=summary.concat("#"+hashtag);
+		summaryProperty.set(summary);
 	}else {
-		summaryString=summaryString.concat(", #"+hashtag);
-		summary.set(summaryString);
+		summary=summary.concat(", #"+hashtag);
+		summaryProperty.set(summary);
 	}
 	hashtagList.add(hashtag);
 }

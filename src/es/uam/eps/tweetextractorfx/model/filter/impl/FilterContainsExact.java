@@ -23,24 +23,22 @@ public class FilterContainsExact extends Filter {
 	
 	@XmlTransient
 	private ObservableList<String> keywordsList=FXCollections.observableArrayList();
-	@XmlTransient
-	private StringProperty summary=new SimpleStringProperty();
-	@XmlTransient
-	private String summaryString= new String("Contiene exactamente: ");
 	private List<String>keywordXmlList = new ArrayList<String>();
 	public FilterContainsExact() {
+		this.summary=new String("Contiene exactamente: ");
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS_EXACT);
 	}
 	
 	public FilterContainsExact(FilterContainsExact filter) {
+		this.summary=new String("Contiene exactamente: ");
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS_EXACT);
 		if(filter!=null) {
 			for(String word:filter.getKeywordsList()){
 				keywordsList.add(word);
 				keywordXmlList.add(word);
 			}
-			summaryString=filter.getSummary().get();
-			summary.set(filter.getSummary().get());
+			summary=filter.getSummary();
+			summaryProperty.set(filter.getSummary());
 		}
 	}
 
@@ -52,19 +50,7 @@ public class FilterContainsExact extends Filter {
 		return keywordsList;
 	}
 
-	/**
-	 * @return the summaryString
-	 */
-	@XmlTransient
-	public String getSummaryString() {
-		return summaryString;
-	}
-	/**
-	 * @param summaryString the summaryString to set
-	 */
-	public void setSummaryString(String summaryString) {
-		this.summaryString = summaryString;
-	}
+
 	/**
 	 * @return the keywordXmlList
 	 */
@@ -84,27 +70,14 @@ public class FilterContainsExact extends Filter {
 			}
 		}
 	}
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(StringProperty summary) {
-		this.summary = summary;
-	}
+
 	/**
 	 * @param keywordsList the keywordsList to set
 	 */
 	public void setKeywordsList(ObservableList<String> keywordsList) {
 		this.keywordsList = keywordsList;
 	}
-	@XmlTransient
-	@Override
-	public StringProperty getSummary() {
-		return summary;
-	}
-	
-	public void setSummary(String summary) {
-		this.summary.set(summary);
-	}
+
 	
 	public void addKeywordWord(String word) {
 		loadKeywordWord(word);
@@ -112,11 +85,11 @@ public class FilterContainsExact extends Filter {
 	}
 	public void loadKeywordWord(String word) {
 		if(keywordsList.isEmpty()) {
-			summaryString=summaryString.concat("\""+word+"\"");
-			summary.set(summaryString);
+			summary=summary.concat("\""+word+"\"");
+			summaryProperty.set(summary);
 		}else {
-			summaryString=summaryString.concat(", \""+word+"\"");
-			summary.set(summaryString);
+			summary=summary.concat(", \""+word+"\"");
+			summaryProperty.set(summary);
 		}
 		keywordsList.add(word);
 	}

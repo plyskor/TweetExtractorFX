@@ -78,7 +78,7 @@ public class ShowUserExtractionsControl {
 					"Ùltima modificación: " + df.format(extraction.getLastModificationDate()));
 			TreeItem<String> filtersNode = new TreeItem<String>("Filtros");
 			for(Filter filter:extraction.getFilterList()) {
-				TreeItem<String> filterItem = new TreeItem<String>(filter.getSummary().get());
+				TreeItem<String> filterItem = new TreeItem<String>(filter.getSummary());
 				filtersNode.getChildren().add(filterItem);
 			}
 			extractionNode.getChildren().addAll(createdAt,lastModified,filtersNode);

@@ -43,23 +43,19 @@ public class FilterContains extends Filter {
 	@CollectionTable(name="perm_filter_contains_keyword_list", joinColumns=@JoinColumn(name="filter"))
 	@Column(name="keyword_list", length=20)
 	private List<String> keywordsList=FXCollections.observableArrayList();
-	@Transient
-	@XmlTransient
-	private StringProperty summary=new SimpleStringProperty();
-	@Column(name="summary")
-	@XmlTransient
-	private String summaryString= new String("Contiene: ");;
 	public FilterContains() {
+		this.summary=new String("Contiene: ");
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS);
 	}
 
 	public FilterContains(FilterContains filter) {
+		this.summary=new String("Contiene: ");
 		if(filter!=null) {
 			for(String word:filter.getKeywordsList()){
 				keywordsList.add(word);
 			}
-			summaryString=filter.getSummary().get();
-			summary.set(filter.getSummary().get());
+			summary=filter.getSummary();
+			summaryProperty.set(filter.getSummary());
 		}
 	}
 
@@ -87,48 +83,17 @@ public class FilterContains extends Filter {
 	public void setKeywordsList(List<String> keywordsXmlList) {
 		this.keywordsList = keywordsXmlList;
 	}
-
-	/**
-	 * @return the summaryString
-	 */
-	@XmlTransient
-	public String getSummaryString() {
-		return summaryString;
-	}
-
-	/**
-	 * @param summaryString the summaryString to set
-	 */
-	public void setSummaryString(String summaryString) {
-		this.summaryString = summaryString;
-	}
-
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(StringProperty summary) {
-		this.summary = summary;
-	}
-	@XmlTransient
-	@Override
-	public StringProperty getSummary() {
-		return summary;
-	}
-	
-	public void setSummary(String summary) {
-		this.summary.set(summary);
-	}
 	
 	public void addKeywordWord(String word) {
 		loadKeywordWord(word);
 	}
 	public void loadKeywordWord(String word) {
 		if(keywordsList.isEmpty()) {
-			summaryString=summaryString.concat(word);
-			summary.set(summaryString);
+			summary=summary.concat(word);
+			summaryProperty.set(summary);
 		}else {
-			summaryString=summaryString.concat(", "+word);
-			summary.set(summaryString);
+			summary=summary.concat(", "+word);
+			summaryProperty.set(summary);
 		}
 		keywordsList.add(word);
 	}

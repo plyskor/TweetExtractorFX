@@ -22,8 +22,7 @@ import javafx.beans.property.StringProperty;
  */
 @XmlRootElement(name="filterSince")
 public class FilterSince extends Filter {
-	@XmlTransient
-	private StringProperty summary=new SimpleStringProperty();
+
 	private LocalDate date;
 	/**
 	 * 
@@ -35,17 +34,20 @@ public class FilterSince extends Filter {
 		this.setLABEL(Constants.STRING_FILTER_SINCE);
 		if(filter!=null) {
 			this.date=filter.getDate();
+			this.summary=filter.getSummary();
+			this.summaryProperty.set(filter.getSummary());
 		}
 	}
 
 	@XmlTransient
 	@Override
-	public StringProperty getSummary() {
+	public StringProperty getSummaryProperty() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		if(date!=null) {
-			summary.set("Desde: "+(date).format(formatter));
+			summaryProperty.set("Desde: "+(date).format(formatter));
+			summary=new String(summaryProperty.get());
 		}
-		return summary;
+		return summaryProperty;
 	}
 	/**
 	 * @return the date

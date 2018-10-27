@@ -24,27 +24,25 @@ public class FilterList extends Filter {
 	private StringProperty listName= new SimpleStringProperty();
 	@XmlTransient
 	private StringProperty account= new SimpleStringProperty();
-	@XmlTransient
-	private StringProperty summary=new SimpleStringProperty();
-	@XmlTransient
-	private String summaryString = new String("Enviado desde una cuenta en la lista ");
 	private String listNameXml=new String("");
 	private String accountXml=new String("");
 	/**
 	 * 
 	 */
 	public FilterList() {
+		this.summary=new String("Enviado desde una cuenta en la lista ");
 		this.setLABEL(Constants.STRING_FILTER_LIST);
 	}
 	public FilterList(FilterList filter) {
+		this.summary=new String("Enviado desde una cuenta en la lista ");
 		this.setLABEL(Constants.STRING_FILTER_LIST);
 		if(filter!=null) {
 			this.setAccountXml(filter.getAccountXml());
 			this.setListNameXml(filter.getListNameXml());
 			this.setListName(filter.getListName().get());
 			this.setAccount(filter.getAccount().get());
-			this.setSummary(filter.getSummary().get());
-			this.setSummaryString(filter.getSummaryString());
+			this.setSummary(filter.getSummary());
+			this.summaryProperty.set(filter.getSummary());
 		}
 	}
 	
@@ -60,8 +58,8 @@ public class FilterList extends Filter {
 	 */
 	public void setListName(String listName) {
 		this.listName.set(listName);
-		summaryString=summaryString.concat("'"+listName+"' de la cuenta '"+account.get()+"'");
-		this.setSummary(summaryString);
+		summary=summary.concat("'"+listName+"' de la cuenta '"+account.get()+"'");
+		this.summaryProperty.set(summary);
 		this.listNameXml=new String(listName);
 		this.setAccountXml(this.getAccount().get());
 	}
@@ -78,13 +76,7 @@ public class FilterList extends Filter {
 	public void setAccount(String account) {
 		this.account.set(account);
 	}
-	/**
-	 * @return the summaryString
-	 */
-	@XmlTransient
-	public String getSummaryString() {
-		return summaryString;
-	}
+
 	
 	/**
 	 * @return the listNameXml
@@ -125,29 +117,6 @@ public class FilterList extends Filter {
 	 */
 	public void setAccount(StringProperty account) {
 		this.account = account;
-	}
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(StringProperty summary) {
-		this.summary = summary;
-	}
-	/**
-	 * @param summaryString the summaryString to set
-	 */
-	public void setSummaryString(String summaryString) {
-		this.summaryString = summaryString;
-	}
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(String summary) {
-		this.summary.set(summary);
-	}
-	@XmlTransient
-	@Override
-	public StringProperty getSummary() {
-		return summary;
 	}
 	@Override
 	public String toQuery() {

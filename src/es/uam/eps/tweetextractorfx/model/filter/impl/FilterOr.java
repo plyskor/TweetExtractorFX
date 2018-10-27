@@ -25,16 +25,14 @@ import javafx.collections.ObservableList;
 @XmlRootElement(name="FilterOr")
 public class FilterOr extends Filter {
 	private List<Filter> filterList=new ArrayList<Filter>();
-	@XmlTransient
-	private StringProperty summary=new SimpleStringProperty();
-	@XmlTransient
-	private String summaryString= new String("");;
+
 
 	/**
 	 * 
 	 */
 	public FilterOr() {
 		super();
+		this.summary=new String();
 		this.setLABEL("");
 	}
 	
@@ -43,25 +41,13 @@ public class FilterOr extends Filter {
 			for(int i=0;i<observableList.size();i++) {
 				filterList.add(observableList.get(i));
 				if(i==observableList.size()-1) {
-					summaryString=summaryString.concat("("+observableList.get(i).getSummary().get() + ")");
+					summary=summary.concat("("+observableList.get(i).getSummary() + ")");
 				}else {
-					summaryString=summaryString.concat("("+observableList.get(i).getSummary().get() + ") OR ");
+					summary=summary.concat("("+observableList.get(i).getSummary() + ") OR ");
 				}
 			}
-			summary.set(summaryString);
+			summaryProperty.set(summary);
 		}
-	}
-
-
-
-
-	/* (non-Javadoc)
-	 * @see es.uam.eps.tweetextractorfx.model.filter.Filter#getSummary()
-	 */
-	@XmlTransient
-	@Override
-	public StringProperty getSummary() {
-		return summary;
 	}
 
 	/**
@@ -80,27 +66,6 @@ public class FilterOr extends Filter {
 		this.filterList = filterList;
 	}
 
-	/**
-	 * @return the summaryString
-	 */
-	@XmlTransient
-	public String getSummaryString() {
-		return summaryString;
-	}
-
-	/**
-	 * @param summaryString the summaryString to set
-	 */
-	public void setSummaryString(String summaryString) {
-		this.summaryString = summaryString;
-	}
-
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(String summary) {
-		this.summary.set(summary);;
-	}
 
 	@Override
 	public String toQuery() {

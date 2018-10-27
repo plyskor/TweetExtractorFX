@@ -23,22 +23,18 @@ import javafx.collections.ObservableList;
 @XmlRootElement(name = "filterMention")
 public class FilterMention extends Filter {
 	@XmlTransient
-	private StringProperty summary = new SimpleStringProperty("");
-	@XmlTransient
 	private ObservableList<String> mentionList = FXCollections.observableArrayList();
-	@XmlTransient
-	private String summaryString = new String("Menciona a: ");
 	private List<String> mentionXmlList = new ArrayList<String>();
-
 	public FilterMention(FilterMention filter) {
+		this.summary=new String("Menciona a: ");
 		this.setLABEL(Constants.STRING_FILTER_MENTION);
 		if (filter != null) {
 			for (String word : filter.getMentionList()) {
 				mentionList.add(word);
 				mentionXmlList.add(word);
 			}
-			summaryString = filter.getSummary().get();
-			summary.set(filter.getSummary().get());
+			summary= filter.getSummary();
+			summaryProperty.set(filter.getSummary());
 		}
 	}
 
@@ -57,22 +53,13 @@ public class FilterMention extends Filter {
 		this.mentionList = mentionList;
 	}
 
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(String summary) {
-		this.summary.set(summary);
-	}
 
 	public FilterMention() {
+		this.summary=new String("Menciona a: ");
 		this.setLABEL(Constants.STRING_FILTER_MENTION);
 	}
 
-	@XmlTransient
-	@Override
-	public StringProperty getSummary() {
-		return summary;
-	}
+
 
 	public void addMention(String mention) {
 		loadMention(mention);
@@ -81,11 +68,11 @@ public class FilterMention extends Filter {
 
 	public void loadMention(String mention) {
 		if (mentionList.isEmpty()) {
-			summaryString = summaryString.concat("@" + mention);
-			summary.set(summaryString);
+			summary = summary.concat("@" + mention);
+			summaryProperty.set(summary);
 		} else {
-			summaryString = summaryString.concat(", @" + mention);
-			summary.set(summaryString);
+			summary = summary.concat(", @" + mention);
+			summaryProperty.set(summary);
 		}
 		mentionList.add(mention);
 	}
@@ -103,20 +90,6 @@ public class FilterMention extends Filter {
 		}
 	}
 
-	/**
-	 * @return the summaryString
-	 */
-	@XmlTransient
-	public String getSummaryString() {
-		return summaryString;
-	}
-
-	/**
-	 * @param summaryString the summaryString to set
-	 */
-	public void setSummaryString(String summaryString) {
-		this.summaryString = summaryString;
-	}
 
 	/**
 	 * @return the metionXmlList
@@ -132,13 +105,6 @@ public class FilterMention extends Filter {
 	 */
 	public void setMentionXmlList(List<String> mentionXmlList) {
 		this.mentionXmlList = mentionXmlList;
-	}
-
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(StringProperty summary) {
-		this.summary = summary;
 	}
 
 	@Override

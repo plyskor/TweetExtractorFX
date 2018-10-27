@@ -16,6 +16,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 
 import es.uam.eps.tweetextractorfx.util.DateAdapter;
@@ -45,6 +47,7 @@ public class Tweet {
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "tweet")
 	private GeoLocation geoLocation;
 	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name="perm_hashtag_list", joinColumns=@JoinColumn(name="tweet"))
 	@Column(name="hashtag_list")
 	private List<String> hashtagList;
@@ -68,6 +71,7 @@ public class Tweet {
 	@Column(name = "user_screen_name")
 	private String userScreenName;
 	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(name="perm_user_mention_list", joinColumns=@JoinColumn(name="tweet"))
 	@Column(name="user_mention_list")
 	private List<String> userMentions;

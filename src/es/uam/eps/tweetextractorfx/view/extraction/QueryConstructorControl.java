@@ -186,7 +186,7 @@ public class QueryConstructorControl {
 	private void initialize() {
 		// Initialize the person table with the two columns.
 		availableFiltersColumn.setCellValueFactory(cellData -> cellData.getValue().getLABEL());
-		addedFiltersColumn.setCellValueFactory(cellData -> cellData.getValue().getSummary());
+		addedFiltersColumn.setCellValueFactory(cellData -> cellData.getValue().getSummaryProperty());
 
 		// Listen for selection changes and show the person details when changed.
 		availableFiltersTable.getSelectionModel().selectedItemProperty()

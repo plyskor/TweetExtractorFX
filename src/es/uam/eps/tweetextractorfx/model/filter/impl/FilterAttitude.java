@@ -27,17 +27,9 @@ public class FilterAttitude extends Filter {
 	public FilterAttitude() {
 		this.setLABEL(Constants.STRING_FILTER_ATTITUDE);
 	}
-	/**
-	 * @return the id
-	 */
-	@Override
-	public StringProperty getSummary() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	@Override
 	public String toQuery() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override

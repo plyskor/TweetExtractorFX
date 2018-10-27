@@ -17,14 +17,11 @@ public class FilterQuestion extends Filter {
 	 * 
 	 */
 	public FilterQuestion() {
+		this.summary=new String();
 		this.setLABEL(Constants.STRING_FILTER_QUESTION);	
 		}
 
-	@Override
-	public StringProperty getSummary() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	@Override
 	public String toQuery() {
 		// TODO Auto-generated method stub

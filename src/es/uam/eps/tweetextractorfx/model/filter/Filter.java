@@ -43,6 +43,12 @@ public abstract class Filter {
 	public FilterTypes filterType;
 	@Transient
 	private StringProperty LABEL;
+	@Transient
+	@XmlTransient
+	protected StringProperty summaryProperty=new SimpleStringProperty();
+	@Column(name="summary")
+	@XmlTransient
+	protected String summary=new String("");
 	@ManyToOne
 	@XmlTransient
 	private Extraction extraction;
@@ -63,8 +69,6 @@ public abstract class Filter {
 		if (lABEL != null)
 			LABEL.set(lABEL);
 	}
-
-	public abstract StringProperty getSummary();
 
 	/**
 	 * @return the query
@@ -114,6 +118,32 @@ public abstract class Filter {
 	 */
 	public void setLABEL(StringProperty lABEL) {
 		LABEL = lABEL;
+	}
+	
+	/**
+	 * @return the summaryProperty
+	 */
+	public StringProperty getSummaryProperty() {
+		return summaryProperty;
+	}
+	
+	/**
+	 * @return the summary
+	 */
+	public String getSummary() {
+		return summary;
+	}
+	/**
+	 * @param summaryProperty the summaryProperty to set
+	 */
+	public void setSummaryProperty(StringProperty summaryProperty) {
+		this.summaryProperty = summaryProperty;
+	}
+	/**
+	 * @param summary the summary to set
+	 */
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 	public abstract void loadXml();
 }

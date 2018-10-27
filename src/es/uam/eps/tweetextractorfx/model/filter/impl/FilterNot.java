@@ -14,16 +14,13 @@ import javafx.beans.property.StringProperty;
  */
 public class FilterNot extends Filter {
 	private Filter filter;
-	private StringProperty summary=new SimpleStringProperty();
-	private String summaryString= new String("");;
 	/**
 	 * 
 	 */
 	public FilterNot() {
+		this.summary=new String("");
 		this.setLABEL("");
 	}
-
-	
 	/**
 	 * @return the filter
 	 */
@@ -36,38 +33,10 @@ public class FilterNot extends Filter {
 	 */
 	public void setFilter(Filter filter) {
 		this.filter = filter;
-		this.setSummaryString("NOT ("+filter.getSummary().get()+")");
-		this.setSummary(summaryString);
+		this.setSummary("NOT ("+filter.getSummary()+")");
+		this.summaryProperty.set(summary);
 	}
 
-	/**
-	 * @return the summaryString
-	 */
-	public String getSummaryString() {
-		return summaryString;
-	}
-
-	/**
-	 * @param summaryString the summaryString to set
-	 */
-	public void setSummaryString(String summaryString) {
-		this.summaryString = summaryString;
-	}
-
-	/**
-	 * @param summary the summary to set
-	 */
-	public void setSummary(String summary) {
-		this.summary.set(summary);
-	}
-
-	/* (non-Javadoc)
-	 * @see es.uam.eps.tweetextractorfx.model.filter.Filter#getSummary()
-	 */
-	@Override
-	public StringProperty getSummary() {
-		return summary;
-	}
 
 	@Override
 	public String toQuery() {
