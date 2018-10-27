@@ -308,11 +308,11 @@ public class MainApplication extends Application {
 	}
 
 	public void updateUserList() {
-		List<User> readList = XMLManager.loadUserList();
+		/*List<User> readList = XMLManager.loadUserList();
 		if (readList != null) {
 			this.userList.clear();
 			userList.addAll(readList);
-		}
+		}*/
 	}
 
 	public boolean existsUser(String nickName) {

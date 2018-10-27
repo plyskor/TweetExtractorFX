@@ -4,6 +4,8 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
@@ -22,6 +24,7 @@ public class FilterContainsDialogControl {
 	private TextField wordToAdd;
     private FilterContains filter;
     private Stage dialogStage;
+    private ObservableList<String> keywordsList=FXCollections.observableArrayList();
 	/**
 	 * 
 	 */
@@ -55,7 +58,7 @@ public class FilterContainsDialogControl {
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-		selectedWordsView.setItems(filter.getKeywordsList());
+		selectedWordsView.setItems(keywordsList);
 	}
 
 	/**
@@ -104,8 +107,16 @@ public class FilterContainsDialogControl {
 				if(!filter.getKeywordsList().contains(word))filter.addKeywordWord(word);
 			}
 			wordToAdd.clear();
+			refreshKeywordList();
 		}
 	}
+	private void refreshKeywordList() {
+		if(filter!=null&&this.filter.getKeywordsList()!=null) {
+			keywordsList.setAll(filter.getKeywordsList());
+		}
+		
+	}
+
 	@FXML
 	public void handleCancel() {
 		this.filter=null;
@@ -114,6 +125,14 @@ public class FilterContainsDialogControl {
 	@FXML
 	public void handleDone() {
 		dialogStage.close();
+	}
+
+	public ObservableList<String> getKeywordsList() {
+		return keywordsList;
+	}
+
+	public void setKeywordsList(ObservableList<String> keywordsList) {
+		this.keywordsList = keywordsList;
 	}
 
 }

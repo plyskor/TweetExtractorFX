@@ -4,7 +4,6 @@
 package es.uam.eps.tweetextractorfx.model.filter.impl;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -13,12 +12,14 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.Constants.FilterTypes;
@@ -36,17 +37,16 @@ import javafx.collections.ObservableList;
 @DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_CONTAINS)
 @XmlRootElement(name="filterContains")
 public class FilterContains extends Filter {
-	@Transient
 	@XmlTransient
-	private ObservableList<String> keywordsList=FXCollections.observableArrayList();
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name="perm_filter_contains_keyword_list", joinColumns=@JoinColumn(name="filter"))
+	@Column(name="keyword_list", length=20)
+	private List<String> keywordsList=FXCollections.observableArrayList();
 	@Transient
 	@XmlTransient
 	private StringProperty summary=new SimpleStringProperty();
-	@ElementCollection
-	@CollectionTable(name="perm_filter_contains_keyword_list", joinColumns=@JoinColumn(name="filter"))
-	@Column(name="keyword_list", length=20)
-	private List<String>keywordsXmlList=new ArrayList<String>();
-	@Transient
+	@Column(name="summary")
 	@XmlTransient
 	private String summaryString= new String("Contiene: ");;
 	public FilterContains() {
@@ -57,20 +57,12 @@ public class FilterContains extends Filter {
 		if(filter!=null) {
 			for(String word:filter.getKeywordsList()){
 				keywordsList.add(word);
-				keywordsXmlList.add(word);
 			}
 			summaryString=filter.getSummary().get();
 			summary.set(filter.getSummary().get());
 		}
 	}
 
-	/**
-	 * @return the keywordsList
-	 */
-	@XmlTransient
-	public ObservableList<String> getKeywordsList() {
-		return keywordsList;
-	}
 
 	/**
 	 * @param keywordsList the keywordsList to set
@@ -85,15 +77,15 @@ public class FilterContains extends Filter {
 	
 	@XmlElementWrapper(name = "keywordList")
     @XmlElement(name = "keyword")
-	public List<String> getKeywordsXmlList() {
-		return keywordsXmlList;
+	public List<String> getKeywordsList() {
+		return keywordsList;
 	}
 
 	/**
 	 * @param keywordsXmlList the keywordsXmlList to set
 	 */
-	public void setKeywordsXmlList(List<String> keywordsXmlList) {
-		this.keywordsXmlList = keywordsXmlList;
+	public void setKeywordsList(List<String> keywordsXmlList) {
+		this.keywordsList = keywordsXmlList;
 	}
 
 	/**
@@ -129,7 +121,6 @@ public class FilterContains extends Filter {
 	
 	public void addKeywordWord(String word) {
 		loadKeywordWord(word);
-		keywordsXmlList.add(word);
 	}
 	public void loadKeywordWord(String word) {
 		if(keywordsList.isEmpty()) {
@@ -156,7 +147,7 @@ public class FilterContains extends Filter {
 
 	@Override
 	public void loadXml() {
-		for(String keyWord:keywordsXmlList) {
+		for(String keyWord:keywordsList) {
 			loadKeywordWord(keyWord);
 		}
 	}

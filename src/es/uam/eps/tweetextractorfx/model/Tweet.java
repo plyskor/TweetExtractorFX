@@ -42,7 +42,7 @@ public class Tweet {
 	private Date lastUpdated;
 	@Column(name = "favourite_count")
 	private int favouriteCount;
-	@OneToOne(optional=true,orphanRemoval=true)
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "tweet")
 	private GeoLocation geoLocation;
 	@ElementCollection
 	@CollectionTable(name="perm_hashtag_list", joinColumns=@JoinColumn(name="tweet"))
@@ -56,7 +56,7 @@ public class Tweet {
 	private long inReplyToStatusId;
 	@Column(name = "lang")
 	private String lang;
-	@ManyToOne(optional=true)
+	@ManyToOne(optional=true,cascade=CascadeType.ALL)
 	private Tweet quotedTweet;
 	@Column(name = "retweet_count")
 	private int retweetCount;
@@ -101,6 +101,7 @@ public class Tweet {
 		}
 		this.favouriteCount=tweet.getFavoriteCount();
 		if(tweet.getGeoLocation()!=null)this.geoLocation=new GeoLocation(tweet.getGeoLocation().getLatitude(), tweet.getGeoLocation().getLongitude());
+		if(this.getGeoLocation()!=null)this.geoLocation.setTweet(this);
 		this.hashtagList= new ArrayList<String>();
 		for(HashtagEntity entity : tweet.getHashtagEntities()) {
 			hashtagList.add(entity.getText());
@@ -160,6 +161,7 @@ public class Tweet {
 	/**
 	 * @return the extraction
 	 */
+	@XmlTransient
 	public Extraction getExtraction() {
 		return extraction;
 	}

@@ -36,7 +36,7 @@ public class ShowUserExtractionsControl {
 	public void initialize() {
 		extractionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue()));
 		extractionTableView.getSelectionModel().selectedItemProperty().addListener((c, oldValue, newValue) -> {
-			if (newValue != null && !newValue.getValue().startsWith("Extracción")) {
+			if ((newValue != null && newValue.getValue()!=null&&!newValue.getValue().startsWith("Extracción"))||newValue == null || newValue.getValue()==null) {
 				Platform.runLater(() -> extractionTableView.getSelectionModel().clearSelection());
 				selectedExtraction=null;
 			} else {
