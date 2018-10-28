@@ -3,10 +3,14 @@
  */
 package es.uam.eps.tweetextractorfx.model.filter.impl;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.Constants.FilterTypes;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -15,27 +19,25 @@ import javafx.beans.property.StringProperty;
  * @author Jose Antonio García del Saz
  *
  */
+@Entity
+@DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_FROM)
 @XmlRootElement(name="filterFrom")
 public class FilterFrom extends Filter {
-	@XmlTransient
-	private StringProperty nickName= new SimpleStringProperty();
-	private String nickNameXml = new String("");
-
+	@Column(name="nickname")
+	private String nickName = new String("");
 	public FilterFrom(FilterFrom filter) {
 		this.summary=new String("Tweeteado por: @");
 		this.setLABEL(Constants.STRING_FILTER_FROM);
 		if(filter!=null) {
 			summary=filter.getSummary();
 			summaryProperty.set(filter.getSummary());
-			this.nickName.set(filter.getNickName().get());
-			this.setNickNameXml(filter.getNickNameXml());
+			this.nickName=filter.getNickName();
 		}
 	}
 	/**
 	 * @return the nickName
 	 */
-	@XmlTransient
-	public StringProperty getNickName() {
+	public String getNickName() {
 		return nickName;
 	}
 
@@ -43,34 +45,10 @@ public class FilterFrom extends Filter {
 	 * @param nickName the nickName to set
 	 */
 	public void setNickName(String nickName) {
-		this.nickName.set(nickName);
-		this.nickNameXml=new String(nickName);
+		this.nickName=nickName;
 		summary=summary.concat(nickName);
 		summaryProperty.set(summary);
 	}
-
-
-	/**
-	 * @return the nickNameXml
-	 */
-	public String getNickNameXml() {
-		return nickNameXml;
-	}
-	/**
-	 * @param nickNameXml the nickNameXml to set
-	 */
-	public void setNickNameXml(String nickNameXml) {
-		this.nickNameXml = nickNameXml;
-		if(nickNameXml!=null)setNickName(nickNameXml);
-	}
-	/**
-	 * @param nickName the nickName to set
-	 */
-	public void setNickName(StringProperty nickName) {
-		this.nickName = nickName;
-	}
-
-
 	/**
 	 * 
 	 */

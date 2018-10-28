@@ -11,7 +11,7 @@
         <property name="hibernate.connection.url">jdbc:postgresql://10.2.0.1/te_dev01</property>
         <property name="hibernate.default_schema">te_dev01</property>
         <property name="hibernate.connection.username">te_adm</property>
-        <property name="hibernate.connection.password">40L-%9ko1fG</property>
+        <property name="hibernate.connection.password"></property>
  
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
@@ -30,6 +30,12 @@
          <mapping class="es.uam.eps.tweetextractorfx.model.Tweet"/>         
          <mapping class="es.uam.eps.tweetextractorfx.model.filter.Filter"/>
          <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterContainsExact"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterHashtag"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterList"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterMention"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterNot"/>
          
          
         

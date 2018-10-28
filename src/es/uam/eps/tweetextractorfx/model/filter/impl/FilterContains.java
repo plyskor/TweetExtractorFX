@@ -4,6 +4,7 @@
 package es.uam.eps.tweetextractorfx.model.filter.impl;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -40,9 +41,9 @@ public class FilterContains extends Filter {
 	@XmlTransient
 	@ElementCollection
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@CollectionTable(name="perm_filter_contains_keyword_list", joinColumns=@JoinColumn(name="filter"))
+	@CollectionTable(name="perm_filter_contains_word_list", joinColumns=@JoinColumn(name="filter"))
 	@Column(name="keyword_list", length=20)
-	private List<String> keywordsList=FXCollections.observableArrayList();
+	private List<String> keywordsList=new ArrayList<String>();
 	public FilterContains() {
 		this.summary=new String("Contiene: ");
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS);

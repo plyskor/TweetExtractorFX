@@ -31,7 +31,7 @@ import javafx.beans.property.StringProperty;
 @Entity
 @Table(name="perm_fiter")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "filter_type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "filter_type",length=6, discriminatorType = DiscriminatorType.STRING)
 public abstract class Filter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

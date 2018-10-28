@@ -3,16 +3,27 @@
  */
 package es.uam.eps.tweetextractorfx.model.filter.impl;
 
-import es.uam.eps.tweetextractorfx.model.Constants;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import es.uam.eps.tweetextractorfx.model.Constants.FilterTypes;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
+@Entity
+@DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_NOT)
+@XmlRootElement(name = "filterNot")
 public class FilterNot extends Filter {
+	@OneToOne(cascade=CascadeType.ALL,optional=true)
+	@JoinColumn(nullable=true)
 	private Filter filter;
 	/**
 	 * 

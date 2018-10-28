@@ -490,7 +490,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null&&controller.getFilter().getNickName()!=null&&controller.getFilter().getNickName().isNotEmpty().get()) {
+			if (controller.getFilter() != null&&controller.getFilter().getNickName()!=null&&!controller.getFilter().getNickName().isEmpty()) {
 				addedFiltersList.add(new FilterFrom(controller.getFilter()));
 			}
 			return;
@@ -597,7 +597,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null&& controller.getFilter().getAccount() !=null && controller.getFilter().getAccount().isNotEmpty().get()&&controller.getFilter().getListName()!=null&&controller.getFilter().getListName().isNotEmpty().get()) {
+			if (controller.getFilter() != null&& controller.getFilter().getAccount() !=null && !controller.getFilter().getAccount().isEmpty()&&controller.getFilter().getListName()!=null&&!controller.getFilter().getListName().isEmpty()) {
 				addedFiltersList.add(new FilterList(controller.getFilter()));
 			}
 			return;

@@ -5,11 +5,23 @@ package es.uam.eps.tweetextractorfx.model.filter.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.Constants.FilterTypes;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -20,18 +32,22 @@ import javafx.collections.ObservableList;
  * @author Jose Antonio García del Saz
  *
  */
+@Entity
+@DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_MENTION)
 @XmlRootElement(name = "filterMention")
 public class FilterMention extends Filter {
-	@XmlTransient
-	private ObservableList<String> mentionList = FXCollections.observableArrayList();
-	private List<String> mentionXmlList = new ArrayList<String>();
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name="perm_filter_mention_list", joinColumns=@JoinColumn(name="filter"))
+	@Column(name="mention_list", length=50)
+	private List<String> mentionList = new ArrayList<String>();
+	
 	public FilterMention(FilterMention filter) {
 		this.summary=new String("Menciona a: ");
 		this.setLABEL(Constants.STRING_FILTER_MENTION);
 		if (filter != null) {
 			for (String word : filter.getMentionList()) {
 				mentionList.add(word);
-				mentionXmlList.add(word);
 			}
 			summary= filter.getSummary();
 			summaryProperty.set(filter.getSummary());
@@ -42,7 +58,7 @@ public class FilterMention extends Filter {
 	 * @return the mentionList
 	 */
 	@XmlTransient
-	public ObservableList<String> getMentionList() {
+	public List<String> getMentionList() {
 		return mentionList;
 	}
 
@@ -63,7 +79,6 @@ public class FilterMention extends Filter {
 
 	public void addMention(String mention) {
 		loadMention(mention);
-		mentionXmlList.add(mention);
 	}
 
 	public void loadMention(String mention) {
@@ -89,29 +104,8 @@ public class FilterMention extends Filter {
 			return ret;
 		}
 	}
-
-
-	/**
-	 * @return the metionXmlList
-	 */
-	@XmlElementWrapper(name = "mentionList")
-	@XmlElement(name = "mention")
-	public List<String> getMentionXmlList() {
-		return mentionXmlList;
-	}
-
-	/**
-	 * @param metionXmlList the metionXmlList to set
-	 */
-	public void setMentionXmlList(List<String> mentionXmlList) {
-		this.mentionXmlList = mentionXmlList;
-	}
-
 	@Override
 	public void loadXml() {
-		for (String mention : mentionXmlList) {
-			loadMention(mention);
-		}
-	}
 
+	}
 }

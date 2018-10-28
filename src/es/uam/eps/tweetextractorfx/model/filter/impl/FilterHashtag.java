@@ -6,12 +6,22 @@ package es.uam.eps.tweetextractorfx.model.filter.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.Constants.FilterTypes;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -22,19 +32,21 @@ import javafx.collections.ObservableList;
  * @author Jose Antonio García del Saz
  *
  */
+@Entity
+@DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_HASHTAG)
 @XmlRootElement(name="filterHashtag")
 public class FilterHashtag extends Filter {
-	@XmlTransient
-	private ObservableList<String> hashtagList=FXCollections.observableArrayList();
-
-	private List<String> hashtagXmlList=new ArrayList<String>();
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name="perm_filter_hashtag_list", joinColumns=@JoinColumn(name="filter"))
+	@Column(name="hashtag_list", length=40)
+	private List<String> hashtagList = new ArrayList<String>();
 	public FilterHashtag(FilterHashtag filter) {
 		this.summary=new String("Hashtags: ");
 		this.setLABEL(Constants.STRING_FILTER_HASHTAG);
 		if(filter!=null) {
 			for(String word:filter.getHashtagList()){
 				hashtagList.add(word);
-				hashtagXmlList.add(word);
 			}
 			summary=filter.getSummary();
 			summaryProperty.set(filter.getSummary());
@@ -53,7 +65,7 @@ public class FilterHashtag extends Filter {
 	 * @return the hashtagList
 	 */
 	@XmlTransient
-	public ObservableList<String> getHashtagList() {
+	public List<String> getHashtagList() {
 		return hashtagList;
 	}
 
@@ -63,33 +75,12 @@ public class FilterHashtag extends Filter {
 	public void setHashtagList(ObservableList<String> hashtagList) {
 		this.hashtagList = hashtagList;
 	}
-	
-	/**
-	 * @return the hashtagXmlList
-	 */
-	@XmlElementWrapper(name = "hashtagList")
-    @XmlElement(name = "hashtag")
-	public List<String> getHashtagXmlList() {
-		return hashtagXmlList;
-	}
-	/**
-	 * @param hashtagXmlList the hashtagXmlList to set
-	 */
-	public void setHashtagXmlList(List<String> hashtagXmlList) {
-		this.hashtagXmlList = hashtagXmlList;
-		if(hashtagXmlList!=null) {
-			for(String hashtag: hashtagXmlList) {
-				addHashtag(hashtag);
-			}
-		}
-	}
-	
+
 	/**
 	 * @param hashtag the hashtag to add
 	 */
 	public void addHashtag(String hashtag) {
 		loadHashtag(hashtag);
-		hashtagXmlList.add(hashtag);
 	}
 public void loadHashtag(String hashtag) {
 	if(hashtagList.isEmpty()) {
@@ -115,8 +106,6 @@ public void loadHashtag(String hashtag) {
 	}
 	@Override
 	public void loadXml() {
-		for(String hashtag:hashtagXmlList) {
-			loadHashtag(hashtag);
-		}		
+			
 	}
 }

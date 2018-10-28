@@ -2,28 +2,29 @@ package es.uam.eps.tweetextractorfx.model.filter.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.JoinColumn;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 /**
  * @author Jose Antonio García del Saz
  *
  */
 @XmlRootElement(name="filterContainsExact")
 public class FilterContainsExact extends Filter {
-	
 	@XmlTransient
-	private ObservableList<String> keywordsList=FXCollections.observableArrayList();
-	private List<String>keywordXmlList = new ArrayList<String>();
+	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@CollectionTable(name="perm_filter_contains_exact_word_list", joinColumns=@JoinColumn(name="filter"))
+	@Column(name="keyword_list", length=20)
+	private List<String> keywordsList=new ArrayList<String>();
+	
 	public FilterContainsExact() {
 		this.summary=new String("Contiene exactamente: ");
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS_EXACT);
@@ -35,7 +36,6 @@ public class FilterContainsExact extends Filter {
 		if(filter!=null) {
 			for(String word:filter.getKeywordsList()){
 				keywordsList.add(word);
-				keywordXmlList.add(word);
 			}
 			summary=filter.getSummary();
 			summaryProperty.set(filter.getSummary());
@@ -46,42 +46,17 @@ public class FilterContainsExact extends Filter {
 	 * @return the keywordsList
 	 */
 	@XmlTransient
-	public ObservableList<String> getKeywordsList() {
+	public List<String> getKeywordsList() {
 		return keywordsList;
 	}
-
-
-	/**
-	 * @return the keywordXmlList
-	 */
-	@XmlElementWrapper(name = "expressionList")
-    @XmlElement(name = "expression")
-	public List<String> getKeywordXmlList() {
-		return keywordXmlList;
-	}
-	/**
-	 * @param keywordXmlList the keywordXmlList to set
-	 */
-	public void setKeywordXmlList(List<String> keywordXmlList) {
-		this.keywordXmlList = keywordXmlList;
-		if(keywordXmlList!=null) {
-			for(String expression:keywordXmlList) {
-				this.addKeywordWord(expression);
-			}
-		}
-	}
-
 	/**
 	 * @param keywordsList the keywordsList to set
 	 */
-	public void setKeywordsList(ObservableList<String> keywordsList) {
+	public void setKeywordsList(List<String> keywordsList) {
 		this.keywordsList = keywordsList;
 	}
-
-	
 	public void addKeywordWord(String word) {
 		loadKeywordWord(word);
-		keywordXmlList.add(word);
 	}
 	public void loadKeywordWord(String word) {
 		if(keywordsList.isEmpty()) {
@@ -105,13 +80,8 @@ public class FilterContainsExact extends Filter {
 			return null;
 		}
 	}
-
 	@Override
 	public void loadXml() {
-		for(String expression:keywordXmlList) {
-			loadKeywordWord(expression);
-		}
+		
 	}
-
-	
 }

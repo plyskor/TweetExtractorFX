@@ -4,6 +4,8 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 import es.uam.eps.tweetextractorfx.model.filter.impl.FilterContainsExact;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
@@ -20,6 +22,7 @@ public class FilterContainsExactDialogControl {
 	private ListView<String> selectedWordsView;
 	@FXML
 	private TextField wordToAdd;
+	private ObservableList<String> listWords= FXCollections.observableArrayList();
     private FilterContainsExact filter;
     private Stage dialogStage;
 	/**
@@ -55,7 +58,7 @@ public class FilterContainsExactDialogControl {
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-		selectedWordsView.setItems(filter.getKeywordsList());
+		selectedWordsView.setItems(listWords);
 	}
 
 	/**
@@ -101,9 +104,16 @@ public class FilterContainsExactDialogControl {
 		}else {
 			if(wordToAdd!=null) {
 				filter.addKeywordWord(wordToAdd.getText().trim());
+				refreshWordList();
 				wordToAdd.clear();
 				}
 		}
+	}
+	private void refreshWordList() {
+		if(filter!=null&&this.filter.getKeywordsList()!=null) {
+			listWords.setAll(filter.getKeywordsList());
+		}
+		
 	}
 	@FXML
 	public void handleCancel() {

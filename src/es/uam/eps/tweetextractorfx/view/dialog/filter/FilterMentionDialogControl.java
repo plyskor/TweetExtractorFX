@@ -4,6 +4,8 @@
 package es.uam.eps.tweetextractorfx.view.dialog.filter;
 
 import es.uam.eps.tweetextractorfx.model.filter.impl.FilterMention;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
@@ -20,6 +22,7 @@ public class FilterMentionDialogControl {
 	private ListView<String> selectedWordsView;
 	@FXML
 	private TextField wordToAdd;
+	private ObservableList<String> mentionList=FXCollections.observableArrayList();
     private FilterMention filter;
     private Stage dialogStage;
 	/**
@@ -34,6 +37,20 @@ public class FilterMentionDialogControl {
 	 */
 	public FilterMention getFilter() {
 		return filter;
+	}
+
+	/**
+	 * @return the mentionList
+	 */
+	public ObservableList<String> getMentionList() {
+		return mentionList;
+	}
+
+	/**
+	 * @param mentionList the mentionList to set
+	 */
+	public void setMentionList(ObservableList<String> mentionList) {
+		this.mentionList = mentionList;
 	}
 
 	/**
@@ -55,7 +72,7 @@ public class FilterMentionDialogControl {
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-		selectedWordsView.setItems(filter.getMentionList());
+		selectedWordsView.setItems(mentionList);
 	}
 
 	/**
@@ -104,6 +121,7 @@ public class FilterMentionDialogControl {
 				if(!filter.getMentionList().contains(word))filter.addMention(word);
 			}
 			wordToAdd.clear();
+			refreshMentionList();
 		}
 	}
 	@FXML
@@ -115,5 +133,10 @@ public class FilterMentionDialogControl {
 	public void handleDone() {
 		dialogStage.close();
 	}
-
+	private void refreshMentionList() {
+		if(filter!=null&&this.filter.getMentionList()!=null) {
+			mentionList.setAll(filter.getMentionList());
+		}
+		
+	}
 }
