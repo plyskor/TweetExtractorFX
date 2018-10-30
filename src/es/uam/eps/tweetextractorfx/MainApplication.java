@@ -25,6 +25,7 @@ import es.uam.eps.tweetextractorfx.view.dialog.filter.FilterUntilDialogControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
 import es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

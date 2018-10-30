@@ -254,6 +254,9 @@ public class QueryConstructorControl {
 	}
 	@FXML
 	public void handleSaveQuery() {
+		if(this.addedFiltersList.isEmpty()){
+			ErrorDialog.showErrorEmptyExtraction();
+		}else {
 		extraction = new Extraction();
 		extraction.addFilters(addedFiltersList);
 		this.getMainApplication().getCurrentUser().addExtractionToList(extraction);
@@ -266,6 +269,7 @@ public class QueryConstructorControl {
 		}
 		
 		this.getMainApplication().showExtractionDetails(extraction);
+		}
 	}
 
 	@FXML
@@ -517,7 +521,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null&&controller.getFilter().getNickName()!=null&&controller.getFilter().getNickName().isNotEmpty().get()) {
+			if (controller.getFilter() != null&&controller.getFilter().getNickName()!=null&&!controller.getFilter().getNickName().isEmpty()) {
 				addedFiltersList.add(new FilterTo(controller.getFilter()));
 			}
 			return;
@@ -571,7 +575,7 @@ public class QueryConstructorControl {
 			controller.setDialogStage(dialogStage);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
-			if (controller.getFilter() != null&&controller.getFilter().getKeyWord()!=null&&controller.getFilter().getKeyWord().isNotEmpty().get()) {
+			if (controller.getFilter() != null&&controller.getFilter().getUrl()!=null&&!controller.getFilter().getUrl().isEmpty()) {
 				addedFiltersList.add(new FilterUrl(controller.getFilter()));
 			}
 			return;

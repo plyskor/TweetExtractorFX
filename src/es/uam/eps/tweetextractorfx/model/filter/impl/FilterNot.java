@@ -22,7 +22,7 @@ import es.uam.eps.tweetextractorfx.model.filter.Filter;
 @DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_NOT)
 @XmlRootElement(name = "filterNot")
 public class FilterNot extends Filter {
-	@OneToOne(cascade=CascadeType.ALL,optional=true)
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(nullable=true)
 	private Filter filter;
 	/**

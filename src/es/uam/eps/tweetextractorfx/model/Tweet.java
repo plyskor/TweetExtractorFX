@@ -118,6 +118,7 @@ public class Tweet {
 		this.lang=new String(tweet.getLang());
 		if(tweet.getQuotedStatus()!=null) {
 			this.quotedTweet= new Tweet (tweet.getQuotedStatus());
+			this.quotedTweet.setExtraction(extraction);
 		}
 		this.retweetCount=tweet.getRetweetCount();
 		if (tweet.getSource()!=null)

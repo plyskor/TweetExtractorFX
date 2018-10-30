@@ -3,18 +3,10 @@
  */
 package es.uam.eps.tweetextractorfx.error;
 
-import java.io.IOException;
 
-import es.uam.eps.tweetextractorfx.model.filter.impl.FilterUntil;
-import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
-import es.uam.eps.tweetextractorfx.view.dialog.filter.FilterUntilDialogControl;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+
 
 /**
  * @author plysk
@@ -24,90 +16,90 @@ public class ErrorDialog {
 	public static void showErrorLoadUsers(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
     	alert.setTitle("Error");
-    	alert.setHeaderText("Error de lectura de usuarios");
-    	alert.setContentText("Se ha producido un error leyendo los usuarios:\n"+message);
+    	alert.setHeaderText("Error reading users");
+    	alert.setContentText("An error ocurred while reading the users:"+message);
     	alert.showAndWait();
         return;
 	}
 	public static void showErrorLoginFailed() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Contraseña incorrecta");
-		alert.setContentText("La contraseña introducida es incorrecta. Inténtalo de nuevo.");
+		alert.setTitle("Information");
+		alert.setHeaderText("Incorrect password");
+		alert.setContentText("The password you entered is not correct. Please try again.");
 		alert.showAndWait();
 		return;
 	}
 
 	public static void showErrorExistsUSer() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Usuario inexistente");
-		alert.setContentText("No existe ninguna cuenta registrada con ese nombre de usuario. Por favor, inténtalo de nuevo.");
+		alert.setTitle("Information");
+		alert.setHeaderText("Unexisting user");
+		alert.setContentText("There's no account registered with that nickname. Please, try again.");
 		alert.showAndWait();
 		return;
 	}
 
 	public static void showErrorPassEmpty() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Contraseña vacía");
-		alert.setContentText("Por favor, introduzca la contraseña actual de la cuenta.");
+		alert.setTitle("Information");
+		alert.setHeaderText("Empty password");
+		alert.setContentText("Plese, enter the password for this account.");
 		alert.showAndWait();
 		return;
 	}
 
 	public static void showErrorUserEmpty() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Nombre de usuario vacío");
-		alert.setContentText("Por favor, introduzca un nombre de usuario para iniciar sesión.");
+		alert.setTitle("Information");
+		alert.setHeaderText("Empty username");
+		alert.setContentText("Please, enter the username of the account to log in.");
 		alert.showAndWait();
 		return;
 	}
 	public static void showErrorSaveUser(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
     	alert.setTitle("Error");
-    	alert.setHeaderText("Error de escritura de usuarios");
-    	alert.setContentText("Se ha producido un error guardando el nuevo usuario:\n"+message);
+    	alert.setHeaderText("Error writing users");
+    	alert.setContentText("An error has ocurred while saving the new user:\n"+message);
     	alert.showAndWait();
         return;
 	}
 	public static void showSuccessCreateUser() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Usuario creado");
-		alert.setContentText("La nueva cuenta de usuario se ha creado correctamente.");
+		alert.setTitle("Information");
+		alert.setHeaderText("User created");
+		alert.setContentText("The new user account has been succesfully created.");
 		alert.showAndWait();
 		return;	
 	}
 	public static void showErrorPasswordCheck() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Contraseña incorrecta");
-		alert.setContentText("Introduzca una contraseña de entre 6 y 16 caracteres.\nDebe contener una minúscula, una mayúscula y un número.");
+		alert.setTitle("Information");
+		alert.setHeaderText("Unsafe password");
+		alert.setContentText("Passwords must have between 6 and 16 characters.\n They also must contain a lower case, an upper case and a number.");
 		alert.showAndWait();
 		return;		
 	}
 	public static void showErrorExistingUser() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Usuario existente");
-		alert.setContentText("Este usuario ya está registrado. Por favor, elija otro nombre de usuario o inicie sesión.");
+		alert.setTitle("Information");
+		alert.setHeaderText("User already exists");
+		alert.setContentText("This user account already exists. Please, introduce another name for the account or go to the log in screen.");
 		alert.showAndWait();
 		return;
 	}
 	public static void showErrorEmptyUser() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Nombre de usuario vacío");
-		alert.setContentText("Por favor, elija un nombre de usuario de al menos 3 caracteres.");
+		alert.setTitle("Information");
+		alert.setHeaderText("Invalid account name");
+		alert.setContentText("The user name for the account must have at least 3 characters.");
 		alert.showAndWait();
 		return;
 	}
 	public static void showErrorPasswordMismatch() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Las contrasñas no coinciden");
+		alert.setTitle("Informatin");
+		alert.setHeaderText("PAssword mismatch");
 		alert.setContentText("Las contraseñas introducidas no coinciden. Por favor, inténtalo de nuevo.");
 		alert.showAndWait();
 		return;
@@ -141,6 +133,14 @@ public class ErrorDialog {
     	alert.setTitle("Información");
     	alert.setHeaderText("Ningún nombre de usuario seleccionado");
     	alert.setContentText("Por favor, seleccione un nombre de usuario como origen de los tweets.");
+    	alert.showAndWait();
+        return;
+    }
+	public static void showErrorEmptyUrl() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("Información");
+    	alert.setHeaderText("Ninguna url seleccionada");
+    	alert.setContentText("Por favor, seleccione la URL que quiere que contengan los tweets.");
     	alert.showAndWait();
         return;
     }
@@ -286,12 +286,28 @@ public class ErrorDialog {
 		alert.showAndWait();
 		return;	
 	}
+	public static void showErrorDB(String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error connecting to database");
+		alert.setHeaderText("Error connecting to database");
+		alert.setContentText("An error has ocurred contacting the database:\n\n"+message+"\n\nPlease try again.");
+		alert.showAndWait();
+		return;	
+	}
 	public static Alert showUpdateQueryResults(int added) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Información");
 		alert.setHeaderText("Actualización de extracción terminada");
 		alert.setContentText("Se han encontrado "+added+" tweet(s) nuevos para la extracción");
 		return alert;	
+	}
+	public static void showErrorEmptyExtraction() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("Empty extraction");
+		alert.setContentText("Add at least one filter to the extraction");
+		alert.showAndWait();
+		return ;
 	}
 	
 }

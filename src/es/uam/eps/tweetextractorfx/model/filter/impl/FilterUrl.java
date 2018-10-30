@@ -3,54 +3,63 @@
  */
 package es.uam.eps.tweetextractorfx.model.filter.impl;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.Constants.FilterTypes;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
+@Entity
+@DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_URL)
 public class FilterUrl extends Filter {
-	private StringProperty keyWord= new SimpleStringProperty();
+	@Column(name="url")
+	private String url= new String();
 //new String("Con una URL que contiene: ");
 	/**
 	 * 
 	 */
 	public FilterUrl() {
+		this.summary=new String("Con una URL que contiene: ");
 		this.setLABEL(Constants.STRING_FILTER_URL);
 	}
 	public FilterUrl(FilterUrl filter) {
+		this.summary=new String("Con una URL que contiene: ");
 		this.setLABEL(Constants.STRING_FILTER_URL);
 		if(filter!=null) {
 			summary=filter.getSummary();
 			summaryProperty.set(filter.getSummary());
-			this.keyWord.set(filter.getKeyWord().get());
-		}
+			this.url=filter.getUrl();
+			}
 	}
 	/**
-	 * @return the keyWord
+	 * @return the url
 	 */
-	public StringProperty getKeyWord() {
-		return keyWord;
+	public String getUrl() {
+		return url;
 	}
 
 	/**
-	 * @param keyWord the keyWord to set
+	 * @param url the url to set
 	 */
-	public void setKeyWord(String keyWord) {
-		this.keyWord.set(keyWord);
-		summary=summary.concat("'"+keyWord+"'");
+	public void setUrl(String url) {
+		this.url=url;
+		summary=summary.concat("'"+url+"'");
 		summaryProperty.set(summary);
 	}
 
 	@Override
 	public String toQuery() {
-		if(keyWord==null) {
+		if(url==null) {
 			return null;
 		}else {
-			return new String("url:"+keyWord+" ");
+			return new String("url:"+url+" ");
 		}
 	}
 	@Override

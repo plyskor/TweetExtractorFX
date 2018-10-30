@@ -32,10 +32,15 @@
          <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterContains"/>
          <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterContainsExact"/>
          <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterTo"/>
          <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterHashtag"/>
          <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterList"/>
          <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterMention"/>
          <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterNot"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterOr"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterSince"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterUntil"/>
+         <mapping class="es.uam.eps.tweetextractorfx.model.filter.impl.FilterUrl"/>
          
          
         

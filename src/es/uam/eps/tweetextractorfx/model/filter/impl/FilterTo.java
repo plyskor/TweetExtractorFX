@@ -3,25 +3,31 @@
  */
 package es.uam.eps.tweetextractorfx.model.filter.impl;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.Constants.FilterTypes;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
+@Entity
+@DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_TO)
 public class FilterTo extends Filter {
-	private StringProperty nickName= new SimpleStringProperty();
- //new String("Respondiendo a: @");
+	@Column(name="to_nickname")
+	private String nickName= new String("");
 	
 	public FilterTo (FilterTo filter) {
+		this.summary=new String("Respondiendo a: @");
 		this.setLABEL(Constants.STRING_FILTER_TO);
 		if(filter!=null) {
 			summary=filter.getSummary();
 			summaryProperty.set(filter.getSummary());
-			this.nickName.set(filter.getNickName().get());
+			this.nickName=filter.getNickName();
 		}
 	}
 
@@ -29,20 +35,21 @@ public class FilterTo extends Filter {
 	 * 
 	 */
 	public FilterTo() {
+		this.summary=new String("Respondiendo a: @");
 		this.setLABEL(Constants.STRING_FILTER_TO);
 	}
 
 	/**
 	 * @return the nickName
 	 */
-	public StringProperty getNickName() {
+	public String getNickName() {
 		return nickName;
 	}
 	/**
 	 * @param nickName the nickName to set
 	 */
 	public void setNickName(String nickName) {
-		this.nickName.set(nickName);
+		this.nickName=nickName;
 		summary=summary.concat(nickName);
 		summaryProperty.set(summary);
 	}

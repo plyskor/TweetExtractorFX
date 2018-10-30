@@ -18,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -27,6 +28,7 @@ import org.hibernate.cfg.Configuration;
 import com.sun.istack.NotNull;
 
 import es.uam.eps.tweetextractorfx.dao.inter.UserDAOInterface;
+import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.User;
 
 public class UserDAO implements UserDAOInterface<User, String> {
@@ -39,12 +41,17 @@ public class UserDAO implements UserDAOInterface<User, String> {
 	}
 
 	public Session openCurrentSession() {
-		currentSession = getSessionFactory().openSession();
+		SessionFactory sf=getSessionFactory();
+		if(sf!=null)
+			currentSession=sf.openSession();
 		return currentSession;
 	}
 
 	public Session openCurrentSessionwithTransaction() {
-		currentSession = getSessionFactory().openSession();
+		SessionFactory sf=getSessionFactory();
+		if(sf!=null)
+			currentSession =sf.openSession();
+		if(currentSession!=null)
 		currentTransaction = currentSession.beginTransaction();
 		return currentSession;
 	}
@@ -54,13 +61,20 @@ public class UserDAO implements UserDAOInterface<User, String> {
 	}
 	
 	public void closeCurrentSessionwithTransaction() {
+		if(currentSession!=null&&currentTransaction!=null) {
 		currentTransaction.commit();
 		currentSession.close();
+		}
 	}
 	
 	private static SessionFactory getSessionFactory() {
+		SessionFactory sessionFactory=null;
 		Configuration configuration = new Configuration().configure("tweetextractordb.xml");
-		SessionFactory sessionFactory = configuration.buildSessionFactory();
+		try{
+			 sessionFactory = configuration.buildSessionFactory();
+		}catch(HibernateException e) {
+			ErrorDialog.showErrorDB(e.getMessage());
+		}
 		return sessionFactory;
 	}
 
@@ -93,6 +107,7 @@ public class UserDAO implements UserDAOInterface<User, String> {
 		return User; 
 	}
 	public User findByNickname(String nickname) {
+		if(getCurrentSession()==null)return null;
 	    CriteriaBuilder criteriaBuilder = getCurrentSession().getCriteriaBuilder();
 	    CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
 	    Root<User> root = criteriaQuery.from(User.class);

@@ -151,6 +151,7 @@ public class ShowUserExtractionsControl {
 		}else {
 			this.getMainApplication().getCurrentUser().removeExtractionFromList(selectedExtraction);
 			XMLManager.deleteExtraction(selectedExtraction);
+			
 			selectedExtraction=null;
 			this.updateTreeTableView();
 			try {

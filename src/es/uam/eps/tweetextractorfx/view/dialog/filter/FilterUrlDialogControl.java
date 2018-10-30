@@ -60,9 +60,9 @@ public class FilterUrlDialogControl {
 	}
 	public void handleAddKeyWord() {
 		if (keyWordField.getText().trim().isEmpty()) {
-			ErrorDialog.showErrorEmptyNicknameFrom();
+			ErrorDialog.showErrorEmptyUrl();
 		}else {
-			filter.setKeyWord(keyWordField.getText().trim());
+			filter.setUrl(keyWordField.getText().trim());
 			this.getDialogStage().close();
 		}
 		
