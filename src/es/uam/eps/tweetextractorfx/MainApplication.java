@@ -22,6 +22,7 @@ import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.credentials.ManageCredentialsControl;
 import es.uam.eps.tweetextractorfx.view.dialog.LoadingDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.filter.FilterUntilDialogControl;
+
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
 import es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;

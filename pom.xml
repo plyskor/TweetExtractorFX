@@ -46,7 +46,7 @@
 
 					<archive>
 						<manifest>
-							<mainClass>es.uam.eps.tweetextractorfx.MainApplication</mainClass>
+							<mainClass>es.uam.eps.tweetextractorfx.Main</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
@@ -82,7 +82,6 @@
 					<target>10</target>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 	<dependencies>
@@ -131,12 +130,34 @@
 			<artifactId>jbcrypt</artifactId>
 			<version>0.4</version>
 		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx</artifactId>
-			<version>11</version>
-			<type>pom</type>
-		</dependency>
+<dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>11</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-graphics </artifactId>
+        <version>11</version>
+        <classifier>win</classifier>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-graphics </artifactId>
+        <version>11</version>
+        <classifier>linux</classifier>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-graphics </artifactId>
+        <version>11</version>
+        <classifier>mac</classifier>
+    </dependency>
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-fxml</artifactId>
+    <version>11</version>
+</dependency>
 
 	</dependencies>
 	<properties>
