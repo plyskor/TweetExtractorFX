@@ -87,6 +87,7 @@ public class HomeScreenControl {
 	public void handleLogOut() {
 		this.getMainApplication().getRootLayoutController().logOut();
 	}
+	@FXML
 	public void handleManageCredentials() {
 		this.getMainApplication().showManageCredentials();
 	}
