@@ -45,7 +45,7 @@
                                  <children>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                        <children>
-                                          <Label text="Autor:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+                                          <Label text="Author:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
                                              <font>
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
@@ -64,7 +64,7 @@
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                        <children>
                                           <StackPane layoutX="52.0" layoutY="20.0" prefHeight="57.0" prefWidth="138.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                          <Label text="Publicado el:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0" />
+                                          <Label text="Tweeted on:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -92,7 +92,7 @@
                                     </AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                                        <children>
-                                          <Label text="Idioma:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0" />
+                                          <Label text="Language:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -169,7 +169,7 @@
                      <children>
                         <TableView fx:id="tweetsTable" prefHeight="598.0" prefWidth="715.0">
                           <columns>
-                            <TableColumn fx:id="tweetsColumn" prefWidth="75.0" text="Status" />
+                            <TableColumn fx:id="tweetsColumn" prefWidth="75.0" text="Tweets" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -191,7 +191,7 @@
                                        <children>
                                           <StackPane layoutX="82.0" layoutY="4.0" prefHeight="35.0" prefWidth="222.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleUpdateExtraction" text="Actualizar" />
+                                                <Button mnemonicParsing="false" onAction="#handleUpdateExtraction" text="Extract more..." />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -200,7 +200,7 @@
                                        <children>
                                           <StackPane layoutX="82.0" layoutY="4.0" prefHeight="35.0" prefWidth="222.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Button mnemonicParsing="false" text="Eliminar" />
+                                                <Button mnemonicParsing="false" text="Delete" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -209,7 +209,7 @@
                                        <children>
                                           <StackPane layoutX="81.0" layoutY="1.0" prefHeight="35.0" prefWidth="221.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Button mnemonicParsing="false" text="Exportar..." />
+                                                <Button mnemonicParsing="false" text="Export..." />
                                              </children>
                                           </StackPane>
                                        </children>

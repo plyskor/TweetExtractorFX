@@ -26,12 +26,12 @@ public class FilterContainsExact extends Filter {
 	private List<String> keywordsList=new ArrayList<String>();
 	
 	public FilterContainsExact() {
-		this.summary=new String("Contiene exactamente: ");
+		this.summary=new String("Contains exactly: ");
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS_EXACT);
 	}
 	
 	public FilterContainsExact(FilterContainsExact filter) {
-		this.summary=new String("Contiene exactamente: ");
+		this.summary=new String("Contains exactly: ");
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS_EXACT);
 		if(filter!=null) {
 			for(String word:filter.getKeywordsList()){

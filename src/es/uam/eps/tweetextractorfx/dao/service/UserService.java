@@ -32,14 +32,14 @@ public class UserService {
 		userDAO.closeCurrentSessionwithTransaction();
 	}
 
-	public User findById(String id) {
+	public User findById(int id) {
 		userDAO.openCurrentSession();
 		User user = userDAO.findById(id);
 		userDAO.closeCurrentSession();
 		return user;
 	}
 
-	public void delete(String id) {
+	public void delete(int id) {
 		userDAO.openCurrentSessionwithTransaction();
 		User user = userDAO.findById(id);
 		userDAO.delete(user);
@@ -49,9 +49,9 @@ public class UserService {
 		if(findByNickname(nickname)==null)return false;
 		return true;	}
 	public User findByNickname(String nickname) {
-		userDAO.openCurrentSessionwithTransaction();
+		userDAO.openCurrentSession();
 		User ret=userDAO.findByNickname(nickname);
-		userDAO.closeCurrentSessionwithTransaction();
+		userDAO.closeCurrentSession();
 		return ret;
 	}
 

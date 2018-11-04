@@ -51,7 +51,7 @@ public class FilterUntil extends Filter {
 	public StringProperty getSummaryProperty() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		if(date!=null) {
-			summaryProperty.set("Hasta: "+(date).format(formatter));
+			summaryProperty.set("Until: "+(date).format(formatter));
 			summary= new String(summaryProperty.get());
 		}	
 		return summaryProperty;

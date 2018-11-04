@@ -34,14 +34,14 @@ public class CredentialsService {
 		credentialsDAO.closeCurrentSessionwithTransaction();
 	}
 
-	public Credentials findById(String id) {
+	public Credentials findById(int id) {
 		credentialsDAO.openCurrentSession();
 		Credentials credentials = credentialsDAO.findById(id);
 		credentialsDAO.closeCurrentSession();
 		return credentials;
 	}
 
-	public void delete(String id) {
+	public void delete(int id) {
 		credentialsDAO.openCurrentSessionwithTransaction();
 		Credentials credentials = credentialsDAO.findById(id);
 		credentialsDAO.delete(credentials);
@@ -50,9 +50,9 @@ public class CredentialsService {
 	public boolean hasAnyCredentials(User user) {
 		if(findByUser(user)==null)return false;
 		return true;	}
-	public Credentials findByUser(User user) {
+	public List<Credentials> findByUser(User user) {
 		credentialsDAO.openCurrentSessionwithTransaction();
-		Credentials ret=credentialsDAO.findByUser(user);
+		List<Credentials> ret=credentialsDAO.findByUser(user);
 		credentialsDAO.closeCurrentSessionwithTransaction();
 		return ret;
 	}

@@ -34,11 +34,11 @@ public class FilterList extends Filter {
 	 * 
 	 */
 	public FilterList() {
-		this.summary=new String("Enviado desde una cuenta en la lista ");
+		this.summary=new String("Tweeted by an account in the list ");
 		this.setLABEL(Constants.STRING_FILTER_LIST);
 	}
 	public FilterList(FilterList filter) {
-		this.summary=new String("Enviado desde una cuenta en la lista ");
+		this.summary=new String("Tweeted by an account in the list ");
 		this.setLABEL(Constants.STRING_FILTER_LIST);
 		if(filter!=null) {
 			this.setListName(filter.getListName());
@@ -60,7 +60,7 @@ public class FilterList extends Filter {
 	 */
 	public void setListName(String listName) {
 		this.listName=listName;
-		summary=summary.concat("'"+listName+"' de la cuenta '"+account+"'");
+		summary=summary.concat("'"+listName+"' of the account '"+account+"'");
 		this.summaryProperty.set(summary);
 	}
 	/**

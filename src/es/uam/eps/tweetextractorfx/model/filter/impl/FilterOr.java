@@ -6,12 +6,15 @@ package es.uam.eps.tweetextractorfx.model.filter.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -36,10 +39,9 @@ import javafx.collections.ObservableList;
 @DiscriminatorValue(value=FilterTypes.Values.TYPE_FILTER_OR)
 @XmlRootElement(name="FilterOr")
 public class FilterOr extends Filter {
-	@ElementCollection
+	@OneToMany(cascade=CascadeType.ALL,orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@CollectionTable(name="perm_filter_or_list", joinColumns=@JoinColumn(name="filter"))
-	@Column(name="filter_or_list")
+	@JoinColumn(nullable=true)
 	private List<Filter> filterList=new ArrayList<Filter>();
 
 

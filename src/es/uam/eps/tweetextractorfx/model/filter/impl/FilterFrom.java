@@ -26,7 +26,7 @@ public class FilterFrom extends Filter {
 	@Column(name="nickname")
 	private String nickName = new String("");
 	public FilterFrom(FilterFrom filter) {
-		this.summary=new String("Tweeteado por: @");
+		this.summary=new String("Tweeted by: @");
 		this.setLABEL(Constants.STRING_FILTER_FROM);
 		if(filter!=null) {
 			summary=filter.getSummary();
@@ -53,7 +53,7 @@ public class FilterFrom extends Filter {
 	 * 
 	 */
 	public FilterFrom() {
-		this.summary=new String("Tweeteado por: @");
+		this.summary=new String("Tweeted by: @");
 		this.setLABEL(Constants.STRING_FILTER_FROM);
 	}
 

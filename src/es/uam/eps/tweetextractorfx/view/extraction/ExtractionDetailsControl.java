@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.dao.service.ExtractionService;
+import es.uam.eps.tweetextractorfx.dao.service.TweetService;
 import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Extraction;
@@ -203,6 +205,8 @@ private TwitterExtractor twitterextractor;
 				this.getExtraction().getTweetList().add(tweet);
 			}
 			refreshTweetObservableList();
+			ExtractionService extractionService = new ExtractionService();
+			extractionService.merge(this.getExtraction());
 		}
 		
 	}
@@ -210,7 +214,6 @@ private TwitterExtractor twitterextractor;
 	public void executeQuery() throws TwitterException {
 		twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentialList().get(0));
 		twitterextractor.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()) + "-filter:retweets");
-	
 		if (twitterextractor != null&& twitterextractor.getQuery() != null) {
 			try {
 				this.setQueryResult(twitterextractor.execute());
@@ -222,7 +225,6 @@ private TwitterExtractor twitterextractor;
 		try {
 			XMLManager.saveExtraction(extraction);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return;
@@ -242,6 +244,8 @@ private TwitterExtractor twitterextractor;
 		    		if(loadingDialog!=null)loadingDialog.close();
 					try {
 						refreshTweetObservableList();
+						ExtractionService extractionService = new ExtractionService();
+						extractionService.merge(this.getExtraction());
 						XMLManager.saveExtraction(extraction);
 					} catch (Exception e1) {
 			    		if(loadingDialog!=null)loadingDialog.close();

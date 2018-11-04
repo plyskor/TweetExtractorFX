@@ -1,15 +1,6 @@
-/**
- * 
- */
 package es.uam.eps.tweetextractorfx.dao;
 
-/**
- * @author Jose Antonio García del Saz
- *
- */
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -22,22 +13,20 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import com.sun.istack.NotNull;
-
-import es.uam.eps.tweetextractorfx.dao.inter.UserDAOInterface;
+import es.uam.eps.tweetextractorfx.dao.inter.ExtractionDAOInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.User;
 
-public class UserDAO implements UserDAOInterface<User, Integer> {
+public class ExtractionDAO implements ExtractionDAOInterface<Extraction, Integer> {
 
 	private Session currentSession;
 	
 	private Transaction currentTransaction;
 
-	public UserDAO() {
+	public ExtractionDAO() {
 	}
 
 	public Session openCurrentSession() {
@@ -57,7 +46,7 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 	}
 	
 	public void closeCurrentSession() {
-		if(currentSession!=null)
+		if (currentSession!=null)
 		currentSession.close();
 	}
 	
@@ -95,49 +84,54 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 		this.currentTransaction = currentTransaction;
 	}
 
-	public void persist(User entity) {
+	public void persist(Extraction entity) {
 		getCurrentSession().persist(entity);
 	}
 
-	public void update(User entity) {
+	public void update(Extraction entity) {
 		getCurrentSession().update(entity);
 	}
 
-	public User findById(Integer id) {
-		User User = (User) getCurrentSession().get(User.class, id);
-		return User; 
+	public Extraction findById(Integer id) {
+		Extraction extraction = (Extraction) getCurrentSession().get(Extraction.class, id);
+		return extraction; 
 	}
-	public User findByNickname(String nickname) {
+	public List<Extraction> findByUser(User user) {
 		if(getCurrentSession()==null)return null;
 	    CriteriaBuilder criteriaBuilder = getCurrentSession().getCriteriaBuilder();
-	    CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-	    Root<User> root = criteriaQuery.from(User.class);
+	    CriteriaQuery<Extraction> criteriaQuery = criteriaBuilder.createQuery(Extraction.class);
+	    Root<Extraction> root = criteriaQuery.from(Extraction.class);
 	    criteriaQuery.select(root);
-	    ParameterExpression<String> params = criteriaBuilder.parameter(String.class);
-	    criteriaQuery.where(criteriaBuilder.equal(root.get("nickname"), params));
-	    TypedQuery<User> query = getCurrentSession().createQuery(criteriaQuery);
-	    query.setParameter(params, nickname);
-	    User ret= null;
-	    try {ret=query.getSingleResult();}catch(NoResultException e) {
-	    	System.out.println("No user found for nickname: "+nickname);	   
+	    ParameterExpression<Integer> params = criteriaBuilder.parameter(Integer.class);
+	    criteriaQuery.where(criteriaBuilder.equal(root.get("user_identifier"), params));
+	    TypedQuery<Extraction> query = getCurrentSession().createQuery(criteriaQuery);
+	    query.setParameter(params, user.getIdDB() );
+	    List<Extraction> ret= null;
+	    try {ret=query.getResultList();}catch(NoResultException e) {
+	    	System.out.println("No extraction found for userID: "+user.getIdDB());	   
 	    	}
 	    return ret;
 	}
-	public void delete(User entity) {
+	public void delete(Extraction entity) {
 		getCurrentSession().delete(entity);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> findAll() {
-		List<User> Users = (List<User>) getCurrentSession().createQuery("from User").list();
-		return Users;
+	public List<Extraction> findAll() {
+		List<Extraction> extractions = (List<Extraction>) getCurrentSession().createQuery("from Extraction").list();
+		return extractions;
 	}
 
 	public void deleteAll() {
-		List<User> entityList = findAll();
-		for (User entity : entityList) {
+		List<Extraction> entityList = findAll();
+		for (Extraction entity : entityList) {
 			delete(entity);
 		}
+	}
+
+	@Override
+	public Extraction merge(Extraction entity) {
+		return (Extraction) getCurrentSession().merge(entity);
 	}
 
 	

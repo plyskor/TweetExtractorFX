@@ -9,7 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 
 
 /**
- * @author plysk
+ * @author Jose Antonio Garcia del Saz
  *
  */
 public class ErrorDialog {
@@ -98,8 +98,8 @@ public class ErrorDialog {
 	}
 	public static void showErrorPasswordMismatch() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Informatin");
-		alert.setHeaderText("PAssword mismatch");
+		alert.setTitle("Information");
+		alert.setHeaderText("Password mismatch");
 		alert.setContentText("Las contraseñas introducidas no coinciden. Por favor, inténtalo de nuevo.");
 		alert.showAndWait();
 		return;
@@ -107,181 +107,179 @@ public class ErrorDialog {
 	public static void showErrorSaveCredentials(String message) {
 		Alert alert = new Alert(AlertType.WARNING);
     	alert.setTitle("Error");
-    	alert.setHeaderText("Error al guardar los credenciales");
-    	alert.setContentText("Se ha producido un error desconocido al guardar los credenciales para la cuenta. ERROR:\n"+message);
+    	alert.setHeaderText("Error saving credentials");
+    	alert.setContentText("An error has occured while saving your credentials.\nError:\n"+message);
     	alert.showAndWait();
         return;	
 	}
 	public static void showErrorExistingCredentials() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Credenciales ya existentes");
-    	alert.setContentText("Esta cuenta ya es propietaria de esos credenciales, introduce unos nuevos para añadirlos a la cuenta.");
+    	alert.setTitle("Information");
+    	alert.setHeaderText("Credentials already exist");
+    	alert.setContentText("These credentials already belong to this account. Please, choose any other credentials to add.");
     	alert.showAndWait();
         return;	
 	}
 	public static void showErrorEmptyCredentials() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Campos vacíos");
-    	alert.setContentText("Por favor, introduzca los tokens de la nueva cuenta de Twitter");
+    	alert.setTitle("Information");
+    	alert.setHeaderText("Empty fields");
+    	alert.setContentText("Please, introduce the tokens for the new credentials.");
     	alert.showAndWait();
         return;		
 	}
 	public static void showErrorEmptyNickname() {
     	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Ningún nombre de usuario seleccionado");
-    	alert.setContentText("Por favor, seleccione un nombre de usuario como origen de los tweets.");
+    	alert.setTitle("Information");
+    	alert.setHeaderText("Empty Nickname");
+    	alert.setContentText("Please, select the user's nickname that you want to use as the origin of the tweets.");
     	alert.showAndWait();
         return;
     }
 	public static void showErrorEmptyUrl() {
     	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Ninguna url seleccionada");
-    	alert.setContentText("Por favor, seleccione la URL que quiere que contengan los tweets.");
+    	alert.setTitle("Information");
+    	alert.setHeaderText("No URL selected");
+    	alert.setContentText("Please, select the URL parameter for the extraction.");
     	alert.showAndWait();
         return;
     }
 	public static void showErrorWrongValues() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Alguno de los campos es incoherente");
-    	alert.setContentText("Recuerde que las cuentas de Twitter y los nombres de listas se componen de una sola expresión sin espacios.");
+    	alert.setTitle("Information");
+    	alert.setHeaderText("Somoe of the fields are not correct");
+    	alert.setContentText("Remember that Twitter accounts and list names are single words with no spaces.");
     	alert.showAndWait();
         return;
 	}
 	public static void showErrorEmptyFields() {
     	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Alguno de los campos está vacío");
-    	alert.setContentText("Por favor, seleccione una cuenta de Twitter y un nombre de lista existente en esa cuenta.");
+    	alert.setTitle("Information");
+    	alert.setHeaderText("Empty fields");
+    	alert.setContentText("Please, select a Twitter account and a list available on that account.");
     	alert.showAndWait();
         return;
     }
 	public static void showErrorSelectDateSince() {
     	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Ninguna fecha seleccionada");
-    	alert.setContentText("Por favor, seleccione la fecha desde la que realizar la extracción.");
+    	alert.setTitle("Information");
+    	alert.setHeaderText("No date selected");
+    	alert.setContentText("Please, select a date from which you would like to extract tweets");
     	alert.showAndWait();
         return;
     }
 	public static void showErrorEmptyNicknameTo() {
     	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Ningún nombre de usuario seleccionado");
-    	alert.setContentText("Por favor, seleccione un nombre de usuario como destino de los tweets.");
+    	alert.setTitle("Information");
+    	alert.setHeaderText("No username selected");
+    	alert.setContentText("Please, select the user's nickname that you want to use as the destiny of the tweets");
     	alert.showAndWait();
         return;
     }
 	public static void showErrorSelectDateTo() {
     	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Ninguna fecha seleccionada");
-    	alert.setContentText("Por favor, seleccione la fecha hasta la que realizar la extracción.");
+    	alert.setTitle("Information");
+    	alert.setHeaderText("No date selected");
+    	alert.setContentText("Please, select the date until which you would like to extract tweets");
     	alert.showAndWait();
         return;
     }
 	public static void showErrorEmptyNicknameFrom() {
     	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Información");
-    	alert.setHeaderText("Ningún nombre de usuario seleccionado");
-    	alert.setContentText("Por favor, seleccione un nombre de usuario como origen de los tweets.");
+    	alert.setTitle("Information");
+    	alert.setHeaderText("No username selected");
+    	alert.setContentText("Please, select the user's nickname that you want to use as the origin of the tweets.");
     	alert.showAndWait();
         return;
     }
 	public static void showErrorSelectFilterRemove() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Ningún filtro seleccionado");
-		alert.setContentText("Por favor, seleccione un filtro para eliminar de la lista de la derecha");
+		alert.setTitle("Information");
+		alert.setHeaderText("No filter selected");
+		alert.setContentText("Please, select a filter from the list on the right in order to delete it.");
 		alert.showAndWait();
 		return;
 	}
 
 	public static void showErrorNotEnoughFilters() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Operaciones Lógicas");
-		alert.setContentText(
-				"Por favor, seleccione al menos dos filtros aplicados para poder aplicar la operación OR lógica.");
+		alert.setTitle("Information");
+		alert.setHeaderText("Logic operations");
+		alert.setContentText("Please, select at least two filters from the right to apply the OR application to them.");
 		alert.showAndWait();
 		return;
 	}
 
 	public static void showErrorNotEnoughFiltersNot() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Operaciones Lógicas");
-		alert.setContentText(
-				"Por favor, seleccione al menos un filtro aplicado para poder aplicar la operación NOT lógica.");
+		alert.setTitle("Information");
+		alert.setHeaderText("Logic opeartions");
+		alert.setContentText("Please, select at least one filter from the right to apply the NOT operation.");
 		alert.showAndWait();
 		return;
 	}
 
 	public static void showErrorUndoLogic() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Operaciones Lógicas");
-		alert.setContentText("Por favor, seleccione filtros de tipo lógico para deshacerlos.");
+		alert.setTitle("Information");
+		alert.setHeaderText("Logic operations");
+		alert.setContentText("Please, select a logic filter (OR or NOT) in order to undo the logic operation.");
 		alert.showAndWait();
 		return;
 	}
 
 	public static void showErrorSelectFilterAdd() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Ningún filtro seleccionado");
-		alert.setContentText("Por favor, seleccione un filtro para añadir de la lista de la izquierda");
+		alert.setTitle("Information");
+		alert.setHeaderText("No filter selected");
+		alert.setContentText("Please, select a filter type from the list on the left to add it to the extraction.");
 		alert.showAndWait();
 		return;
 	}
 	public static void showSuccessUpdatePassword() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Contraseña actualizada");
-		alert.setContentText("La contraseña se ha cambiado satisfactoriamente.");
+		alert.setTitle("Information");
+		alert.setHeaderText("Password updated");
+		alert.setContentText("Your password has been succesfully updated");
 		alert.showAndWait();
 		return;
 	}
 	public static void showErrorNoCredentials() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("No hay credenciales");
-		alert.setContentText("Este usuario no tiene credenciales para la API de Twitter.\nAñada unos credenciales desde el menú principal.");
+		alert.setTitle("Information");
+		alert.setHeaderText("No credentials available");
+		alert.setContentText("This user account has no registered credentials for the Twitter API.\nPlease, add some credentials from the home screen.");
 		alert.showAndWait();
 		return;		
 	}
 	public static void showErrorNoSelectedCredentials() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("No hay credenciales seleccionados");
-		alert.setContentText("Selecciona unos credenciales para llevar a cabo esta acción");
+		alert.setTitle("Information");
+		alert.setHeaderText("No selected credentials");
+		alert.setContentText("Select some credentials to perform this action.");
 		alert.showAndWait();
 		return;	
 	}
 	public static void showErrorLoadExtraction(String message) {
 		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Atención");
-		alert.setHeaderText("Error de lectura");
-		alert.setContentText("Se ha producido un error desconocido cargando una exxtracción:\n"+message);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Reading error");
+		alert.setContentText("An error has ocurred loading an extraction:\n"+message);
 		alert.showAndWait();
 		return;
 	}
 	public static void showErrorNoSelectedExtraction() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Ninguna extracción seleccionada");
-		alert.setContentText("Selecciona una extracción para llevar a cabo esta acción");
+		alert.setTitle("Information");
+		alert.setHeaderText("No extraction selected");
+		alert.setContentText("Select an extraction to perform this action.");
 		alert.showAndWait();
 		return;	
 	}
 	public static void showErrorTwitterExecution(String message) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Error de búsqueda");
-		alert.setHeaderText("Error de API de Twitter");
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Twitter Error");
+		alert.setHeaderText("The Twitter API has thrown the following error:");
 		alert.setContentText(message);
 		alert.showAndWait();
 		return;	
@@ -296,9 +294,9 @@ public class ErrorDialog {
 	}
 	public static Alert showUpdateQueryResults(int added) {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Información");
-		alert.setHeaderText("Actualización de extracción terminada");
-		alert.setContentText("Se han encontrado "+added+" tweet(s) nuevos para la extracción");
+		alert.setTitle("Information");
+		alert.setHeaderText("Extraction update has finished");
+		alert.setContentText("A total of "+added+" new tweet(s) has/have been added to the extraction");
 		return alert;	
 	}
 	public static void showErrorEmptyExtraction() {

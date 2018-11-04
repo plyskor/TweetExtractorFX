@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,6 +52,7 @@ import twitter4j.Status;
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterSince.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterUntil.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterOr.class,
+		es.uam.eps.tweetextractorfx.model.filter.impl.FilterNot.class,
 		es.uam.eps.tweetextractorfx.model.filter.impl.FilterFrom.class })
 @XmlType(propOrder={"id","idDB","creationDate","lastModificationDate","filterXmlList"})
 @Entity
@@ -72,11 +74,9 @@ public class Extraction {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastModificationDate;
 	@XmlTransient
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="extraction")
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(fetch=FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE},orphanRemoval = true,mappedBy="extraction")
 	private List<Tweet> tweetList;
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="extraction")
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(fetch=FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy="extraction")
 	@XmlTransient
 	private List<Filter> filterList;
 	@Transient

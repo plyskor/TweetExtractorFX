@@ -2,6 +2,7 @@ package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.io.IOException;
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.dao.service.ExtractionService;
 import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Constants;
@@ -260,8 +261,8 @@ public class QueryConstructorControl {
 		extraction = new Extraction();
 		extraction.addFilters(addedFiltersList);
 		this.getMainApplication().getCurrentUser().addExtractionToList(extraction);
-		UserService userService=new UserService();
-		userService.update(this.getMainApplication().getCurrentUser());
+		ExtractionService extractionService = new ExtractionService();
+		extractionService.persist(extraction);
 		try {
 			XMLManager.saveUserList(this.getMainApplication().getUserList());
 		} catch (Exception e) {

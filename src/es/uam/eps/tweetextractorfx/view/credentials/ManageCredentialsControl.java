@@ -3,11 +3,13 @@ package es.uam.eps.tweetextractorfx.view.credentials;
 import java.io.IOException;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.dao.service.CredentialsService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Credentials;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
+import es.uam.eps.tweetextractorfx.view.dialog.credentials.EditCredentialsDialogControl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -72,7 +74,7 @@ public class ManageCredentialsControl {
 	@SuppressWarnings("unchecked")
 	private void updateTreeTableView() {
 		TreeItem<String> root = new TreeItem<String>(
-				"Credenciales de Twitter de " + this.getMainApplication().getCurrentUser().getNickname());
+				"Twitter API credentials for the account " + this.getMainApplication().getCurrentUser().getNickname());
 		credentialsTableView.setRoot(root);
 		for (Credentials credentials : this.getMainApplication().getCurrentUser().getCredentialList()) {
 			TreeItem<String> credentialsNode = new TreeItem<String>("@" + credentials.getAccountScreenName());
@@ -145,13 +147,40 @@ public class ManageCredentialsControl {
 			ErrorDialog.showErrorNoSelectedCredentials();
 				return;
 		}
-		showAddCredentials(selectedCredentials);
+		showEditCredentials(selectedCredentials);
 		this.updateTreeTableView();
 		try {
 			XMLManager.saveUserList(this.getMainApplication().getUserList());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void showEditCredentials(Credentials credentials) {
+		// Load the fxml file and create a new stage for the popup dialog.
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(HomeScreenControl.class.getResource("dialog/credentials/EditCredentialsDialog.fxml"));
+					AnchorPane page=null;
+					try {
+						page = (AnchorPane) loader.load();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					// Create the dialog Stage.
+					Stage dialogStage = new Stage();
+					dialogStage.initModality(Modality.WINDOW_MODAL);
+					dialogStage.initOwner(mainApplication.getPrimaryStage());
+					Scene scene = new Scene(page);
+					dialogStage.setScene(scene);
+
+					// Set the dialogStage to the controller.
+					EditCredentialsDialogControl controller = loader.getController();
+					controller.setDialogStage(dialogStage);
+					controller.setMainApplication(mainApplication);
+					controller.setCredentials(credentials);
+					// Show the dialog and wait until the user closes it, then add filter
+					dialogStage.showAndWait();
+					return;
 	}
 
 	@FXML
@@ -161,6 +190,8 @@ public class ManageCredentialsControl {
 				return;
 		}else {
 			this.getMainApplication().getCurrentUser().getCredentialList().remove(selectedCredentials);
+			CredentialsService credentialsService = new CredentialsService();
+			credentialsService.delete(selectedCredentials.getIdDB());
 			selectedCredentials=null;
 			this.updateTreeTableView();
 			try {
@@ -190,7 +221,6 @@ public class ManageCredentialsControl {
 			controller.setDialogStage(dialogStage);
 			controller.setMainApplication(mainApplication);
 			controller.setCredentials(credentials);
-			controller.setModifcation(true);
 			// Show the dialog and wait until the user closes it, then add filter
 			dialogStage.showAndWait();
 			

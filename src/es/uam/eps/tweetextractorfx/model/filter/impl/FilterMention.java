@@ -43,7 +43,7 @@ public class FilterMention extends Filter {
 	private List<String> mentionList = new ArrayList<String>();
 	
 	public FilterMention(FilterMention filter) {
-		this.summary=new String("Menciona a: ");
+		this.summary=new String("Mentioning: ");
 		this.setLABEL(Constants.STRING_FILTER_MENTION);
 		if (filter != null) {
 			for (String word : filter.getMentionList()) {
@@ -71,7 +71,7 @@ public class FilterMention extends Filter {
 
 
 	public FilterMention() {
-		this.summary=new String("Menciona a: ");
+		this.summary=new String("Mentioning: ");
 		this.setLABEL(Constants.STRING_FILTER_MENTION);
 	}
 

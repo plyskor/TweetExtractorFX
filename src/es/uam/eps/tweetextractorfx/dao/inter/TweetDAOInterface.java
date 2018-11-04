@@ -5,15 +5,14 @@ package es.uam.eps.tweetextractorfx.dao.inter;
 
 import java.io.Serializable;
 import java.util.List;
-
-import es.uam.eps.tweetextractorfx.model.Credentials;
-import es.uam.eps.tweetextractorfx.model.User;
+import es.uam.eps.tweetextractorfx.model.Extraction;
+import es.uam.eps.tweetextractorfx.model.Tweet;
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
-public interface CredentialsDAOInterface <T,Id extends Serializable>{
+public interface TweetDAOInterface <T,Id extends Serializable>{
 public void persist(T entity);
 	
 	public void update(T entity);
@@ -26,7 +25,7 @@ public void persist(T entity);
 	
 	public void deleteAll();
 	
-	public List<Credentials> findByUser(User user);
+	public List<Tweet> findByExtraction(Extraction extraction);
 	
 	
 }

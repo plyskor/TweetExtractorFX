@@ -175,10 +175,11 @@ public  class XMLManager {
 	public static void deleteExtraction(Extraction extraction) {
 		if(extraction!=null) {
 			File file = new File(Constants.EXTRACTION_DATA_PATH +extraction.getId());
+			if(file.exists()) {
 			for(File f: file.listFiles()) {
 				f.delete();
 			}
-			file.delete();
+			}
 		}
 	}
 	public static List<Tweet> loadTweetList(Extraction extraction) {

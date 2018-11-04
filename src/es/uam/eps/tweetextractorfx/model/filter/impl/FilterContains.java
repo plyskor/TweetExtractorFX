@@ -45,12 +45,12 @@ public class FilterContains extends Filter {
 	@Column(name="keyword_list", length=20)
 	private List<String> keywordsList=new ArrayList<String>();
 	public FilterContains() {
-		this.summary=new String("Contiene: ");
+		this.summary=new String("Contains: ");
 		this.setLABEL(Constants.STRING_FILTER_CONTAINS);
 	}
 
 	public FilterContains(FilterContains filter) {
-		this.summary=new String("Contiene: ");
+		this.summary=new String("Contains: ");
 		if(filter!=null) {
 			for(String word:filter.getKeywordsList()){
 				keywordsList.add(word);

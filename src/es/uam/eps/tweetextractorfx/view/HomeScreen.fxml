@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.HomeScreenControl">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.HomeScreenControl">
    <children>
       <GridPane layoutX="400.0" layoutY="305.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -96,7 +96,7 @@
                                        <children>
                                           <StackPane layoutX="185.0" layoutY="11.0" prefHeight="38.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Text fill="#f1873c" strokeType="OUTSIDE" strokeWidth="0.0" text="Extracciones">
+                                                <Text fill="#f1873c" strokeType="OUTSIDE" strokeWidth="0.0" text="Extractions">
                                                    <font>
                                                       <Font name="Geeza Pro Regular" size="22.0" />
                                                    </font>
@@ -119,12 +119,12 @@
                                              <children>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleCreateExtraction" prefHeight="61.0" prefWidth="398.0" text="Nueva extracción..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleCreateExtraction" prefHeight="61.0" prefWidth="398.0" text="New extraction..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                                    <children>
-                                                      <Button mnemonicParsing="false" onAction="#handleManageExtractions" prefHeight="61.0" prefWidth="398.0" text="Consultar extracciones..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button mnemonicParsing="false" onAction="#handleManageExtractions" prefHeight="61.0" prefWidth="398.0" text="Manage extractions..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
@@ -148,7 +148,7 @@
                                        <children>
                                           <StackPane prefHeight="37.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Text fill="#f1873c" strokeType="OUTSIDE" strokeWidth="0.0" text="Opciones">
+                                                <Text fill="#f1873c" strokeType="OUTSIDE" strokeWidth="0.0" text="Operations">
                                                    <font>
                                                       <Font name="Geeza Pro Regular" size="22.0" />
                                                    </font>
@@ -171,17 +171,17 @@
                                              <children>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="61.0" prefWidth="398.0" text="Cambiar Contraseña..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="61.0" prefWidth="398.0" text="Change my password..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                                    <children>
-                                                      <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" text="Cerrar sesión" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" text="Log out" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                                                    <children>
-                                                      <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" text="Eliminar cuenta..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="398.0" text="Delete this account" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </children>
@@ -218,7 +218,7 @@
                                        <children>
                                           <StackPane prefHeight="37.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Text fill="#f1873c" strokeType="OUTSIDE" strokeWidth="0.0" text="Credenciales">
+                                                <Text fill="#f1873c" strokeType="OUTSIDE" strokeWidth="0.0" text="Credentials">
                                                    <font>
                                                       <Font name="Geeza Pro Regular" size="22.0" />
                                                    </font>
@@ -241,12 +241,12 @@
                                              <children>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleAddCredentials" prefHeight="61.0" prefWidth="398.0" text="Añadir credenciales..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleAddCredentials" prefHeight="61.0" prefWidth="398.0" text="Add new credentials..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                                    <children>
-                                                      <Button mnemonicParsing="false" onAction="#handleManageCredentials" prefHeight="61.0" prefWidth="398.0" text="Gestionar Credenciales..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button mnemonicParsing="false" onAction="#handleManageCredentials" prefHeight="61.0" prefWidth="398.0" text="Manage credentials..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                    </children>
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">

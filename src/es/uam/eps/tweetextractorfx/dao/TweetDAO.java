@@ -3,13 +3,7 @@
  */
 package es.uam.eps.tweetextractorfx.dao;
 
-/**
- * @author Jose Antonio García del Saz
- *
- */
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -22,22 +16,25 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import com.sun.istack.NotNull;
-
-import es.uam.eps.tweetextractorfx.dao.inter.UserDAOInterface;
+import es.uam.eps.tweetextractorfx.dao.inter.TweetDAOInterface;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
-import es.uam.eps.tweetextractorfx.model.User;
+import es.uam.eps.tweetextractorfx.model.Extraction;
+import es.uam.eps.tweetextractorfx.model.Tweet;
 
-public class UserDAO implements UserDAOInterface<User, Integer> {
+/**
+ * @author Jose Antonio García del Saz
+ *
+ */
+
+public class TweetDAO implements TweetDAOInterface<Tweet, Integer> {
 
 	private Session currentSession;
 	
 	private Transaction currentTransaction;
 
-	public UserDAO() {
+	public TweetDAO() {
 	}
 
 	public Session openCurrentSession() {
@@ -57,7 +54,7 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 	}
 	
 	public void closeCurrentSession() {
-		if(currentSession!=null)
+		if (currentSession!=null)
 		currentSession.close();
 	}
 	
@@ -95,47 +92,47 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 		this.currentTransaction = currentTransaction;
 	}
 
-	public void persist(User entity) {
+	public void persist(Tweet entity) {
 		getCurrentSession().persist(entity);
 	}
 
-	public void update(User entity) {
+	public void update(Tweet entity) {
 		getCurrentSession().update(entity);
 	}
 
-	public User findById(Integer id) {
-		User User = (User) getCurrentSession().get(User.class, id);
-		return User; 
+	public Tweet findById(Integer id) {
+		Tweet tweet = (Tweet) getCurrentSession().get(Tweet.class, id);
+		return tweet; 
 	}
-	public User findByNickname(String nickname) {
+	public List<Tweet> findByExtraction(Extraction extraction) {
 		if(getCurrentSession()==null)return null;
 	    CriteriaBuilder criteriaBuilder = getCurrentSession().getCriteriaBuilder();
-	    CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-	    Root<User> root = criteriaQuery.from(User.class);
+	    CriteriaQuery<Tweet> criteriaQuery = criteriaBuilder.createQuery(Tweet.class);
+	    Root<Tweet> root = criteriaQuery.from(Tweet.class);
 	    criteriaQuery.select(root);
-	    ParameterExpression<String> params = criteriaBuilder.parameter(String.class);
-	    criteriaQuery.where(criteriaBuilder.equal(root.get("nickname"), params));
-	    TypedQuery<User> query = getCurrentSession().createQuery(criteriaQuery);
-	    query.setParameter(params, nickname);
-	    User ret= null;
-	    try {ret=query.getSingleResult();}catch(NoResultException e) {
-	    	System.out.println("No user found for nickname: "+nickname);	   
+	    ParameterExpression<Integer> params = criteriaBuilder.parameter(Integer.class);
+	    criteriaQuery.where(criteriaBuilder.equal(root.get("extraction_identifier"), params));
+	    TypedQuery<Tweet> query = getCurrentSession().createQuery(criteriaQuery);
+	    query.setParameter(params, extraction.getIdDB() );
+	    List<Tweet> ret= null;
+	    try {ret=query.getResultList();}catch(NoResultException e) {
+	    	System.out.println("No tweet found for extractionID: "+extraction.getIdDB());	   
 	    	}
 	    return ret;
 	}
-	public void delete(User entity) {
+	public void delete(Tweet entity) {
 		getCurrentSession().delete(entity);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> findAll() {
-		List<User> Users = (List<User>) getCurrentSession().createQuery("from User").list();
-		return Users;
+	public List<Tweet> findAll() {
+		List<Tweet> tweets = (List<Tweet>) getCurrentSession().createQuery("from Tweet").list();
+		return tweets;
 	}
 
 	public void deleteAll() {
-		List<User> entityList = findAll();
-		for (User entity : entityList) {
+		List<Tweet> entityList = findAll();
+		for (Tweet entity : entityList) {
 			delete(entity);
 		}
 	}

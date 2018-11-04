@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl">
 	<children>
 
 		<GridPane prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -45,7 +45,7 @@
 									<children>
 										<TableView fx:id="availableFiltersTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 											<columns>
-												<TableColumn fx:id="availableFiltersColumn" prefWidth="75.0" text="Filtros Disponibles" />
+												<TableColumn fx:id="availableFiltersColumn" prefWidth="75.0" text="Available filters" />
 											</columns>
 											<columnResizePolicy>
 												<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -57,7 +57,7 @@
 									<children>
 										<TableView fx:id="addedFilterTable" layoutX="55.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 											<columns>
-												<TableColumn fx:id="addedFiltersColumn" prefWidth="75.0" text="Filtros Aplicados" />
+												<TableColumn fx:id="addedFiltersColumn" prefWidth="75.0" text="Applied filters" />
 											</columns>
 											<columnResizePolicy>
 												<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -81,9 +81,9 @@
 													<children>
 														<VBox alignment="CENTER" spacing="10.0">
 															<children>
-																<Button mnemonicParsing="false" onAction="#handleAddFilter" text="Añadir..." />
-																<Button mnemonicParsing="false" onAction="#handleDeleteFilter" text="Quitar" />
-																<Button mnemonicParsing="false" onAction="#handleSaveQuery" text="Guardar" />
+																<Button mnemonicParsing="false" onAction="#handleAddFilter" text="Add..." />
+																<Button mnemonicParsing="false" onAction="#handleDeleteFilter" text="Remove" />
+																<Button mnemonicParsing="false" onAction="#handleSaveQuery" text="Finish" />
 															</children>
 														</VBox>
 													</children>
@@ -96,7 +96,7 @@
 									<children>
 										<TableView prefHeight="200.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 											<columns>
-												<TableColumn prefWidth="75.0" text="Filtros Sugeridos" />
+												<TableColumn prefWidth="75.0" text="Suggested filters" />
 											</columns>
 											<columnResizePolicy>
 												<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -120,7 +120,7 @@
 													<children>
 														<StackPane layoutX="83.0" layoutY="1.0" prefHeight="35.0" prefWidth="225.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 															<children>
-																<Button mnemonicParsing="false" onAction="#handleOr" text="OR Lógico" />
+																<Button mnemonicParsing="false" onAction="#handleOr" text="Logic OR" />
 															</children>
 														</StackPane>
 													</children>
@@ -129,7 +129,7 @@
 													<children>
 														<StackPane layoutX="65.0" layoutY="4.0" prefHeight="35.0" prefWidth="225.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 															<children>
-																<Button mnemonicParsing="false" onAction="#handleNot" text="NOT Lógico" />
+																<Button mnemonicParsing="false" onAction="#handleNot" text="Logic NOT" />
 															</children>
 														</StackPane>
 													</children>
@@ -138,7 +138,7 @@
 													<children>
 														<StackPane layoutX="46.0" layoutY="4.0" prefHeight="35.0" prefWidth="156.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 															<children>
-																<Button mnemonicParsing="false" onAction="#handleUndoLogic" text="Quitar OR/NOT" />
+																<Button mnemonicParsing="false" onAction="#handleUndoLogic" text="Remove logic" />
 															</children>
 														</StackPane>
 													</children>
@@ -155,7 +155,7 @@
                <children>
                   <StackPane layoutY="-56.0" prefHeight="140.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text fill="#e93a4b" strokeType="OUTSIDE" strokeWidth="0.0" text="Parámetros de la extracción">
+                        <Text fill="#e93a4b" strokeType="OUTSIDE" strokeWidth="0.0" text="Extraction parameters">
                            <font>
                               <Font name="Kannada Sangam MN" size="55.0" />
                            </font>

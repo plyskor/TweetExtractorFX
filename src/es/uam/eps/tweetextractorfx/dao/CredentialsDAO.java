@@ -27,7 +27,7 @@ import es.uam.eps.tweetextractorfx.model.User;
  * @author Jose Antonio García del Saz
  *
  */
-public class CredentialsDAO implements CredentialsDAOInterface<Credentials, String> {
+public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Integer> {
 
 	private Session currentSession;
 	
@@ -53,6 +53,7 @@ public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Stri
 	}
 	
 	public void closeCurrentSession() {
+		if (currentSession!=null)
 		currentSession.close();
 	}
 	
@@ -91,18 +92,18 @@ public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Stri
 	}
 
 	public void persist(Credentials entity) {
-		getCurrentSession().save(entity);
+		getCurrentSession().persist(entity);
 	}
 
 	public void update(Credentials entity) {
 		getCurrentSession().update(entity);
 	}
 
-	public Credentials findById(String id) {
+	public Credentials findById(Integer id) {
 		Credentials credentials = (Credentials) getCurrentSession().get(Credentials.class, id);
 		return credentials; 
 	}
-	public Credentials findByUser(User user) {
+	public List<Credentials> findByUser(User user) {
 		if(getCurrentSession()==null)return null;
 	    CriteriaBuilder criteriaBuilder = getCurrentSession().getCriteriaBuilder();
 	    CriteriaQuery<Credentials> criteriaQuery = criteriaBuilder.createQuery(Credentials.class);
@@ -112,8 +113,8 @@ public class CredentialsDAO implements CredentialsDAOInterface<Credentials, Stri
 	    criteriaQuery.where(criteriaBuilder.equal(root.get("user_identifier"), params));
 	    TypedQuery<Credentials> query = getCurrentSession().createQuery(criteriaQuery);
 	    query.setParameter(params, user.getIdDB() );
-	    Credentials ret= null;
-	    try {ret=query.getSingleResult();}catch(NoResultException e) {
+	    List<Credentials> ret= null;
+	    try {ret=query.getResultList();}catch(NoResultException e) {
 	    	System.out.println("No credentials found for userID: "+user.getIdDB());	   
 	    	}
 	    return ret;

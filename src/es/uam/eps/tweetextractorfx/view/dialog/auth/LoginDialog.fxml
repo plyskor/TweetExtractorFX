@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.dialog.auth.LoginDialogControl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.dialog.auth.LoginDialogControl">
    <children>
       <GridPane layoutX="53.0" layoutY="128.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -56,7 +56,7 @@
                                        <children>
                                           <StackPane layoutX="79.0" layoutY="64.0" prefHeight="144.0" prefWidth="192.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Label text="Usuario:" />
+                                                <Label text="Username:" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -74,7 +74,7 @@
                                        <children>
                                           <StackPane layoutX="79.0" layoutY="64.0" prefHeight="144.0" prefWidth="192.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Label text="Contraseña:" />
+                                                <Label text="Password:" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -92,7 +92,7 @@
                                        <children>
                                           <StackPane layoutX="31.0" layoutY="2.0" prefHeight="29.0" prefWidth="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
+                                                <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -101,8 +101,8 @@
                                        <children>
                                           <HBox spacing="15.0" AnchorPane.rightAnchor="15.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleLogin" text="Iniciar sesión" />
-                                                <Button mnemonicParsing="false" onAction="#handleRegister" text="Registrarse" />
+                                                <Button mnemonicParsing="false" onAction="#handleLogin" text="Log in" />
+                                                <Button mnemonicParsing="false" onAction="#handleRegister" text="New account" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -115,7 +115,7 @@
                            <children>
                               <StackPane layoutX="303.0" layoutY="16.0" prefHeight="48.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label text="Incio de sesión">
+                                    <Label text="Log in">
                                        <font>
                                           <Font size="31.0" />
                                        </font>

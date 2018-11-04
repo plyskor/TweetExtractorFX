@@ -22,7 +22,7 @@ public class FilterTo extends Filter {
 	private String nickName= new String("");
 	
 	public FilterTo (FilterTo filter) {
-		this.summary=new String("Respondiendo a: @");
+		this.summary=new String("Replying to: @");
 		this.setLABEL(Constants.STRING_FILTER_TO);
 		if(filter!=null) {
 			summary=filter.getSummary();
@@ -35,7 +35,7 @@ public class FilterTo extends Filter {
 	 * 
 	 */
 	public FilterTo() {
-		this.summary=new String("Respondiendo a: @");
+		this.summary=new String("Replying to: @");
 		this.setLABEL(Constants.STRING_FILTER_TO);
 	}
 

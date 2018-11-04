@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.dao.service.ExtractionService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
@@ -36,7 +37,7 @@ public class ShowUserExtractionsControl {
 	public void initialize() {
 		extractionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue()));
 		extractionTableView.getSelectionModel().selectedItemProperty().addListener((c, oldValue, newValue) -> {
-			if ((newValue != null && newValue.getValue()!=null&&!newValue.getValue().startsWith("Extracción"))||newValue == null || newValue.getValue()==null) {
+			if ((newValue != null && newValue.getValue()!=null&&!newValue.getValue().startsWith("Extraction"))||newValue == null || newValue.getValue()==null) {
 				Platform.runLater(() -> extractionTableView.getSelectionModel().clearSelection());
 				selectedExtraction=null;
 			} else {
@@ -67,16 +68,16 @@ public class ShowUserExtractionsControl {
 	@SuppressWarnings("unchecked")
 	private void updateTreeTableView() {
 		TreeItem<String> root = new TreeItem<String>(
-				"Extracciones de " + this.getMainApplication().getCurrentUser().getNickname());
+				"Extractions of the account " + this.getMainApplication().getCurrentUser().getNickname());
 		extractionTableView.setRoot(root);
 		for (Extraction extraction : this.getMainApplication().getCurrentUser().getExtractionList()) {
 			if(extraction!=null) {
-			TreeItem<String> extractionNode = new TreeItem<String>("Extracción " + extraction.getId());
+			TreeItem<String> extractionNode = new TreeItem<String>("Extraction " + extraction.getId());
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			TreeItem<String> createdAt = new TreeItem<String>("Creada el: " + df.format(extraction.getCreationDate()));
+			TreeItem<String> createdAt = new TreeItem<String>("Created On: " + df.format(extraction.getCreationDate()));
 			TreeItem<String> lastModified = new TreeItem<String>(
 					"Ùltima modificación: " + df.format(extraction.getLastModificationDate()));
-			TreeItem<String> filtersNode = new TreeItem<String>("Filtros");
+			TreeItem<String> filtersNode = new TreeItem<String>("Filters");
 			for(Filter filter:extraction.getFilterList()) {
 				TreeItem<String> filterItem = new TreeItem<String>(filter.getSummary());
 				filtersNode.getChildren().add(filterItem);
@@ -151,7 +152,8 @@ public class ShowUserExtractionsControl {
 		}else {
 			this.getMainApplication().getCurrentUser().removeExtractionFromList(selectedExtraction);
 			XMLManager.deleteExtraction(selectedExtraction);
-			
+			ExtractionService extractionService = new ExtractionService();
+			extractionService.delete(selectedExtraction.getIdDB());
 			selectedExtraction=null;
 			this.updateTreeTableView();
 			try {

@@ -5,6 +5,8 @@ package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 
 import java.util.Date;
+
+import org.hibernate.JDBCException;
 import org.mindrot.jbcrypt.BCrypt;
 
 import es.uam.eps.tweetextractorfx.dao.service.UserService;
@@ -111,10 +113,17 @@ public class LoginDialogControl {
 			ErrorDialog.showErrorUserEmpty();
 			return;
 		}
-		if(!userService.existsUser(userName)) {
-			ErrorDialog.showErrorExistsUSer();
+		try {
+			boolean existsUser =userService.existsUser(userName);
+			if(!existsUser) {
+				ErrorDialog.showErrorExistsUSer();
+				return;
+			}
+		}catch(JDBCException e) {
+			e.printStackTrace();
 			return;
 		}
+		
 		String pass = passField.getText().trim();
 		if(pass.isEmpty()) {
 			ErrorDialog.showErrorPassEmpty();

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.dialog.filter.FilterUrlDialogControl">
+<AnchorPane prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uam.eps.tweetextractorfx.view.dialog.filter.FilterUrlDialogControl">
    <children>
       <GridPane layoutX="26.0" layoutY="14.0" prefHeight="300.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -27,7 +27,7 @@
                <children>
                   <StackPane prefHeight="40.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Escriba la palabra clave que quiere que contengan las URL's de los tweets" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Now give a keyword that will be present in the URL's contained in the tweets:" />
                      </children>
                   </StackPane>
                </children></AnchorPane>
@@ -47,8 +47,8 @@
                <children>
                   <HBox layoutX="345.0" layoutY="92.0" spacing="10.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handelCancel" text="Cancelar" />
-                        <Button mnemonicParsing="false" onAction="#handleAddKeyWord" text="Hecho" />
+                        <Button mnemonicParsing="false" onAction="#handelCancel" text="Cancel" />
+                        <Button mnemonicParsing="false" onAction="#handleAddKeyWord" text="Done" />
                      </children>
                   </HBox>
                </children>

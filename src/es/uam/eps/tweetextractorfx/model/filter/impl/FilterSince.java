@@ -56,7 +56,7 @@ public class FilterSince extends Filter {
 	public StringProperty getSummaryProperty() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		if(date!=null) {
-			summaryProperty.set("Desde: "+(date).format(formatter));
+			summaryProperty.set("Since: "+(date).format(formatter));
 			summary=new String(summaryProperty.get());
 		}
 		return summaryProperty;

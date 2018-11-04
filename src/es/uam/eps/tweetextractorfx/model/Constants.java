@@ -53,18 +53,18 @@ public final class Constants {
 	*  Generic Strings
 	*/
 			//Available filters
-			public final static String STRING_FILTER_CONTAINS= "Contiene";
-			public final static String STRING_FILTER_CONTAINS_EXACT= "Contiene literalmente";
-			public final static String STRING_FILTER_HASHTAG= "Contiene el hashtag";
-			public final static String STRING_FILTER_FROM= "Tweeteado por";
-			public final static String STRING_FILTER_TO= "Respondiendo a";
-			public final static String STRING_FILTER_LIST= "Tweeteado por cualquier cuenta de una lista";
-			public final static String STRING_FILTER_MENTION= "Mencionando a";
-			public final static String STRING_FILTER_URL= "Con una URL que contenga";
-			public final static String STRING_FILTER_SINCE= "Desde la fecha";
-			public final static String STRING_FILTER_UNTIL= "Hasta la fecha";
-			public final static String STRING_FILTER_ATTITUDE= "Con una actitud";
-			public final static String STRING_FILTER_QUESTION= "Contiene una o más preguntas";
+			public final static String STRING_FILTER_CONTAINS= "Contains";
+			public final static String STRING_FILTER_CONTAINS_EXACT= "Contains literally";
+			public final static String STRING_FILTER_HASHTAG= "Contains hashtags";
+			public final static String STRING_FILTER_FROM= "Tweeted by the account";
+			public final static String STRING_FILTER_TO= "In repply to";
+			public final static String STRING_FILTER_LIST= "Tweeted by an account from the list";
+			public final static String STRING_FILTER_MENTION= "Mentioning users";
+			public final static String STRING_FILTER_URL= "With an URL containing";
+			public final static String STRING_FILTER_SINCE= "Since date";
+			public final static String STRING_FILTER_UNTIL= "Up to date";
+			public final static String STRING_FILTER_ATTITUDE= "With an attitude";
+			public final static String STRING_FILTER_QUESTION= "Containing one or more questions";
 	/*
 	 * Classes
 	 */

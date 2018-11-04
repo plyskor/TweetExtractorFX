@@ -47,11 +47,11 @@ public class User {
 	private Date lastConnectionDate=null;
 	@Transient
     private List<String> extractionIDList;
-	@OneToMany(cascade = CascadeType.PERSIST,orphanRemoval = true,mappedBy="user")
+	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy="user")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Credentials> credentialList;
 	@XmlTransient
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="user")
+	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy="user")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Extraction> extractionList;
 	@Column(name = "id",length=36,unique=true, nullable=false)

@@ -30,7 +30,7 @@ public class RootLayoutControl {
 	 */
 	public void setMainApplication(MainApplication mainApplication) {
 		this.mainApplication = mainApplication;
-		logoutmenuitem = new MenuItem("Cerrar sesión");
+		logoutmenuitem = new MenuItem("Log out");
     	logoutmenuitem.setOnAction(new EventHandler<ActionEvent>() {
     	    @Override public void handle(ActionEvent e) {
     	        mainApplication.setCurrentUser(null);
@@ -83,7 +83,7 @@ public class RootLayoutControl {
 		}
         Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("TweetExtractorFX");
-    	alert.setHeaderText("Acerca de...");
+    	alert.setHeaderText("About...");
     	alert.setContentText(message);
     	alert.showAndWait();
     }

@@ -4,6 +4,7 @@ package es.uam.eps.tweetextractorfx.twitterapi;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.uam.eps.tweetextractorfx.dao.service.TweetService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Credentials;
 import es.uam.eps.tweetextractorfx.model.Extraction;
@@ -135,7 +136,8 @@ public class TwitterExtractor {
 		if(toAdd==null)return 0;
 		for(Status status:toAdd) {
 			if(!extraction.contains(status)) {
-				extraction.addTweet(new Tweet(status));
+				Tweet toadd=new Tweet(status);
+				extraction.addTweet(toadd);
 				ret++;
 			}
 		}
