@@ -6,6 +6,7 @@ package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 import java.util.Date;
 
+import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -119,7 +120,7 @@ public class LoginDialogControl {
 				ErrorDialog.showErrorExistsUSer();
 				return;
 			}
-		}catch(JDBCException e) {
+		}catch(HibernateException e) {
 			e.printStackTrace();
 			return;
 		}

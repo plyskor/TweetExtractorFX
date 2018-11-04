@@ -27,5 +27,5 @@ public void persist(T entity);
 	
 	public List<Tweet> findByExtraction(Extraction extraction);
 	
-	
+	public void persistList(List<T> entityList);
 }

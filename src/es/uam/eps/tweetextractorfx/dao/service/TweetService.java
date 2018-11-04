@@ -26,7 +26,11 @@ public class TweetService {
 		tweetDAO.persist(entity);
 		tweetDAO.closeCurrentSessionwithTransaction();
 	}
-
+	public void persistList(List<Tweet> entityList) {
+		tweetDAO.openCurrentSessionwithTransaction();
+		tweetDAO.persistList(entityList);
+		tweetDAO.closeCurrentSessionwithTransaction();
+	}
 	public void update(Tweet entity) {
 		tweetDAO.openCurrentSessionwithTransaction();
 		tweetDAO.update(entity);

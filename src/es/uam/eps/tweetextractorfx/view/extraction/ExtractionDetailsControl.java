@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import es.uam.eps.tweetextractorfx.MainApplication;
@@ -204,9 +205,12 @@ private TwitterExtractor twitterextractor;
 				tweet.setExtraction(getExtraction());
 				this.getExtraction().getTweetList().add(tweet);
 			}
-			refreshTweetObservableList();
+			extraction.setLastModificationDate(new Date());
 			ExtractionService extractionService = new ExtractionService();
-			extractionService.merge(this.getExtraction());
+			extractionService.update(this.getExtraction());
+			TweetService tweetService = new TweetService();
+			tweetService.persistList(queryResult);
+			refreshTweetObservableList();
 		}
 		
 	}
@@ -245,7 +249,7 @@ private TwitterExtractor twitterextractor;
 					try {
 						refreshTweetObservableList();
 						ExtractionService extractionService = new ExtractionService();
-						extractionService.merge(this.getExtraction());
+						extractionService.update(this.getExtraction());
 						XMLManager.saveExtraction(extraction);
 					} catch (Exception e1) {
 			    		if(loadingDialog!=null)loadingDialog.close();
@@ -277,6 +281,8 @@ private TwitterExtractor twitterextractor;
 		userService.update(getMainApplication().getCurrentUser());
 		if(extraction!=null&&extraction.getFilterList()!=null) {
 			this.tweetObservableList.clear();
+			TweetService tweetService= new TweetService();
+			this.getExtraction().setTweetList(tweetService.findByExtraction(this.getExtraction()));
 			this.tweetObservableList.setAll(extraction.getTweetList());
 		}
 	}

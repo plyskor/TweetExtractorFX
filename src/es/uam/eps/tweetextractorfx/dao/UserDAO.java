@@ -75,6 +75,7 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 			 sessionFactory = configuration.buildSessionFactory();
 		}catch(HibernateException e) {
 			ErrorDialog.showErrorDB(e.getMessage());
+			throw(e);
 		}
 		return sessionFactory;
 	}
@@ -100,6 +101,7 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 	}
 
 	public void update(User entity) {
+		if(getCurrentSession().contains(entity))
 		getCurrentSession().update(entity);
 	}
 

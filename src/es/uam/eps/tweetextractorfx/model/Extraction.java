@@ -74,7 +74,7 @@ public class Extraction {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastModificationDate;
 	@XmlTransient
-	@OneToMany(fetch=FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE},orphanRemoval = true,mappedBy="extraction")
+	@OneToMany(fetch=FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy="extraction")
 	private List<Tweet> tweetList;
 	@OneToMany(fetch=FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy="extraction")
 	@XmlTransient
@@ -170,7 +170,7 @@ public class Extraction {
 	/**
 	 * @param tweetList the tweetList to set
 	 */
-	public void setTweetList(ObservableList<Tweet> tweetList) {
+	public void setTweetList(List<Tweet> tweetList) {
 		this.tweetList = tweetList;
 	}
 
@@ -265,12 +265,12 @@ public class Extraction {
 		filterList.add(filter);
 	}
 	}
-	public boolean contains(Status tweet) {
-		if(tweet==null||tweetList==null||tweetList.isEmpty()) return false;
+	public boolean contains(Tweet toadd) {
+		if(toadd==null||tweetList==null||tweetList.isEmpty()) return false;
 		for(Tweet own : tweetList) {
-			if(own.getId()==tweet.getId())return true;
-			if(tweet.getRetweetedStatus()!=null) {
-				if(tweet.getRetweetedStatus().getId()==own.getId())return true;
+			if(own.getId()==toadd.getId())return true;
+			if(toadd.getRetweetedTweet()!=-1) {
+				if(toadd.getRetweetedTweet()==own.getId())return true;
 			}
 		}
 		return false;

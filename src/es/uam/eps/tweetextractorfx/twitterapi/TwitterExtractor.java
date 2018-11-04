@@ -132,14 +132,19 @@ public class TwitterExtractor {
 		if (extraction==null)return 0;
 		int ret=0;
 		this.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList())+"-filter:retweets");
-		List<Status>toAdd= getStatusListExecution();
-		if(toAdd==null)return 0;
-		for(Status status:toAdd) {
-			if(!extraction.contains(status)) {
-				Tweet toadd=new Tweet(status);
-				extraction.addTweet(toadd);
+		List<Tweet>result= execute();
+		List<Tweet>toAdd = new ArrayList<Tweet>();
+		if(result==null)return 0;
+		for(Tweet tweet:result) {
+			if(!extraction.contains(tweet)) {
+				extraction.addTweet(tweet);
+				toAdd.add(tweet);
 				ret++;
 			}
+		}
+		if(ret>0) {
+			TweetService tweetService=new TweetService();
+			tweetService.persistList(toAdd);
 		}
 		return ret;
 	}

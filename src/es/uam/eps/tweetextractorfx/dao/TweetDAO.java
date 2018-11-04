@@ -95,7 +95,12 @@ public class TweetDAO implements TweetDAOInterface<Tweet, Integer> {
 	public void persist(Tweet entity) {
 		getCurrentSession().persist(entity);
 	}
-
+	public void persistList(List<Tweet> entityList) {
+		if(entityList==null)return;
+		for(Tweet entity : entityList) {
+			getCurrentSession().persist(entity);
+		}
+	}
 	public void update(Tweet entity) {
 		getCurrentSession().update(entity);
 	}
@@ -110,10 +115,10 @@ public class TweetDAO implements TweetDAOInterface<Tweet, Integer> {
 	    CriteriaQuery<Tweet> criteriaQuery = criteriaBuilder.createQuery(Tweet.class);
 	    Root<Tweet> root = criteriaQuery.from(Tweet.class);
 	    criteriaQuery.select(root);
-	    ParameterExpression<Integer> params = criteriaBuilder.parameter(Integer.class);
-	    criteriaQuery.where(criteriaBuilder.equal(root.get("extraction_identifier"), params));
+	    ParameterExpression<Extraction> params = criteriaBuilder.parameter(Extraction.class);
+	    criteriaQuery.where(criteriaBuilder.equal(root.get("extraction"), params));
 	    TypedQuery<Tweet> query = getCurrentSession().createQuery(criteriaQuery);
-	    query.setParameter(params, extraction.getIdDB() );
+	    query.setParameter(params, extraction );
 	    List<Tweet> ret= null;
 	    try {ret=query.getResultList();}catch(NoResultException e) {
 	    	System.out.println("No tweet found for extractionID: "+extraction.getIdDB());	   
