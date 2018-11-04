@@ -141,7 +141,7 @@ public class ShowUserExtractionsControl {
 
 	@FXML
 	public void handleEditExtraction() {
-		this.getMainApplication().showExtractionDetails(selectedExtraction);
+		this.getMainApplication().showExtractionDetails(selectedExtraction,false);
 	}
 
 	@FXML

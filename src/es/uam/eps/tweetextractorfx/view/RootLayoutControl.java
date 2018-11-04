@@ -73,7 +73,7 @@ public class RootLayoutControl {
      */
     @FXML
     private void handleAbout() {
-        String message= new String("Extractor de datos para Twitter usando JavaFX \nAutor: Jose Antonio García del Saz\nVersion: ");
+        String message= new String("Twitter data extractor with JavaFX\nAuthor: Jose Antonio García del Saz\nVersion: ");
 		try {
 			final Properties properties = new Properties();
 			properties.load(this.getClass().getClassLoader().getResourceAsStream("tweetextractorfx.properties"));

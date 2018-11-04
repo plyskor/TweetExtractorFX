@@ -269,7 +269,7 @@ public class QueryConstructorControl {
 			e.printStackTrace();
 		}
 		
-		this.getMainApplication().showExtractionDetails(extraction);
+		this.getMainApplication().showExtractionDetails(extraction,true);
 		}
 	}
 

@@ -307,5 +307,13 @@ public class ErrorDialog {
 		alert.showAndWait();
 		return ;
 	}
+	public static void showErrorNoTweetSelected() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		alert.setHeaderText("No tweet selected");
+		alert.setContentText("Select a tweet from the list above to delete it from the extraction");
+		alert.showAndWait();
+		return ;
+	}
 	
 }

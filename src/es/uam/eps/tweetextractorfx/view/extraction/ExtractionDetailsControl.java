@@ -20,9 +20,10 @@ import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.Tweet;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
+import es.uam.eps.tweetextractorfx.task.LoadTweetsTask;
+import es.uam.eps.tweetextractorfx.task.UpdateExtractionTask;
 import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
 import es.uam.eps.tweetextractorfx.util.FilterManager;
-import es.uam.eps.tweetextractorfx.util.UpdateExtractionTask;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -237,17 +238,27 @@ private TwitterExtractor twitterextractor;
 	@FXML
 	public void handleCancel() {
 		this.mainApplication.showHomeScreen();
+	}	
+	@FXML
+	public void handleDelete() {
+		if(this.selectedQueryResult==null) {
+			ErrorDialog.showErrorNoTweetSelected();
+			return;
+		}
+		this.getExtraction().getTweetList().remove(selectedQueryResult);
+		TweetService tweetService = new TweetService();
+		tweetService.delete(selectedQueryResult.getIdDB());;
+		tweetObservableList.remove(selectedQueryResult);
 	}
 	@FXML
 	public void handleUpdateExtraction() {
 			twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentialList().get(0));
 			Task<Integer> updateTask = new UpdateExtractionTask(twitterextractor,extraction);
 		    updateTask.setOnSucceeded(e -> {
-		    	Integer result = updateTask.getValue();
+		    	 Integer result = updateTask.getValue();
 		    	if (result>0) {
 		    		if(loadingDialog!=null)loadingDialog.close();
 					try {
-						refreshTweetObservableList();
 						ExtractionService extractionService = new ExtractionService();
 						extractionService.update(this.getExtraction());
 						XMLManager.saveExtraction(extraction);
@@ -263,11 +274,13 @@ private TwitterExtractor twitterextractor;
 	    		if(loadingDialog!=null)loadingDialog.close();
 		    });
              Thread thread = new Thread(updateTask);
-             thread.setName("TweetExtractorFXUpdater");
+             thread.setName("TweetExtractorFX/ExtractionUpdater");
              thread.start();
-             loadingDialog=mainApplication.showLoadingDialog();    
+             loadingDialog=mainApplication.showLoadingDialog("Extracting...");    
              loadingDialog.showAndWait();
              if(alertUpdate!=null)alertUpdate.showAndWait();
+             refreshTweetObservableList();
+             
 	}
 
 	/**
@@ -277,13 +290,22 @@ private TwitterExtractor twitterextractor;
 		return extraction;
 	}
 	public void refreshTweetObservableList() {
-		UserService userService=new UserService();
-		userService.update(getMainApplication().getCurrentUser());
 		if(extraction!=null&&extraction.getFilterList()!=null) {
-			this.tweetObservableList.clear();
-			TweetService tweetService= new TweetService();
-			this.getExtraction().setTweetList(tweetService.findByExtraction(this.getExtraction()));
-			this.tweetObservableList.setAll(extraction.getTweetList());
+			LoadTweetsTask loadTask = new LoadTweetsTask(extraction);
+			loadTask.setOnSucceeded(e->{
+				this.tweetObservableList.clear();
+				this.tweetObservableList.setAll(extraction.getTweetList());
+	    		if(loadingDialog!=null)loadingDialog.close();
+
+			});
+			loadTask.setOnFailed(e->{
+		    		if(loadingDialog!=null)loadingDialog.close();
+			});
+			Thread thread = new Thread(loadTask);
+            thread.setName("TweetExtractorFX/TweetLoader");
+            thread.start();
+            loadingDialog=mainApplication.showLoadingDialog("Loading tweets...");    
+            loadingDialog.showAndWait();
 		}
 	}
 	/**

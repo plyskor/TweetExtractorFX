@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractorfx.util;
+package es.uam.eps.tweetextractorfx.task;
 
 import java.util.Date;
 

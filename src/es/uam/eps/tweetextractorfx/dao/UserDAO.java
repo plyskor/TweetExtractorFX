@@ -101,7 +101,6 @@ public class UserDAO implements UserDAOInterface<User, Integer> {
 	}
 
 	public void update(User entity) {
-		if(getCurrentSession().contains(entity))
 		getCurrentSession().update(entity);
 	}
 

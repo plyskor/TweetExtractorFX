@@ -130,7 +130,7 @@ public class MainApplication extends Application {
 		}
 	}
 
-	public void showExtractionDetails(Extraction extraction) {
+	public void showExtractionDetails(Extraction extraction,boolean executeQuery) {
 		try {
 			// Load query constructor
 			FXMLLoader loader = new FXMLLoader();
@@ -141,7 +141,7 @@ public class MainApplication extends Application {
 			controller.setExtraction(extraction);
 			controller.setMainApplication(this);
 			try {
-				if(extraction.getTweetList()==null||extraction.getTweetList().size()==0)	controller.executeQuery();
+				if(executeQuery)controller.executeQuery();
 				// Set query constructor into the center of root layout.
 				rootLayout.setCenter(queryDetails);
 			} catch (TwitterException e) {
@@ -151,7 +151,7 @@ public class MainApplication extends Application {
 			e.printStackTrace();
 		}
 	}
-	public Stage showLoadingDialog() {
+	public Stage showLoadingDialog(String title) {
 		try {
 
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -164,6 +164,7 @@ public class MainApplication extends Application {
 			dialogStage.initOwner(this.getPrimaryStage());
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
+			dialogStage.setTitle(title);
 			// Set the dialogStage to the controller.
 			LoadingDialogControl controller = loader.getController();
 			controller.setDialogStage(dialogStage);
