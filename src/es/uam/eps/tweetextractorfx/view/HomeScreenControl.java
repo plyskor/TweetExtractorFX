@@ -109,7 +109,7 @@ public class HomeScreenControl {
 			    if(loadingDialog!=null)loadingDialog.close();
 		    });
 		    Thread thread = new Thread(deleteTask);
-            thread.setName("TweetExtractorFX/Accounts/Delete");
+            thread.setName(deleteTask.getClass().getCanonicalName());
             thread.start();
             loadingDialog=mainApplication.showLoadingDialog("Deleting account...");    
             loadingDialog.showAndWait();
