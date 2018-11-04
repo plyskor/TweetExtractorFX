@@ -6,14 +6,18 @@ package es.uam.eps.tweetextractorfx.view;
 import java.io.IOException;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
+import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.task.DeleteAccountTask;
 import es.uam.eps.tweetextractorfx.view.dialog.auth.ChangePasswordDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -32,6 +36,9 @@ public class HomeScreenControl {
     private ImageView logoView;
     @FXML
     private Text userView;
+    
+	private Stage loadingDialog = null;
+
 	/**
 	 * 
 	 */
@@ -86,6 +93,27 @@ public class HomeScreenControl {
 	@FXML
 	public void handleLogOut() {
 		this.getMainApplication().getRootLayoutController().logOut();
+	}
+	@FXML
+	public void handleDeleteUser() {
+		Alert alert = new Alert(AlertType.CONFIRMATION, "This action will delete the account " + this.getMainApplication().getCurrentUser().getNickname() + ", and also every extraction owned by it. Are you sure you want to continue?", ButtonType.YES, ButtonType.NO 
+);
+		alert.showAndWait();
+		if (alert.getResult() == ButtonType.YES) {
+		    DeleteAccountTask deleteTask = new DeleteAccountTask(this.getMainApplication().getCurrentUser());
+		    deleteTask.setOnSucceeded(e->{
+			    this.handleLogOut();
+			    if(loadingDialog!=null)loadingDialog.close();
+		    });
+		    deleteTask.setOnFailed(e->{
+			    if(loadingDialog!=null)loadingDialog.close();
+		    });
+		    Thread thread = new Thread(deleteTask);
+            thread.setName("TweetExtractorFX/Accounts/Delete");
+            thread.start();
+            loadingDialog=mainApplication.showLoadingDialog("Deleting account...");    
+            loadingDialog.showAndWait();
+		}
 	}
 	@FXML
 	public void handleManageCredentials() {
