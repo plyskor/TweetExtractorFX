@@ -57,6 +57,7 @@ public class HomeScreenControl {
         String nickName = this.getMainApplication().getCurrentUser().getNickname().substring(0, 1).toUpperCase() +this.getMainApplication().getCurrentUser().getNickname().substring(1);
         userView.setText(nickName);
 	}
+	
 	/**
 	 * @return the logoView
 	 */
@@ -81,6 +82,10 @@ public class HomeScreenControl {
 	@FXML
 	public void handleAddCredentials() {
 		showAddCredentials();
+	}
+	@FXML
+	public void handleLogOut() {
+		this.getMainApplication().getRootLayoutController().logOut();
 	}
 	public void handleManageCredentials() {
 		this.getMainApplication().showManageCredentials();

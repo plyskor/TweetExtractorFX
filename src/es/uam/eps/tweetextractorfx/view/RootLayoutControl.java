@@ -114,5 +114,9 @@ public class RootLayoutControl {
     		archivoMenu.getItems().add(1, logoutmenuitem);
     	}
     }
-    
+    public void logOut() {
+    	if(logoutmenuitem!=null) {
+    		logoutmenuitem.fire();
+    	}
+    }
 }
