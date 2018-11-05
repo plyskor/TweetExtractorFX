@@ -110,20 +110,20 @@ public class TwitterExtractor {
 	}
 	public void handleRateLimit() {
 		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Atención");
-		alert.setHeaderText("Límite de la cuenta");
+		alert.setTitle("Warning");
+		alert.setHeaderText("Account rate limit");
 		alert.setContentText(
-				"El límite de la API ha sido alcanzado.\nEl límite se resetea dentro de "+this.limit("/search/tweets").getSecondsUntilReset()+" segundos.\nInténtelo más tarde.");
+				"Twitter API rate limit has been reached.\nThe limit will be reseted in "+this.limit("/search/tweets").getSecondsUntilReset()+" seconds.\nPlease, add new credentials or try again later.");
 		alert.showAndWait();
 		
 		return;
 	}
 	public void handleConnectionIssue() {
         Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Atención");
-        alert.setHeaderText("Error de conexión");
+        alert.setTitle("Warning");
+        alert.setHeaderText("Connection error");
         alert.setContentText(
-                      "Se ha producido un error no determinado conectándose a Twitter. Revise su configuración de red y reinténtelo");
+                      "An unknown error has occured while connecting with Twitter. Please check your network configuration and try again.");
         alert.showAndWait();
        
         return;
