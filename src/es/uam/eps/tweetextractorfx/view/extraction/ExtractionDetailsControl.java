@@ -183,7 +183,6 @@ private TwitterExtractor twitterextractor;
 	public void setMainApplication(MainApplication mainApplication) {
 		this.mainApplication = mainApplication;
 		this.getTweetsTable().setItems(this.tweetObservableList);
-		refreshTweetObservableList();
 		authorLabel.setText("");
 		dateLabel.setText("");
 		idLabel.setText("");
@@ -211,28 +210,24 @@ private TwitterExtractor twitterextractor;
 			extractionService.update(this.getExtraction());
 			TweetService tweetService = new TweetService();
 			tweetService.persistList(queryResult);
-			refreshTweetObservableList();
 		}
 		
 	}
 
 	public void executeQuery() throws TwitterException {
 		twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentialList().get(0));
-		twitterextractor.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList()) + "-filter:retweets");
-		if (twitterextractor != null&& twitterextractor.getQuery() != null) {
-			try {
-				this.setQueryResult(twitterextractor.execute());
-			} catch (TwitterException e) {
-				e.printStackTrace();
-				throw (e);
-			}
-		}
-		try {
-			XMLManager.saveExtraction(extraction);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return;
+		UpdateExtractionTask updateTask = new UpdateExtractionTask(twitterextractor, extraction);
+		updateTask.setOnSucceeded(e->{
+    		if(loadingDialog!=null)loadingDialog.close();
+		});
+		updateTask.setOnFailed(e->{
+    		if(loadingDialog!=null)loadingDialog.close();
+		});
+		Thread thread = new Thread(updateTask);
+        thread.setName(updateTask.getClass().getCanonicalName());
+        thread.start();
+        loadingDialog=mainApplication.showLoadingDialog("Extracting...");    
+        loadingDialog.showAndWait();
 	}
 
 	@FXML

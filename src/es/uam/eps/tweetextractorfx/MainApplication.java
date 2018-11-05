@@ -141,7 +141,10 @@ public class MainApplication extends Application {
 			controller.setExtraction(extraction);
 			controller.setMainApplication(this);
 			try {
-				if(executeQuery)controller.executeQuery();
+				if(executeQuery) {
+					controller.executeQuery();
+				}
+				controller.refreshTweetObservableList();
 				// Set query constructor into the center of root layout.
 				rootLayout.setCenter(queryDetails);
 			} catch (TwitterException e) {
