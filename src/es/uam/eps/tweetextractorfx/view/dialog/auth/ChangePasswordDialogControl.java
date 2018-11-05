@@ -11,6 +11,7 @@ import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 
@@ -68,7 +69,8 @@ public class ChangePasswordDialogControl {
 	public void handleChangePassword() {
 		String pass = oldPasswordField.getText().trim();
 		if(pass.isEmpty()) {
-			ErrorDialog.showErrorPassEmpty();
+			Alert alert=ErrorDialog.showErrorPassEmpty();
+			alert.showAndWait();
 			return;
 		}
 		User userLogged = this.getMainApplication().getCurrentUser();

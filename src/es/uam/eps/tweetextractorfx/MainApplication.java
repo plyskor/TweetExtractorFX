@@ -143,8 +143,10 @@ public class MainApplication extends Application {
 			try {
 				if(executeQuery) {
 					controller.executeQuery();
+					controller.getTweetObservableList().addAll(controller.getExtraction().getTweetList());
+				}else {
+					controller.refreshTweetObservableList();
 				}
-				controller.refreshTweetObservableList();
 				// Set query constructor into the center of root layout.
 				rootLayout.setCenter(queryDetails);
 			} catch (TwitterException e) {
@@ -163,7 +165,7 @@ public class MainApplication extends Application {
 			AnchorPane page = (AnchorPane) loader.load();
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
-			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initModality(Modality.APPLICATION_MODAL);
 			dialogStage.initOwner(this.getPrimaryStage());
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);

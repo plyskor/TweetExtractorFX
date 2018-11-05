@@ -11,49 +11,45 @@ import javafx.scene.control.Alert.AlertType;
  *
  */
 public class ErrorDialog {
-	public static void showErrorLoadUsers(String message) {
+	public static Alert showErrorLoadUsers(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		alert.setHeaderText("Error reading users");
 		alert.setContentText("An error ocurred while reading the users:" + message);
 		alert.showAndWait();
-		return;
+		return alert;
 	}
 
-	public static void showErrorLoginFailed() {
+	public static Alert showErrorLoginFailed() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("Incorrect password");
 		alert.setContentText("The password you entered is not correct. Please try again.");
-		alert.showAndWait();
-		return;
+		return alert;
 	}
 
-	public static void showErrorExistsUSer() {
+	public static Alert showErrorExistsUSer() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("Unexisting user");
 		alert.setContentText("There's no account registered with that nickname. Please, try again.");
-		alert.showAndWait();
-		return;
+		return alert;
 	}
 
-	public static void showErrorPassEmpty() {
+	public static Alert showErrorPassEmpty() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("Empty password");
 		alert.setContentText("Plese, enter the password for this account.");
-		alert.showAndWait();
-		return;
+		return alert;
 	}
 
-	public static void showErrorUserEmpty() {
+	public static Alert showErrorUserEmpty() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("Empty username");
 		alert.setContentText("Please, enter the username of the account to log in.");
-		alert.showAndWait();
-		return;
+		return alert;
 	}
 
 	public static void showErrorSaveUser(String message) {
@@ -345,6 +341,14 @@ public class ErrorDialog {
 		alert.setContentText("Select a tweet from the list above to delete it from the extraction");
 		alert.showAndWait();
 		return;
+	}
+
+	public static Alert showErrorUnknownLogin() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Unknown log in error");
+		alert.setContentText("An unknown error has occurred while logging in. Please, try again.");
+		return alert;
 	}
 
 }

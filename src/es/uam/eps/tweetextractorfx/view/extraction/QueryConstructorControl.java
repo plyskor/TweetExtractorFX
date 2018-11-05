@@ -9,6 +9,7 @@ import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import es.uam.eps.tweetextractorfx.model.filter.impl.*;
+import es.uam.eps.tweetextractorfx.task.CreateExtractionTask;
 import es.uam.eps.tweetextractorfx.util.FilterManager;
 import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
@@ -49,6 +50,7 @@ public class QueryConstructorControl {
 	
 	private Extraction extraction;
 
+	private Stage loadingDialog = null;
 	/**
 	 * @return the availableFiltersTable
 	 */
@@ -261,14 +263,18 @@ public class QueryConstructorControl {
 		extraction = new Extraction();
 		extraction.addFilters(addedFiltersList);
 		this.getMainApplication().getCurrentUser().addExtractionToList(extraction);
-		ExtractionService extractionService = new ExtractionService();
-		extractionService.persist(extraction);
-		try {
-			XMLManager.saveUserList(this.getMainApplication().getUserList());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		CreateExtractionTask createTask = new CreateExtractionTask(extraction);
+		createTask.setOnSucceeded(e->{
+    		if(loadingDialog!=null)loadingDialog.close();
+		});
+		createTask.setOnFailed(e->{
+    		if(loadingDialog!=null)loadingDialog.close();
+		});
+		Thread thread = new Thread(createTask);
+        thread.setName(createTask.getClass().getCanonicalName());
+        thread.start();
+        loadingDialog=mainApplication.showLoadingDialog("Creating extraction...");    
+        loadingDialog.showAndWait();
 		this.getMainApplication().showExtractionDetails(extraction,true);
 		}
 	}

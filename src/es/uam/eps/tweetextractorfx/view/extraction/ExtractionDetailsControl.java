@@ -195,25 +195,6 @@ private TwitterExtractor twitterextractor;
 	public void setFilterList(ObservableList<Filter> filterList) {
 	}
 
-	/**
-	 * @param queryResult the queryResult to set
-	 */
-	public void setQueryResult(List<Tweet> queryResult) {
-		if (queryResult != null) {
-			this.getExtraction().getTweetList().clear();
-			for (Tweet tweet : queryResult) {
-				tweet.setExtraction(getExtraction());
-				this.getExtraction().getTweetList().add(tweet);
-			}
-			extraction.setLastModificationDate(new Date());
-			ExtractionService extractionService = new ExtractionService();
-			extractionService.update(this.getExtraction());
-			TweetService tweetService = new TweetService();
-			tweetService.persistList(queryResult);
-		}
-		
-	}
-
 	public void executeQuery() throws TwitterException {
 		twitterextractor=new TwitterExtractor(null, this.getMainApplication().getCurrentUser().getCredentialList().get(0));
 		UpdateExtractionTask updateTask = new UpdateExtractionTask(twitterextractor, extraction);
@@ -226,7 +207,7 @@ private TwitterExtractor twitterextractor;
 		Thread thread = new Thread(updateTask);
         thread.setName(updateTask.getClass().getCanonicalName());
         thread.start();
-        loadingDialog=mainApplication.showLoadingDialog("Extracting...");    
+        loadingDialog=mainApplication.showLoadingDialog("Extracting");    
         loadingDialog.showAndWait();
 	}
 
