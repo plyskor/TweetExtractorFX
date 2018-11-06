@@ -76,7 +76,7 @@ public class ShowUserExtractionsControl {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			TreeItem<String> createdAt = new TreeItem<String>("Created On: " + df.format(extraction.getCreationDate()));
 			TreeItem<String> lastModified = new TreeItem<String>(
-					"Ùltima modificación: " + df.format(extraction.getLastModificationDate()));
+					"Last updated: " + df.format(extraction.getLastModificationDate()));
 			TreeItem<String> filtersNode = new TreeItem<String>("Filters");
 			for(Filter filter:extraction.getFilterList()) {
 				TreeItem<String> filterItem = new TreeItem<String>(filter.getSummary());
