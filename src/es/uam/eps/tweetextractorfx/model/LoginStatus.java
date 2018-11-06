@@ -7,13 +7,13 @@ package es.uam.eps.tweetextractorfx.model;
  * @author Jose Antonio García del Saz
  *
  */
-public class LoginState {
+public class LoginStatus {
 	private User user;
-	private Integer state= Constants.UNKNOWN_LOGIN_ERROR;
+	private Integer status= Constants.UNKNOWN_LOGIN_ERROR;
 	/**
 	 * 
 	 */
-	public LoginState() {
+	public LoginStatus() {
 	}
 	/**
 	 * @return the user
@@ -28,16 +28,16 @@ public class LoginState {
 		this.user = user;
 	}
 	/**
-	 * @return the state
+	 * @return the status
 	 */
-	public Integer getState() {
-		return state;
+	public Integer getStatus() {
+		return status;
 	}
 	/**
-	 * @param state the state to set
+	 * @param status the status to set
 	 */
-	public void setState(Integer state) {
-		this.state = state;
+	public void setStatus(Integer state) {
+		this.status = state;
 	}
 
 }

@@ -3,18 +3,11 @@
  */
 package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
-import java.util.Date;
 
-import org.hibernate.HibernateException;
-import org.hibernate.JDBCException;
-import org.mindrot.jbcrypt.BCrypt;
 import es.uam.eps.tweetextractorfx.model.Constants;
-import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
-import es.uam.eps.tweetextractorfx.model.LoginState;
-import es.uam.eps.tweetextractorfx.model.User;
+import es.uam.eps.tweetextractorfx.model.LoginStatus;
 import es.uam.eps.tweetextractorfx.task.LogInTask;
-import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -34,7 +27,7 @@ public class LoginDialogControl {
 	private Stage dialogStage;
 	private WelcomeScreenControl welcomeScreenControl;
 	private Stage loadingDialog = null;
-	private Alert alertLogin; 
+	private Alert alertLogin=null; 
 
 
 	/*
@@ -116,13 +109,13 @@ public class LoginDialogControl {
 		alertLogin=null;
 		LogInTask loginTask = new LogInTask(userField.getText().trim(), passField.getText());
 		loginTask.setOnSucceeded(e -> {
-			LoginState loginResult = loginTask.getValue();
+			LoginStatus loginResult = loginTask.getValue();
 			if (loginResult == null) {
 	    		if(loadingDialog!=null)loadingDialog.close();
 				alertLogin=ErrorDialog.showErrorUnknownLogin();
 				return;
-			}
-			switch (loginResult.getState()) {
+			}else {
+			switch (loginResult.getStatus()) {
 			case (Constants.EMPTY_USER_LOGIN_ERROR):
 	    		if(loadingDialog!=null)loadingDialog.close();
 				alertLogin=ErrorDialog.showErrorUserEmpty();
@@ -146,23 +139,28 @@ public class LoginDialogControl {
 			case (Constants.SUCCESS_LOGIN):
 	    		if(loadingDialog!=null)loadingDialog.close();
 				this.getWelcomeScreenControl().getMainApplication().setCurrentUser(loginResult.getUser());
-				this.getDialogStage().close();
-				this.getWelcomeScreenControl().getMainApplication().showHomeScreen();
 				break;
 			default:
 				break;
+				}
 			}
 		});
 		loginTask.setOnFailed(e -> {
 			if(loadingDialog!=null)loadingDialog.close();
-			ErrorDialog.showErrorUnknownLogin();
+			alertLogin=ErrorDialog.showErrorUnknownLogin();
 		});
 		Thread thread = new Thread(loginTask);
         thread.setName(loginTask.getClass().getCanonicalName());
         thread.start();
         loadingDialog=this.getWelcomeScreenControl().getMainApplication().showLoadingDialog("Logging in...");    
         loadingDialog.showAndWait();
-        if(alertLogin!=null)alertLogin.showAndWait();
+        if(alertLogin!=null) {
+        	alertLogin.showAndWait();
+        }else {
+        	this.getDialogStage().close();
+    		this.getWelcomeScreenControl().getMainApplication().showHomeScreen();
+        }
+        
 	}
 
 	@FXML

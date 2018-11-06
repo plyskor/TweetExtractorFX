@@ -61,51 +61,46 @@ public class ErrorDialog {
 		return;
 	}
 
-	public static void showSuccessCreateUser() {
+	public static Alert showSuccessCreateUser() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("User created");
 		alert.setContentText("The new user account has been succesfully created.");
-		alert.showAndWait();
-		return;
+		return alert;
 	}
 
-	public static void showErrorPasswordCheck() {
+	public static Alert showErrorPasswordCheck() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("Unsafe password");
 		alert.setContentText(
-				"Passwords must have between 6 and 16 characters.\n They also must contain a lower case, an upper case and a number.");
-		alert.showAndWait();
-		return;
+				"Passwords must have between 6 and 16 characters.\nThey also must contain a lower case, an upper case and a number.");
+		return alert;
 	}
 
-	public static void showErrorExistingUser() {
+	public static Alert showErrorExistingUser() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("User already exists");
 		alert.setContentText(
 				"This user account already exists. Please, introduce another name for the account or go to the log in screen.");
-		alert.showAndWait();
-		return;
+		return alert;
 	}
 
-	public static void showErrorEmptyUser() {
+	public static Alert showErrorEmptyUser() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("Invalid account name");
 		alert.setContentText("The user name for the account must have at least 3 characters.");
-		alert.showAndWait();
-		return;
+		return alert;
 	}
 
-	public static void showErrorPasswordMismatch() {
+	public static Alert showErrorPasswordMismatch() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
 		alert.setHeaderText("Password mismatch");
-		alert.setContentText("Las contraseñas introducidas no coinciden. Por favor, inténtalo de nuevo.");
-		alert.showAndWait();
-		return;
+		alert.setContentText("The passwords you entered are not equal. Please, try again");
+		return alert;
 	}
 
 	public static void showErrorSaveCredentials(String message) {
@@ -344,10 +339,18 @@ public class ErrorDialog {
 	}
 
 	public static Alert showErrorUnknownLogin() {
-		Alert alert = new Alert(AlertType.INFORMATION);
+		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Warning");
 		alert.setHeaderText("Unknown log in error");
 		alert.setContentText("An unknown error has occurred while logging in. Please, try again.");
+		return alert;
+	}
+
+	public static Alert showErrorUnknownRegister() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Unknown register error");
+		alert.setContentText("An unknown error has occurred while registering the new account. Please, try again.");
 		return alert;
 	}
 

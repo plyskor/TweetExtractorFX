@@ -2,21 +2,15 @@ package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.mindrot.jbcrypt.BCrypt;
-
 import es.uam.eps.tweetextractorfx.MainApplication;
-import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
-import es.uam.eps.tweetextractorfx.model.User;
-import es.uam.eps.tweetextractorfx.util.XMLManager;
+import es.uam.eps.tweetextractorfx.model.RegisterStatus;
+import es.uam.eps.tweetextractorfx.task.RegisterAccountTask;
 import javafx.fxml.FXML;
+import es.uam.eps.tweetextractorfx.model.Constants;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class NewUserDialogControl {
@@ -28,6 +22,8 @@ public class NewUserDialogControl {
 	@FXML
 	private PasswordField passwordField2;
 	private MainApplication mainApplication;
+	private Stage loadingDialog = null;
+	private Alert alertRegister=null; 
 	public NewUserDialogControl() {
 
 	}
@@ -102,43 +98,57 @@ public class NewUserDialogControl {
 	}
 	@FXML
 	public void handleCreateUser() {
-		UserService userService = new UserService();
-		String userName=userNameField.getText().trim();
-		if(userName.trim().isEmpty()||userName.length()<3) {
-			ErrorDialog.showErrorEmptyUser();
-			return;
-		}
-		if(userService.existsUser(userName)) {
-			ErrorDialog.showErrorExistingUser();
-			return;
-		}
-		String password1=passwordField1.getText().replace("\r", "").replace("\n", "");
-		if(password1.trim().isEmpty()||!checkPassword(password1)) {
-			ErrorDialog.showErrorPasswordCheck();
-			return;
-		}
-		String password2=passwordField2.getText();
-		if(!password1.equals(password2)) {
-			ErrorDialog.showErrorPasswordMismatch();
-			return;
-		}
-		User newUser = new User(userName,BCrypt.hashpw(password1, BCrypt.gensalt(12)));
-		userService.persist(newUser);
-		this.getMainApplication().getUserList().add(newUser);
-		try {
-			XMLManager.saveUserList(this.getMainApplication().getUserList());
-		} catch (Exception e) {
-			ErrorDialog.showErrorSaveUser(e.getMessage());
-			return;
-		}
-		ErrorDialog.showSuccessCreateUser();
-		this.dialogStage.close();
+		RegisterAccountTask registerTask = new RegisterAccountTask(userNameField.getText().trim(), passwordField1.getText(), passwordField2.getText());
+		registerTask.setOnSucceeded(e->{
+			RegisterStatus registerResult = registerTask.getValue();
+			if (registerResult==null) {
+				if(loadingDialog!=null)loadingDialog.close();
+				alertRegister=ErrorDialog.showErrorUnknownRegister();
+				return;
+			}else {
+				switch(registerResult.getStatus()){
+				case(Constants.UNKNOWN_REGISTER_ERROR):
+					alertRegister=ErrorDialog.showErrorUnknownRegister();
+					if(loadingDialog!=null)loadingDialog.close();
+					break;
+				case(Constants.EMPTY_USER_REGISTER_ERROR):
+					alertRegister=ErrorDialog.showErrorEmptyUser();
+					if(loadingDialog!=null)loadingDialog.close();
+					break;
+				case(Constants.PASSWORD_MISMATCH_REGISTER_ERROR):
+					alertRegister=ErrorDialog.showErrorPasswordMismatch();
+					if(loadingDialog!=null)loadingDialog.close();
+					break;
+				case(Constants.EXIST_USER_REGISTER_ERROR):
+					alertRegister=ErrorDialog.showErrorExistingUser();
+					if(loadingDialog!=null)loadingDialog.close();
+					break;			
+				case(Constants.UNSAFE_PASSWORD_REGISTER_ERROR):
+					alertRegister=ErrorDialog.showErrorPasswordCheck();
+				    if(loadingDialog!=null)loadingDialog.close();
+					break;
+				case(Constants.SUCCESS_REGISTER):
+					this.getMainApplication().getUserList().add(registerResult.getUser());
+					alertRegister=ErrorDialog.showSuccessCreateUser();
+					if(loadingDialog!=null)loadingDialog.close();
+					this.dialogStage.close();
+					break;
+				default:
+					break;
+				}
+			}
+		});
+		registerTask.setOnFailed(e->{
+			if(loadingDialog!=null)loadingDialog.close();
+			alertRegister=ErrorDialog.showErrorUnknownRegister();
+		});
+		Thread thread = new Thread(registerTask);
+        thread.setName(registerTask.getClass().getCanonicalName());
+        thread.start();
+        loadingDialog=this.getMainApplication().showLoadingDialog("Creating account...");    
+        loadingDialog.showAndWait();
+        if(alertRegister!=null)alertRegister.showAndWait();
 	}
 	
-	public static boolean checkPassword(String password) {
-		 String pattern = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z]).{6,16})";
-		 Pattern p = Pattern.compile(pattern);
-	     Matcher m = p.matcher(password);
-		return m.matches();
-	}
+	
 }

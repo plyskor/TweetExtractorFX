@@ -82,7 +82,7 @@ public final class Constants {
 	 */
 	public static final String FILE_USERS = AUTH_PATH + "users.xml";
 	/*
-	 * Login States
+	 * Login Status
 	 */
 	public static final int SUCCESS_LOGIN=0;
 	public static final int UNKNOWN_LOGIN_ERROR=-1;
@@ -90,6 +90,16 @@ public final class Constants {
 	public static final int EXIST_USER_LOGIN_ERROR=-3;
 	public static final int INCORRECT_PASSWORD_LOGIN_ERROR=-4;
 	public static final int EMPTY_PASSWORD_LOGIN_ERROR=-5;
+	/*
+	 * Register Status
+	 */
+	public static final int SUCCESS_REGISTER=0;
+	public static final int UNKNOWN_REGISTER_ERROR=-1;
+	public static final int PASSWORD_MISMATCH_REGISTER_ERROR=-2;
+	public static final int UNSAFE_PASSWORD_REGISTER_ERROR=-3;
+	public static final int EXIST_USER_REGISTER_ERROR=-4;
+	public static final int EMPTY_USER_REGISTER_ERROR=-5;
+
 
 	
 }
