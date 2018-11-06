@@ -176,6 +176,7 @@
     <version>11</version>
     <classifier>mac</classifier>
 </dependency>
+
 	</dependencies>
 	<properties>
     <javaVersion>1.8</javaVersion>
