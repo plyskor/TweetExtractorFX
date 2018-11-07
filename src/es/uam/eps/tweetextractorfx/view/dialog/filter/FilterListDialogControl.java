@@ -84,7 +84,7 @@ public class FilterListDialogControl {
 			if(accountChecker.length>1||listChecker.length>1) {
 				ErrorDialog.showErrorWrongValues();
 			}else {
-				filter.setAccount(accountField.getText());
+				filter.setAccount(accountField.getText().trim().replace("@", ""));
 				filter.setListName(listField.getText());
 				this.getDialogStage().close();
 			}

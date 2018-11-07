@@ -105,6 +105,7 @@ public class FilterHashtagDialogControl {
 		}else {
 			String[] wordsToAdd =wordToAdd.getText().replaceAll("^[,\\s]+", "").split("[,\\s]+");
 			for(String word : wordsToAdd) {
+				word=word.replace("#", "");
 				if(!filter.getHashtagList().contains(word))filter.addHashtag(word);
 			}
 			wordToAdd.clear();

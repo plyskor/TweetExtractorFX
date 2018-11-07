@@ -118,6 +118,7 @@ public class FilterMentionDialogControl {
 		}else {
 			String[] wordsToAdd =wordToAdd.getText().replaceAll("^[,\\s]+", "").split("[,\\s]+");
 			for(String word : wordsToAdd) {
+				word=word.replace("@", "");
 				if(!filter.getMentionList().contains(word))filter.addMention(word);
 			}
 			wordToAdd.clear();

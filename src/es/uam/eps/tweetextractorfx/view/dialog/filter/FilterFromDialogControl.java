@@ -59,7 +59,7 @@ public class FilterFromDialogControl {
 		if (nickToAdd.getText().trim().isEmpty()) {
 			ErrorDialog.showErrorEmptyNickname();
 		}else {
-			filter.setNickName(nickToAdd.getText().trim());
+			filter.setNickName(nickToAdd.getText().trim().replace("@", ""));
 			this.getDialogStage().close();
 		}
 		
