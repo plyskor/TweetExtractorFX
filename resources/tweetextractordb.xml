@@ -8,7 +8,7 @@
 		
 		<!-- Connection settings -->
 		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-		<property name="hibernate.connection.url">jdbc:postgresql://db.preciapps.com/te_op00</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://db.preciapps.com/te_op00?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</property>
 		<property name="hibernate.default_schema">te_op00</property>
 		<property name="hibernate.connection.username">te_op00_update</property>
 		<property name="hibernate.connection.password">te_op00_update</property>
