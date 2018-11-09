@@ -137,6 +137,7 @@ public class ShowUserExtractionsControl {
 
 	@FXML
 	public void handleAddExtraction() {
+		this.getMainApplication().showQueryConstructor();
 	}
 
 	@FXML
