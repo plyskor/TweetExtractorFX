@@ -306,6 +306,7 @@ public class ExtractionDetailsControl {
 	public void setExtraction(Extraction extraction) {
 		this.extraction = extraction;
 	}
+	
 	@FXML
 	public void handleExport() {
 		FileChooser fileChooser = new FileChooser();
@@ -319,8 +320,7 @@ public class ExtractionDetailsControl {
         	try {
 				XMLManager.saveTweetListToFile(extraction, file);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ErrorDialog.showErrorExportTweets(e.getMessage());
 			}
         }
 	}

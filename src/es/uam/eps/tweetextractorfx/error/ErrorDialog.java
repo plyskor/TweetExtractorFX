@@ -353,4 +353,12 @@ public class ErrorDialog {
 		return alert;
 	}
 
+	public static void showErrorExportTweets(String message) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText("Unknown exportation error");
+		alert.setContentText("An unknown error has occurred while exporting tweets:\n"+message+"\n\nPlease, try again.");
+		alert.showAndWait();
+	}
+
 }
