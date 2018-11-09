@@ -91,6 +91,7 @@ public class TwitterExtractor {
             if(te.getStatusCode()==429&&te.getErrorCode()==88) {
             	this.updateStatus=Constants.RATE_LIMIT_UPDATE_ERROR;
             	if(resultList!=null&&!resultList.isEmpty()) {
+                	this.updateStatus=Constants.SUCCESS_UPDATE;
             		ret.setStatusList(resultList);
             		return ret;
             	}
@@ -174,5 +175,17 @@ public class TwitterExtractor {
 		}
 		  return null;
 		}
+	/**
+	 * @return the updateStatus
+	 */
+	public Integer getUpdateStatus() {
+		return updateStatus;
+	}
+	/**
+	 * @param updateStatus the updateStatus to set
+	 */
+	public void setUpdateStatus(Integer updateStatus) {
+		this.updateStatus = updateStatus;
+	}
 	
 }

@@ -242,6 +242,7 @@ public class ExtractionDetailsControl {
 			if (result == null)
 				return;
 			if (result.getnTweets() > 0) {
+				this.tweetObservableList.addAll(result.getTweetList());
 				try {
 					ExtractionService extractionService = new ExtractionService();
 					extractionService.update(this.getExtraction());
@@ -269,8 +270,6 @@ public class ExtractionDetailsControl {
 		loadingDialog.showAndWait();
 		if (alertUpdate != null)
 			alertUpdate.showAndWait();
-		refreshTweetObservableList();
-
 	}
 
 	/**

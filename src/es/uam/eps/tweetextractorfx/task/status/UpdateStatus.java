@@ -15,7 +15,6 @@ import twitter4j.Status;
  */
 public class UpdateStatus {
 	private Integer nTweets;
-	private Alert alert;
 	List<Status> statusList=null;
 	List<Tweet>tweetList=null;
 	/**
@@ -23,7 +22,6 @@ public class UpdateStatus {
 	 */
 	public UpdateStatus(Integer nTweets,Alert alert) {
 		this.nTweets=nTweets;
-		this.alert=alert;
 	}
 	/**
 	 * @return the nTweets
@@ -37,18 +35,7 @@ public class UpdateStatus {
 	public void setnTweets(Integer nTweets) {
 		this.nTweets = nTweets;
 	}
-	/**
-	 * @return the alert
-	 */
-	public Alert getAlert() {
-		return alert;
-	}
-	/**
-	 * @param alert the alert to set
-	 */
-	public void setAlert(Alert alert) {
-		this.alert = alert;
-	}
+
 	/**
 	 * @return the statusList
 	 */
