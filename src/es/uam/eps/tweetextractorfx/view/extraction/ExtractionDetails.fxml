@@ -209,7 +209,7 @@
                                        <children>
                                           <StackPane layoutX="81.0" layoutY="1.0" prefHeight="35.0" prefWidth="221.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleExport" text="Export..." />
+                                                <Button mnemonicParsing="false" onAction="#handleExport" text="Export tweets to XML..." />
                                              </children>
                                           </StackPane>
                                        </children>
