@@ -6,7 +6,6 @@ package es.uam.eps.tweetextractorfx.view;
 import java.io.IOException;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
-import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.task.DeleteAccountTask;
 import es.uam.eps.tweetextractorfx.view.dialog.auth.ChangePasswordDialogControl;
