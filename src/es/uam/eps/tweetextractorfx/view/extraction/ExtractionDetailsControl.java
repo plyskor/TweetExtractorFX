@@ -251,7 +251,6 @@ public class ExtractionDetailsControl {
 						loadingDialog.close();
 					ex.printStackTrace();
 				}
-				System.out.println("hola1");
 			}
 			if (loadingDialog != null)
 				loadingDialog.close();
