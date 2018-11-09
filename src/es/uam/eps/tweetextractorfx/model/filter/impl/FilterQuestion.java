@@ -5,8 +5,7 @@ package es.uam.eps.tweetextractorfx.model.filter.impl;
 
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
 
 /**
  * @author Jose Antonio García del Saz

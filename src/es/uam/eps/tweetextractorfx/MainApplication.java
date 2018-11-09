@@ -2,31 +2,21 @@ package es.uam.eps.tweetextractorfx;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
-import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.model.filter.*;
 import es.uam.eps.tweetextractorfx.model.filter.impl.*;
-import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.WelcomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.credentials.ManageCredentialsControl;
 import es.uam.eps.tweetextractorfx.view.dialog.LoadingDialogControl;
-import es.uam.eps.tweetextractorfx.view.dialog.filter.FilterUntilDialogControl;
-
 import es.uam.eps.tweetextractorfx.view.extraction.ExtractionDetailsControl;
 import es.uam.eps.tweetextractorfx.view.extraction.QueryConstructorControl;
 import es.uam.eps.tweetextractorfx.view.extraction.ShowUserExtractionsControl;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

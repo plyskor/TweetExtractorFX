@@ -5,11 +5,8 @@ package es.uam.eps.tweetextractorfx.task;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.mindrot.jbcrypt.BCrypt;
-
 import es.uam.eps.tweetextractorfx.dao.service.UserService;
-import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.User;
 import es.uam.eps.tweetextractorfx.task.status.RegisterStatus;

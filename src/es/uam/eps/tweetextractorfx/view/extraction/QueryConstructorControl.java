@@ -2,8 +2,6 @@ package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.io.IOException;
 import es.uam.eps.tweetextractorfx.MainApplication;
-import es.uam.eps.tweetextractorfx.dao.service.ExtractionService;
-import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.Extraction;
@@ -11,7 +9,6 @@ import es.uam.eps.tweetextractorfx.model.filter.Filter;
 import es.uam.eps.tweetextractorfx.model.filter.impl.*;
 import es.uam.eps.tweetextractorfx.task.CreateExtractionTask;
 import es.uam.eps.tweetextractorfx.util.FilterManager;
-import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.RootLayoutControl;
 import es.uam.eps.tweetextractorfx.view.dialog.filter.*;
 import javafx.collections.FXCollections;

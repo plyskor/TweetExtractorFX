@@ -6,7 +6,6 @@ import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.dao.service.CredentialsService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Credentials;
-import es.uam.eps.tweetextractorfx.util.XMLManager;
 import es.uam.eps.tweetextractorfx.view.HomeScreenControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.AddCredentialsDialogControl;
 import es.uam.eps.tweetextractorfx.view.dialog.credentials.EditCredentialsDialogControl;

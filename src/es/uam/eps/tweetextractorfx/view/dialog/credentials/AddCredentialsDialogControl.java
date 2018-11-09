@@ -4,7 +4,6 @@ import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.dao.service.CredentialsService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Credentials;
-import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
