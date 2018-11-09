@@ -11,8 +11,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import es.uam.eps.tweetextractorfx.dao.service.UserService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
 import es.uam.eps.tweetextractorfx.model.Constants;
-import es.uam.eps.tweetextractorfx.model.RegisterStatus;
 import es.uam.eps.tweetextractorfx.model.User;
+import es.uam.eps.tweetextractorfx.task.status.RegisterStatus;
 import javafx.concurrent.Task;
 
 /**

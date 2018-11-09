@@ -99,6 +99,14 @@ public final class Constants {
 	public static final int UNSAFE_PASSWORD_REGISTER_ERROR=-3;
 	public static final int EXIST_USER_REGISTER_ERROR=-4;
 	public static final int EMPTY_USER_REGISTER_ERROR=-5;
+	/*
+	 * Update Status
+	 */
+	public static final int SUCCESS_UPDATE=0;
+	public static final int CONNECTION_UPDATE_ERROR=-1;
+	public static final int RATE_LIMIT_UPDATE_ERROR=-2;
+	public static final int UNKNOWN_UPDATE_ERROR=-3;
+
 
 
 	

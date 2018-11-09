@@ -149,12 +149,7 @@ public class ManageCredentialsControl {
 		}
 		showEditCredentials(selectedCredentials);
 		this.updateTreeTableView();
-		try {
-			XMLManager.saveUserList(this.getMainApplication().getUserList());
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-	}
 
 	private void showEditCredentials(Credentials credentials) {
 		// Load the fxml file and create a new stage for the popup dialog.
@@ -194,12 +189,6 @@ public class ManageCredentialsControl {
 			credentialsService.delete(selectedCredentials.getIdDB());
 			selectedCredentials=null;
 			this.updateTreeTableView();
-			try {
-				XMLManager.saveUserList(this.getMainApplication().getUserList());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 	public void showAddCredentials(Credentials credentials) {

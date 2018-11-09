@@ -4,8 +4,8 @@ package es.uam.eps.tweetextractorfx.view.dialog.auth;
 
 import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
-import es.uam.eps.tweetextractorfx.model.RegisterStatus;
 import es.uam.eps.tweetextractorfx.task.RegisterAccountTask;
+import es.uam.eps.tweetextractorfx.task.status.RegisterStatus;
 import javafx.fxml.FXML;
 import es.uam.eps.tweetextractorfx.model.Constants;
 import javafx.scene.control.Alert;

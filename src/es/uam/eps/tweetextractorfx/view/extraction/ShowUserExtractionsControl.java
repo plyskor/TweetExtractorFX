@@ -156,11 +156,6 @@ public class ShowUserExtractionsControl {
 			extractionService.delete(selectedExtraction.getIdDB());
 			selectedExtraction=null;
 			this.updateTreeTableView();
-			try {
-				XMLManager.saveUserList(this.getMainApplication().getUserList());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
 

@@ -1,7 +1,10 @@
 /**
  * 
  */
-package es.uam.eps.tweetextractorfx.model;
+package es.uam.eps.tweetextractorfx.task.status;
+
+import es.uam.eps.tweetextractorfx.model.Constants;
+import es.uam.eps.tweetextractorfx.model.User;
 
 /**
  * @author Jose Antonio García del Saz

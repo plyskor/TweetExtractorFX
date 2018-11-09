@@ -6,15 +6,15 @@ package es.uam.eps.tweetextractorfx.task;
 import java.util.Date;
 
 import es.uam.eps.tweetextractorfx.model.Extraction;
+import es.uam.eps.tweetextractorfx.task.status.UpdateStatus;
 import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
 import javafx.concurrent.Task;
-import twitter4j.TwitterException;
 
 /**
  * @author Jose Antonio García del Saz
  *
  */
-public class UpdateExtractionTask extends Task<Integer>{
+public class UpdateExtractionTask extends Task<UpdateStatus>{
 	private TwitterExtractor twitter;
 	private Extraction extraction;
 	
@@ -26,17 +26,14 @@ public class UpdateExtractionTask extends Task<Integer>{
 	}
 
 	@Override
-	protected Integer call() throws Exception {
-		Integer ret=0;
-    	try {
-			ret=twitter.updateExtraction(extraction);
-			if(ret>0) {
-				extraction.setLastModificationDate(new Date());
-			}
-		} catch (TwitterException e) {
-			e.printStackTrace();
+	protected UpdateStatus call() throws Exception {
+		UpdateStatus ret =null;
+		ret=twitter.updateExtraction(extraction);
+		if(ret==null)return null;
+		if(ret.getnTweets()>0) {
+			extraction.setLastModificationDate(new Date());
+			return ret ;
 		}
-        return ret ;
+		return ret;
 	}
-
 }

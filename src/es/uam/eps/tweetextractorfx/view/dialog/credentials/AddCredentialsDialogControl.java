@@ -141,10 +141,9 @@ public class AddCredentialsDialogControl {
 				return;
 		}
 		this.getMainApplication().getCurrentUser().addCredentials(credentials);
-		CredentialsService credentialsService = new CredentialsService();
-		credentialsService.persist(credentials);
 		try {
-			XMLManager.saveUserList(this.getMainApplication().getUserList());
+			CredentialsService credentialsService = new CredentialsService();
+			credentialsService.persist(credentials);
 		} catch (Exception e) {
 			ErrorDialog.showErrorSaveCredentials(e.getMessage());
 			return;

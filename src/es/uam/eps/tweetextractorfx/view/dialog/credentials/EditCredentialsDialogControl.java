@@ -148,10 +148,9 @@ public class EditCredentialsDialogControl {
 		selectedCredentials.setConsumerSecret(consumerSecretField.getText().trim());
 		selectedCredentials.setAccessToken(accessTokenField.getText().trim());
 		selectedCredentials.setAccessTokenSecret(accessTokenSecretField.getText().trim());
-		CredentialsService credentialsService = new CredentialsService();
-		credentialsService.update(selectedCredentials);
 		try {
-			XMLManager.saveUserList(this.getMainApplication().getUserList());
+			CredentialsService credentialsService = new CredentialsService();
+			credentialsService.update(selectedCredentials);
 		} catch (Exception e) {
 			ErrorDialog.showErrorSaveCredentials(e.getMessage());
 			return;

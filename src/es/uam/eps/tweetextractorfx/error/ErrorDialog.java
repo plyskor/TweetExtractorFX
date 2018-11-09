@@ -294,13 +294,12 @@ public class ErrorDialog {
 		return;
 	}
 
-	public static void showErrorTwitterExecution(String message) {
+	public static Alert showErrorTwitterExecution(String message) {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Twitter Error");
 		alert.setHeaderText("The Twitter API has thrown the following error:");
 		alert.setContentText(message);
-		alert.showAndWait();
-		return;
+		return alert;
 	}
 
 	public static void showErrorDB(String message) {

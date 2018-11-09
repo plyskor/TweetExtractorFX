@@ -6,9 +6,11 @@ import java.util.List;
 
 import es.uam.eps.tweetextractorfx.dao.service.TweetService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.Credentials;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.Tweet;
+import es.uam.eps.tweetextractorfx.task.status.UpdateStatus;
 import es.uam.eps.tweetextractorfx.util.FilterManager;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -27,7 +29,8 @@ public class TwitterExtractor {
 	private Twitter twitter;
 	private Credentials credentials;
 	private Query query;
-
+	private Integer updateStatus=null;
+	private String errorMessage=null;
 	public TwitterExtractor(String consulta,Credentials credentials) {
 		super();
 		if(credentials==null)return;
@@ -53,45 +56,65 @@ public class TwitterExtractor {
 			this.query = new Query(query);
 		}
 	}
-	public List<Tweet> execute() throws TwitterException{
-		List<Tweet> ret = new ArrayList<Tweet>();
-		List<Status> statusList = getStatusListExecution();
-		if(statusList==null)return ret;
-		for(Status status : statusList) {
-			ret.add(new Tweet(status));
+	public UpdateStatus execute(){
+		List<Tweet> tweetList = new ArrayList<Tweet>();
+		UpdateStatus ret;
+		ret=getStatusListExecution();
+		if(ret.getStatusList()==null)return ret;
+		for(Status status : ret.getStatusList()) {
+			tweetList.add(new Tweet(status));
 		}
+		ret.setTweetList(tweetList);
 		return ret;
 	}
-	public List<Status> getStatusListExecution() throws TwitterException{
-		List<Status>ret=new ArrayList<Status>();
+	public UpdateStatus getStatusListExecution() {
+		UpdateStatus ret= new UpdateStatus(0, null);
+		List<Status>resultList=new ArrayList<Status>();
 		try {
             QueryResult result;
             do {
+            	this.updateStatus=Constants.SUCCESS_UPDATE;
                 result = twitter.search(query);
                 List<Status> tweets = result.getTweets();
                 for (Status tweet : tweets) {
-                	ret.add(tweet);
+                	resultList.add(tweet);
                 }
             } while ((query = result.nextQuery()) != null);
+            ret.setStatusList(resultList);
             return ret;
         } catch (TwitterException te) {
-            te.printStackTrace();
             //*CONNECTION ISSUE
             if(te.getStatusCode()==-1&&te.getErrorCode()==-1) {
-            handleConnectionIssue();
+            	this.updateStatus=Constants.CONNECTION_UPDATE_ERROR;
             }else 
             //*RATELIMIT
             if(te.getStatusCode()==429&&te.getErrorCode()==88) {
-            	handleRateLimit();
-            	if(ret!=null&&!ret.isEmpty()) {
+            	this.updateStatus=Constants.RATE_LIMIT_UPDATE_ERROR;
+            	if(resultList!=null&&!resultList.isEmpty()) {
+            		ret.setStatusList(resultList);
             		return ret;
             	}
             }else {
-            	ErrorDialog.showErrorTwitterExecution(te.getMessage());
-                System.out.println("Failed to search tweets: " + te.getMessage());
+            	this.updateStatus=Constants.UNKNOWN_UPDATE_ERROR;
+            	this.errorMessage=te.getErrorMessage();
+            	return ret;
             }
-            throw(te);
         }
+		return ret;
+	}
+	public Alert onError() {
+		if(this.updateStatus==null)return null;
+		switch(this.updateStatus) {
+		case(Constants.CONNECTION_UPDATE_ERROR):
+			return handleConnectionIssue();
+		case(Constants.RATE_LIMIT_UPDATE_ERROR):
+			return handleRateLimit();
+		case(Constants.UNKNOWN_UPDATE_ERROR):
+			return ErrorDialog.showErrorTwitterExecution(this.errorMessage);
+		default:
+			break;
+		}
+		return null;
 	}
 	public TwitterFactory getTf() {
 		return tf;
@@ -108,43 +131,37 @@ public class TwitterExtractor {
 	public void setCredentials(Credentials credentials) {
 			this.credentials=credentials;
 	}
-	public void handleRateLimit() {
+	public Alert handleRateLimit() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Warning");
 		alert.setHeaderText("Account rate limit");
 		alert.setContentText(
 				"Twitter API rate limit has been reached.\nThe limit will be reseted in "+this.limit("/search/tweets").getSecondsUntilReset()+" seconds.\nPlease, add new credentials or try again later.");
-		alert.showAndWait();
-		
-		return;
+		return alert;
 	}
-	public void handleConnectionIssue() {
+	public Alert handleConnectionIssue() {
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Warning");
         alert.setHeaderText("Connection error");
         alert.setContentText(
                       "An unknown error has occured while connecting with Twitter. Please check your network configuration and try again.");
-        alert.showAndWait();
-       
-        return;
+        return alert;
 	}
-	public int updateExtraction(Extraction extraction) throws TwitterException {
-		if (extraction==null)return 0;
-		int ret=0;
+	public UpdateStatus updateExtraction(Extraction extraction){
+		if (extraction==null)return null;
 		this.setQuery(FilterManager.getQueryFromFilters(extraction.getFilterList())+"-filter:retweets");
-		List<Tweet>result= execute();
-		List<Tweet>toAdd = new ArrayList<Tweet>();
-		if(result==null)return 0;
-		for(Tweet tweet:result) {
+		UpdateStatus ret=null;
+		ret= execute();
+		if(ret.getTweetList()==null)return ret;
+		for(Tweet tweet:ret.getTweetList()) {
 			if(!extraction.contains(tweet)) {
 				extraction.addTweet(tweet);
-				toAdd.add(tweet);
-				ret++;
+				ret.incrementNTweets();;
 			}
 		}
-		if(ret>0) {
+		if(ret.getnTweets()>0) {
 			TweetService tweetService=new TweetService();
-			tweetService.persistList(toAdd);
+			tweetService.persistList(ret.getTweetList());
 		}
 		return ret;
 	}
@@ -157,4 +174,5 @@ public class TwitterExtractor {
 		}
 		  return null;
 		}
+	
 }
