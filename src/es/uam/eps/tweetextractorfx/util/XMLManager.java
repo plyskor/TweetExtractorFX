@@ -116,6 +116,27 @@ public  class XMLManager {
 	       throw(e);
 	    }
 	}
+	public static void saveTweetListToFile(Extraction extraction, File file) throws Exception {
+		try {
+			if(!file.exists())
+			file.createNewFile();
+	        JAXBContext context = JAXBContext
+	                .newInstance(TweetListWrapper.class);
+	        Marshaller m = context.createMarshaller();
+	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+	        // Wrapping our person data.
+	        TweetListWrapper wrapper = new TweetListWrapper();
+	        wrapper.setTweets(extraction.getTweetList());
+	        
+	        // Marshalling and saving XML to the file.
+	        m.marshal(wrapper, file);
+
+	    } catch (Exception e) { // catches ANY exception
+	    	e.printStackTrace();
+	       throw(e);
+	    }
+	}
 	public static void saveExtraction(Extraction extraction) throws Exception {
 	    try {
 	    	/* Creamos ficheros y archivos */

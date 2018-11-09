@@ -5,6 +5,7 @@ package es.uam.eps.tweetextractorfx.view.extraction;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -21,6 +22,7 @@ import es.uam.eps.tweetextractorfx.task.LoadTweetsTask;
 import es.uam.eps.tweetextractorfx.task.UpdateExtractionTask;
 import es.uam.eps.tweetextractorfx.task.status.UpdateStatus;
 import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
+import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +35,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import twitter4j.TwitterException;
 
@@ -303,5 +306,22 @@ public class ExtractionDetailsControl {
 	public void setExtraction(Extraction extraction) {
 		this.extraction = extraction;
 	}
-
+	@FXML
+	public void handleExport() {
+		FileChooser fileChooser = new FileChooser();
+        // Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+                "XML files (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
+        // Show save file dialog
+        File file = fileChooser.showSaveDialog(this.mainApplication.getPrimaryStage());
+        if (file != null) {
+        	try {
+				XMLManager.saveTweetListToFile(extraction, file);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+	}
 }
