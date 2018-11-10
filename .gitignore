@@ -11,7 +11,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -24,10 +23,16 @@ hs_err_pid*
 /bin/
 .project
 .classpath
-/target/
+/target/archive-tmp
+/target/classes
+/target/generated-sources
+/target/maven-archiver
+/target/maven-status
 *.prefs
 src/.DS_Store
 src/es/.DS_Store
 src/es/uam/.DS_Store
 src/es/uam/eps/.DS_Store
 .DS_Store
+target/TweetExtractorFX-1.0.0.0.jar
+/target/

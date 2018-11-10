@@ -24,7 +24,6 @@ import es.uam.eps.tweetextractorfx.task.LoadTweetsTask;
 import es.uam.eps.tweetextractorfx.task.UpdateExtractionTask;
 import es.uam.eps.tweetextractorfx.task.status.UpdateStatus;
 import es.uam.eps.tweetextractorfx.twitterapi.TwitterExtractor;
-import es.uam.eps.tweetextractorfx.util.XMLManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +41,7 @@ import javafx.stage.Stage;
 import twitter4j.TwitterException;
 
 /**
- * @author Jose Antonio Garc��a del Saz
+ * @author Jose Antonio García del Saz
  *
  */
 public class ExtractionDetailsControl {
@@ -65,7 +64,6 @@ public class ExtractionDetailsControl {
 	private Stage loadingDialog = null;
 	private Alert alertUpdate;
 	private ObservableList<Tweet> tweetObservableList = FXCollections.observableArrayList();
-
 	private TwitterExtractor twitterextractor;
 
 	/**

@@ -43,7 +43,6 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-
 					<archive>
 						<manifest>
 							<mainClass>es.uam.eps.tweetextractorfx.Main</mainClass>
@@ -85,13 +84,11 @@
 		</plugins>
 	</build>
 	<dependencies>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.5</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -176,7 +173,6 @@
 			<version>11</version>
 			<classifier>mac</classifier>
 		</dependency>
-
 	</dependencies>
 	<properties>
 		<javaVersion>1.8</javaVersion>
