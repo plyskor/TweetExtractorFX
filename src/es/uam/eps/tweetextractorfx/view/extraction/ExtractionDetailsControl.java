@@ -15,9 +15,11 @@ import es.uam.eps.tweetextractorfx.MainApplication;
 import es.uam.eps.tweetextractorfx.dao.service.ExtractionService;
 import es.uam.eps.tweetextractorfx.dao.service.TweetService;
 import es.uam.eps.tweetextractorfx.error.ErrorDialog;
+import es.uam.eps.tweetextractorfx.model.Constants;
 import es.uam.eps.tweetextractorfx.model.Extraction;
 import es.uam.eps.tweetextractorfx.model.Tweet;
 import es.uam.eps.tweetextractorfx.model.filter.Filter;
+import es.uam.eps.tweetextractorfx.task.ExportExtractionTask;
 import es.uam.eps.tweetextractorfx.task.LoadTweetsTask;
 import es.uam.eps.tweetextractorfx.task.UpdateExtractionTask;
 import es.uam.eps.tweetextractorfx.task.status.UpdateStatus;
@@ -57,7 +59,7 @@ public class ExtractionDetailsControl {
 	private Label idLabel;
 	@FXML
 	private Label langLabel;
-
+	private Alert alertExport;
 	private Tweet selectedQueryResult;
 	private Extraction extraction;
 	private Stage loadingDialog = null;
@@ -309,6 +311,7 @@ public class ExtractionDetailsControl {
 	
 	@FXML
 	public void handleExport() {
+		alertExport=null;
 		FileChooser fileChooser = new FileChooser();
         // Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
@@ -316,12 +319,32 @@ public class ExtractionDetailsControl {
         fileChooser.getExtensionFilters().add(extFilter);
         // Show save file dialog
         File file = fileChooser.showSaveDialog(this.mainApplication.getPrimaryStage());
-        if (file != null) {
-        	try {
-				XMLManager.saveTweetListToFile(extraction, file);
-			} catch (Exception e) {
-				ErrorDialog.showErrorExportTweets(e.getMessage());
-			}
-        }
+        ExportExtractionTask exportTask = new ExportExtractionTask(extraction, file);
+        exportTask.setOnSucceeded(e->{
+        	Integer status = exportTask.getValue();
+        	if (loadingDialog != null)
+				loadingDialog.close();
+        	switch(status) {
+        	case(Constants.SUCCESS_EXPORT):
+        		alertExport=ErrorDialog.showSuccessExport();
+        		break;
+        	case(Constants.UNKNOWN_EXPORT_ERROR):
+        		alertExport=ErrorDialog.showErrorExportTweets(exportTask.getErrorMessage());
+        		break;
+        	default:
+        			break;
+        	}
+        });
+        exportTask.setOnFailed(e->{
+        	if (loadingDialog != null)
+				loadingDialog.close();
+        });
+        Thread thread = new Thread(exportTask);
+		thread.setName(exportTask.getClass().getCanonicalName());
+		thread.start();
+		loadingDialog = mainApplication.showLoadingDialog("Exporting tweets...");
+		loadingDialog.showAndWait();
+		if (alertExport != null)
+			alertExport.showAndWait();
 	}
 }

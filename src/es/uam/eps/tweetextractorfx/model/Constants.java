@@ -106,7 +106,11 @@ public final class Constants {
 	public static final int CONNECTION_UPDATE_ERROR=-1;
 	public static final int RATE_LIMIT_UPDATE_ERROR=-2;
 	public static final int UNKNOWN_UPDATE_ERROR=-3;
-
+	/*
+	 * Export Status
+	 */
+	public static final int SUCCESS_EXPORT=0;
+	public static final int UNKNOWN_EXPORT_ERROR=-1;
 
 
 	
