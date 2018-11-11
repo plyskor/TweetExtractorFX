@@ -286,7 +286,6 @@ public class ExtractionDetailsControl {
 				this.tweetObservableList.setAll(extraction.getTweetList());
 				if (loadingDialog != null)
 					loadingDialog.close();
-
 			});
 			loadTask.setOnFailed(e -> {
 				if (loadingDialog != null)
@@ -317,6 +316,7 @@ public class ExtractionDetailsControl {
         fileChooser.getExtensionFilters().add(extFilter);
         // Show save file dialog
         File file = fileChooser.showSaveDialog(this.mainApplication.getPrimaryStage());
+        if(file!=null) {
         ExportExtractionTask exportTask = new ExportExtractionTask(extraction, file);
         exportTask.setOnSucceeded(e->{
         	Integer status = exportTask.getValue();
@@ -344,5 +344,6 @@ public class ExtractionDetailsControl {
 		loadingDialog.showAndWait();
 		if (alertExport != null)
 			alertExport.showAndWait();
+        }
 	}
 }
