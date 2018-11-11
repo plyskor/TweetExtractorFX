@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>TweetExtractorFX</groupId>
 	<artifactId>TweetExtractorFX</artifactId>
-	<version>1.0.0.0</version>
+	<version>1.0.1.0</version>
 	<name>Tweet Extractor FX</name>
 	<description>Querying the TwitterAPI through Java FX</description>
 	<build>
