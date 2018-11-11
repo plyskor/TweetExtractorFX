@@ -34,5 +34,4 @@ src/es/.DS_Store
 src/es/uam/.DS_Store
 src/es/uam/eps/.DS_Store
 .DS_Store
-target/TweetExtractorFX-1.0.0.0.jar
-/target/
+target/TweetExtractorFX-*.*.*.*.jar
