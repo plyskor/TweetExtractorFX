@@ -137,6 +137,10 @@ public class ShowUserExtractionsControl {
 
 	@FXML
 	public void handleAddExtraction() {
+		if(!this.getMainApplication().getCurrentUser().hasAnyCredentials()) {
+			ErrorDialog.showErrorNoCredentials();
+			return;
+		}
 		this.getMainApplication().showQueryConstructor();
 	}
 
