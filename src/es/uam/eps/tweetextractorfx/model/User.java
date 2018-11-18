@@ -45,8 +45,6 @@ public class User {
 	@Column(name = "last_connection_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastConnectionDate=null;
-	@Transient
-    private List<String> extractionIDList;
 	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy="user")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Credentials> credentialList;
@@ -65,13 +63,11 @@ public class User {
 			creationDate=new Date();
 			extractionList= FXCollections.observableArrayList(); 
 			credentialList = new ArrayList<Credentials>();
-			extractionIDList= new ArrayList<String>();
 			id= UUID.randomUUID().toString();
 	}
 	public User() {
 		extractionList= FXCollections.observableArrayList(); 
 		credentialList = new ArrayList<Credentials>();
-		extractionIDList= new ArrayList<String>();
 	}
 
 	/**
@@ -85,20 +81,6 @@ public class User {
 	 */
 	public void setIdDB(int idDB) {
 		this.idDB = idDB;
-	}
-	/**
-	 * @return the extractionIDList
-	 */
-	@XmlElementWrapper(name = "extractionIDList")
-    @XmlElement(name = "extractionID")
-	public List<String> getExtractionIDList() {
-		return extractionIDList;
-	}
-	/**
-	 * @param extractionIDList the extractionIDList to set
-	 */
-	public void setExtractionIDList(List<String> extractionIDList) {
-		this.extractionIDList = extractionIDList;
 	}
 
 	/**
@@ -214,13 +196,11 @@ public class User {
 	public void addExtractionToList(Extraction extraction) {
 		if (extraction!=null) {
 			extraction.setUser(this);
-			this.extractionIDList.add(extraction.getId());
 			this.getExtractionList().add(extraction);
 		}
 	}
 	public void removeExtractionFromList(Extraction extraction) {
 		if (extraction!=null) {
-			this.extractionIDList.remove(extraction.getId());
 			this.extractionList.remove(extraction);
 		}
 	}
@@ -260,10 +240,6 @@ public class User {
 		}
 		return ret;
 	}
-	public void loadXmlData() {
-		for(String id: extractionIDList) {
-			this.extractionList.add(XMLManager.loadExtraction(id));
-		}
-	}
+
 	
 }
